@@ -1,5 +1,7 @@
 ﻿namespace TronDuel
 {
+    using System;
+
     public class SpaceShip
     {
         private const char ShipCharRight = '►';
@@ -7,8 +9,10 @@
         private const char ShipCharUp = '▲';
         private const char ShipCharDown = '▼';
 
-        private char currentChar;
         private Direction direction;
+        private char currentChar;
+        private byte xposition;
+        private byte yposition;
 
         public SpaceShip(byte startingPositionX, byte startingPositionY, Direction direction)
         {
@@ -61,7 +65,33 @@
             }
         }
 
-        public byte Xposition { get; set; }
-        public byte Yposition { get; set; }
+        public byte Xposition 
+        {
+            get
+            {
+                return this.xposition;
+            }
+            set
+            {
+                if (value > 0 && value < Console.BufferWidth - 1)
+                {
+                    this.xposition = value;
+                }
+            }
+        }
+        public byte Yposition 
+        {
+            get
+            {
+                return this.yposition;
+            }
+            set
+            {
+                if (value > 0 && value < Console.BufferHeight - 1)
+                {
+                    this.yposition = value;
+                }
+            }
+        }
     }
 }
