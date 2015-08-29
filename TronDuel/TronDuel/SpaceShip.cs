@@ -93,5 +93,35 @@
                 }
             }
         }
+
+
+        public void MoveShip(Direction direction)
+        {
+            this.Direction = direction;
+
+            Console.SetCursorPosition(this.Xposition, this.Yposition);
+            Console.Write(' ');
+
+            switch (direction)
+            {
+                case Direction.Right:
+                    Xposition++;
+                    break;
+                case Direction.Left:
+                    Xposition--;
+                    break;
+                case Direction.Up:
+                    Yposition--;
+                    break;
+                case Direction.Down:
+                    Yposition++;
+                    break;
+                default:
+                    break;
+            }
+
+            Console.SetCursorPosition(this.Xposition, this.Yposition);
+            Console.Write(this.CurrentChar);
+        }
     }
 }

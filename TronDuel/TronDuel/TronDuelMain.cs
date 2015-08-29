@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TronDuel
+﻿namespace TronDuel
 {
+    using System;
+
     public class TronDuelMain
     {
         static void Main()
@@ -29,53 +25,22 @@ namespace TronDuel
 
                     if (pressedKey.Key == ConsoleKey.RightArrow)
                     {
-                        MoveShip(spaceShipPlayerOne, Direction.Right);
+                        spaceShipPlayerOne.MoveShip(Direction.Right);
                     }
                     else if (pressedKey.Key == ConsoleKey.LeftArrow)
                     {
-                        MoveShip(spaceShipPlayerOne, Direction.Left);
+                        spaceShipPlayerOne.MoveShip(Direction.Left);
                     }
                     else if (pressedKey.Key == ConsoleKey.UpArrow)
                     {
-                        MoveShip(spaceShipPlayerOne, Direction.Up);
+                        spaceShipPlayerOne.MoveShip(Direction.Up);
                     }
                     else if (pressedKey.Key == ConsoleKey.DownArrow)
                     {
-                        MoveShip(spaceShipPlayerOne, Direction.Down);
+                        spaceShipPlayerOne.MoveShip(Direction.Down);
                     }
                 }
             }
-        }
-
-        private static void MoveShip(SpaceShip spaceShipPlayerOne, Direction direction)
-        {
-            Console.SetCursorPosition(spaceShipPlayerOne.Xposition, spaceShipPlayerOne.Yposition);
-            Console.Write(' ');
-
-            switch (direction)
-            {
-                case Direction.Right:
-                    spaceShipPlayerOne.Direction = Direction.Right;
-                    spaceShipPlayerOne.Xposition++;
-                    break;
-                case Direction.Left:
-                    spaceShipPlayerOne.Direction = Direction.Left;
-                    spaceShipPlayerOne.Xposition--;
-                    break;
-                case Direction.Up:
-                    spaceShipPlayerOne.Direction = Direction.Up;
-                    spaceShipPlayerOne.Yposition--;
-                    break;
-                case Direction.Down:
-                    spaceShipPlayerOne.Direction = Direction.Down;
-                    spaceShipPlayerOne.Yposition++;
-                    break;
-                default:
-                    break;
-            }
-
-            Console.SetCursorPosition(spaceShipPlayerOne.Xposition, spaceShipPlayerOne.Yposition);
-            Console.Write(spaceShipPlayerOne.CurrentChar);
         }
     }
 }
