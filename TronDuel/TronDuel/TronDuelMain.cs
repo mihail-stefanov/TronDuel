@@ -15,10 +15,11 @@ namespace TronDuel
             Console.ForegroundColor = ConsoleColor.Green;
             Console.CursorVisible = false;
 
-            SpaceShip spaceShipPlayerOne = new SpaceShip(10, 10);
+            SpaceShip spaceShipPlayerOne = new SpaceShip(10, 10, Direction.Right);
 
             Console.SetCursorPosition(spaceShipPlayerOne.Xposition, spaceShipPlayerOne.Yposition);
-            Console.Write(SpaceShip.ShipCharRight);
+
+            Console.Write(spaceShipPlayerOne.CurrentChar);
 
             while (true)
             {
@@ -50,31 +51,31 @@ namespace TronDuel
         {
             Console.SetCursorPosition(spaceShipPlayerOne.Xposition, spaceShipPlayerOne.Yposition);
             Console.Write(' ');
+
             switch (direction)
             {
                 case Direction.Right:
+                    spaceShipPlayerOne.Direction = Direction.Right;
                     spaceShipPlayerOne.Xposition++;
-                    Console.SetCursorPosition(spaceShipPlayerOne.Xposition, spaceShipPlayerOne.Yposition);
-                    Console.Write(SpaceShip.ShipCharRight);
                     break;
                 case Direction.Left:
+                    spaceShipPlayerOne.Direction = Direction.Left;
                     spaceShipPlayerOne.Xposition--;
-                    Console.SetCursorPosition(spaceShipPlayerOne.Xposition, spaceShipPlayerOne.Yposition);
-                    Console.Write(SpaceShip.ShipCharLeft);
                     break;
                 case Direction.Up:
+                    spaceShipPlayerOne.Direction = Direction.Up;
                     spaceShipPlayerOne.Yposition--;
-                    Console.SetCursorPosition(spaceShipPlayerOne.Xposition, spaceShipPlayerOne.Yposition);
-                    Console.Write(SpaceShip.ShipCharUp);
                     break;
                 case Direction.Down:
+                    spaceShipPlayerOne.Direction = Direction.Down;
                     spaceShipPlayerOne.Yposition++;
-                    Console.SetCursorPosition(spaceShipPlayerOne.Xposition, spaceShipPlayerOne.Yposition);
-                    Console.Write(SpaceShip.ShipCharDown);
                     break;
                 default:
                     break;
             }
+
+            Console.SetCursorPosition(spaceShipPlayerOne.Xposition, spaceShipPlayerOne.Yposition);
+            Console.Write(spaceShipPlayerOne.CurrentChar);
         }
     }
 }
