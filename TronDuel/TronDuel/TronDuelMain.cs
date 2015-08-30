@@ -6,17 +6,15 @@
     {
         static void Main()
         {
+            // Console window settings
             Console.BufferHeight = Console.WindowHeight = 30;
             Console.BufferWidth = Console.WindowWidth = 70;
-            Console.ForegroundColor = ConsoleColor.Green;
             Console.CursorVisible = false;
 
-            SpaceShip spaceShipPlayerOne = new SpaceShip(10, 10, Direction.Right);
+            // Initialisation of all objects
+            SpaceShip spaceShipPlayerOne = new SpaceShip(10, 10, ConsoleColor.Green, Direction.Right);
 
-            Console.SetCursorPosition(spaceShipPlayerOne.Xposition, spaceShipPlayerOne.Yposition);
-
-            Console.Write(spaceShipPlayerOne.CurrentChar);
-
+            // Looking for keypresses and controlling actions in each frame
             while (true)
             {
                 if (Console.KeyAvailable)

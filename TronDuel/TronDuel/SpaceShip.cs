@@ -14,12 +14,18 @@
         private byte xposition;
         private byte yposition;
 
-        public SpaceShip(byte startingPositionX, byte startingPositionY, Direction direction)
+        public SpaceShip(byte startingPositionX, byte startingPositionY, ConsoleColor color, Direction direction)
         {
             this.Direction = Direction.Right;
             this.CurrentChar = ShipCharRight;
+            this.Color = color;
             this.Xposition = startingPositionX;
             this.Yposition = startingPositionY;
+
+            // Place the ship in its initial position
+            Console.ForegroundColor = this.Color;
+            Console.SetCursorPosition(this.Xposition, this.Yposition);
+            Console.Write(this.CurrentChar);
         }
 
         public Direction Direction 
@@ -64,6 +70,8 @@
                 this.currentChar = value;
             }
         }
+
+        public ConsoleColor Color { get; set; }
 
         public byte Xposition 
         {
@@ -121,6 +129,7 @@
             }
 
             Console.SetCursorPosition(this.Xposition, this.Yposition);
+            Console.ForegroundColor = this.Color;
             Console.Write(this.CurrentChar);
         }
     }
