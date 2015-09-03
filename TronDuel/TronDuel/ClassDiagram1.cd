@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TronDuel.GraphicalObjects.GraphicalObject" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAIAAAAEAAAABAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>GraphicalObjects\GraphicalObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TronDuel.GraphicalObjects.SpaceShip" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAABAIIACAACAAAAAAAAAAAAAAAAACgAAAIAA=</HashCode>
+      <FileName>GraphicalObjects\SpaceShip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TronDuel.GraphicalObjects.Powerups.HealthBonus" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GraphicalObjects\Powerups\HealthBonus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TronDuel.GraphicalObjects.Powerups.Shield" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GraphicalObjects\Powerups\Shield.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TronDuel.TronDuelMain" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>TronDuelMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TronDuel.GraphicalObjects.Enumerations.Direction" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
+      <FileName>GraphicalObjects\Enumerations\Direction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

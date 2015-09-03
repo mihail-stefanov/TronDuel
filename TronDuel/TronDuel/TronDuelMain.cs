@@ -1,6 +1,9 @@
 ﻿namespace TronDuel
 {
     using System;
+    using GraphicalObjects;
+    using GraphicalObjects.Enumerations;
+    using GraphicalObjects.Powerups;
 
     public class TronDuelMain
     {
@@ -13,6 +16,8 @@
 
             // Initialisation of all objects
             SpaceShip spaceShipPlayerOne = new SpaceShip(10, 10, ConsoleColor.Green, Direction.Right);
+            HealthBonus heart = new HealthBonus(50, 25, ConsoleColor.Red, 100);
+            Shield shield = new Shield(40, 5, ConsoleColor.Yellow, 10000);
 
             // Looking for keypresses and controlling actions in each frame
             while (true)
