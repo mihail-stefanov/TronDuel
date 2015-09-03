@@ -43,6 +43,16 @@
                         spaceShipPlayerOne.MoveShip(Direction.Down);
                     }
                 }
+
+                // Checking for collisions
+                if (heart != null)
+                {
+                    if (spaceShipPlayerOne.Xposition == heart.Xposition && spaceShipPlayerOne.Yposition == heart.Yposition)
+                    {
+                        spaceShipPlayerOne.ChangeHealth(heart.BonusPoints);
+                        heart = null;
+                    }
+                }
             }
         }
     }

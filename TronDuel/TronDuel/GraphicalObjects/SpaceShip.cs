@@ -19,9 +19,12 @@
         {
             this.Direction = Direction.Right;
             this.CurrentChar = ShipCharRight;
+            this.HealthPoints = 50;
 
-            //Print the object
+            // Print the object
             Console.Write(this.CurrentChar);
+
+            PrintHealth();
         }
 
         public Direction Direction
@@ -68,7 +71,9 @@
             }
         }
 
-        public void MoveShip(Direction direction)
+        public byte HealthPoints { get; set; }
+
+        internal void MoveShip(Direction direction)
         {
             this.Direction = direction;
 
@@ -96,6 +101,33 @@
             Console.SetCursorPosition(this.Xposition, this.Yposition);
             Console.ForegroundColor = this.Color;
             Console.Write(this.CurrentChar);
+        }
+
+        internal void ChangeHealth(byte healthPoints)
+        {
+            if (this.HealthPoints + healthPoints > 100)
+            {
+                this.HealthPoints = 100;
+            }
+            else if (this.HealthPoints + healthPoints <= 0)
+            {
+                this.HealthPoints = 0;
+
+                // TODO: Gameover logic call here
+            }
+            else
+            {
+                this.HealthPoints += healthPoints;
+            }
+
+            PrintHealth();
+        }
+
+        private void PrintHealth()
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.ForegroundColor = this.Color;
+            Console.Write("Player 1 - Health: {0}", this.HealthPoints);
         }
     }
 }
