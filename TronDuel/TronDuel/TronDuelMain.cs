@@ -1,6 +1,7 @@
 ﻿namespace TronDuel
 {
     using System;
+    using System.Media;
     using GraphicalObjects;
     using GraphicalObjects.Enumerations;
     using GraphicalObjects.Powerups;
@@ -13,6 +14,11 @@
             Console.BufferHeight = Console.WindowHeight = 30;
             Console.BufferWidth = Console.WindowWidth = 70;
             Console.CursorVisible = false;
+
+            // Loading sounds
+            SoundPlayer powerupSoundPlayer = new SoundPlayer();
+            powerupSoundPlayer.SoundLocation = "powerUp.wav";
+            powerupSoundPlayer.LoadAsync();
 
             // Initialisation of all objects
             SpaceShip spaceShipPlayerOne = new SpaceShip(10, 10, ConsoleColor.Green, Direction.Right);
@@ -50,6 +56,7 @@
                     if (spaceShipPlayerOne.Xposition == heart.Xposition && spaceShipPlayerOne.Yposition == heart.Yposition)
                     {
                         spaceShipPlayerOne.ChangeHealth(heart.BonusPoints);
+                        powerupSoundPlayer.Play();
                         heart = null;
                     }
                 }
