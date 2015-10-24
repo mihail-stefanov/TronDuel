@@ -2,8 +2,11 @@
 {
     using System;
     using Enumerations;
+    using TronDuel.Interfaces;
+    using System.Diagnostics;
+    using TronDuel.Utilities;
 
-    public class SpaceShip : GraphicalObject
+    public class SpaceShip : GraphicalObject, IMovable
     {
         private const char ShipCharRight = '►';
         private const char ShipCharLeft = '◄';
@@ -13,7 +16,8 @@
         private const double speedX = 0.5;
         private const double speedY = 0.3;
 
-        private char currentChar;
+        private Stopwatch shotDelayStopwatch = new Stopwatch();
+        private int shotDelayTime = 200;
 
         private Direction direction;
 
@@ -21,13 +25,10 @@
             : base(startingPositionX, startingPositionY, color)
         {
             this.Direction = Direction.Right;
-            this.CurrentChar = ShipCharRight;
+            this.Sprite = ShipCharRight;
             this.HealthPoints = 50;
 
-            // Print the object
-            Console.Write(this.CurrentChar);
-
-            PrintHealth();
+            this.shotDelayStopwatch.Start();
         }
 
         public Direction Direction
@@ -42,16 +43,16 @@
                 {
                     // Changing the graphical direction of the ship upon changing the direction property
                     case Direction.Right:
-                        this.CurrentChar = ShipCharRight;
+                        this.Sprite = ShipCharRight;
                         break;
                     case Direction.Left:
-                        this.CurrentChar = ShipCharLeft;
+                        this.Sprite = ShipCharLeft;
                         break;
                     case Direction.Up:
-                        this.CurrentChar = ShipCharUp;
+                        this.Sprite = ShipCharUp;
                         break;
                     case Direction.Down:
-                        this.CurrentChar = ShipCharDown;
+                        this.Sprite = ShipCharDown;
                         break;
                     default:
                         break;
@@ -61,29 +62,13 @@
             }
         }
 
-        protected char CurrentChar
-        {
-            get
-            {
-                return this.currentChar;
-            }
-
-            set
-            {
-                this.currentChar = value;
-            }
-        }
-
         public byte HealthPoints { get; set; }
 
-        internal void MoveShip(Direction direction)
+        public void Move()
         {
-            this.Direction = direction;
+            EraseSpriteFromLastPosition();
 
-            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
-            Console.Write(' ');
-
-            switch (direction)
+            switch (Direction)
             {
                 case Direction.Right:
                     Xposition += speedX;
@@ -102,11 +87,17 @@
             }
         }
 
-        public void Draw()
+        private void EraseSpriteFromLastPosition()
+        {
+            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
+            Console.Write(' ');
+        }
+
+        public override void Draw()
         {
             Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
             Console.ForegroundColor = this.Color;
-            Console.Write(this.CurrentChar);
+            Console.Write(this.Sprite);
 
             PrintHealth();
         }
@@ -134,6 +125,23 @@
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = this.Color;
             Console.Write("Player 1 - Health: {0}", this.HealthPoints);
+        }
+
+        public void FireCurrentWeapon(GraphicalObjectContainer graphicalObjects, SoundEffectContainer soundEffects)
+        {
+            if (shotDelayStopwatch.ElapsedMilliseconds > shotDelayTime)
+            {
+                graphicalObjects.Projectiles.Add(
+                    new Projectile(
+                        this.Xposition,
+                        this.Yposition,
+                        ConsoleColor.Cyan,
+                        this.Direction));
+
+                soundEffects.PlayShot();
+                shotDelayStopwatch.Restart();
+            }
+
         }
     }
 }

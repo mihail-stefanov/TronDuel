@@ -45,10 +45,12 @@
     <Compile Include="GraphicalObjects\Enumerations\Direction.cs" />
     <Compile Include="GraphicalObjects\GraphicalObject.cs" />
     <Compile Include="GraphicalObjects\GraphicalObjectContainer.cs" />
+    <Compile Include="GraphicalObjects\Projectile.cs" />
     <Compile Include="GraphicalObjects\Powerups\HealthBonus.cs" />
     <Compile Include="GraphicalObjects\Powerups\Shield.cs" />
     <Compile Include="GraphicalObjects\SpaceShip.cs" />
     <Compile Include="Interfaces\IEngine.cs" />
+    <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="TronDuelMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\CollisionResolver.cs" />
@@ -56,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

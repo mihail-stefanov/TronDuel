@@ -6,9 +6,8 @@
 
     public class TronDuelMain
     {
-        static void Main()
+        public static void Main()
         {
-            // Console window settings
             Console.BufferHeight = Console.WindowHeight = 30;
             Console.BufferWidth = Console.WindowWidth = 70;
             Console.CursorVisible = false;

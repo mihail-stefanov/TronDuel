@@ -7,25 +7,24 @@
     using TronDuel.Interfaces;
     using TronDuel.Utilities;
 
-    class GameEngine : IEngine
+    public class GameEngine : IEngine
     {
+        private GraphicalObjectContainer graphicalObjects = new GraphicalObjectContainer(1);
+        private SoundEffectContainer soundEffects = new SoundEffectContainer();
+
         public void Run()
         {
-            GraphicalObjectContainer graphicalObjects = new GraphicalObjectContainer(1);
-
-            SoundEffectContainer soundEffects = new SoundEffectContainer();
-
-            CollisionResolver collisionResolver = new CollisionResolver();
+            CollisionResolver collisionResolver = new CollisionResolver(soundEffects);
 
             while (true)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(40);
 
                 ReadAndProcessCommands(graphicalObjects);
 
                 UpdateObjects(graphicalObjects);
 
-                collisionResolver.Resolve(graphicalObjects, soundEffects);
+                collisionResolver.Resolve(graphicalObjects);
 
                 DrawObjects(graphicalObjects);
             }
@@ -37,28 +36,44 @@
             {
                 ConsoleKeyInfo pressedKey = Console.ReadKey();
 
+                // Direction control
                 if (pressedKey.Key == ConsoleKey.RightArrow)
                 {
                     graphicalObjects.SpaceShipPlayerOne.Direction = Direction.Right;
                 }
-                else if (pressedKey.Key == ConsoleKey.LeftArrow)
+
+                if (pressedKey.Key == ConsoleKey.LeftArrow)
                 {
                     graphicalObjects.SpaceShipPlayerOne.Direction = Direction.Left;
                 }
-                else if (pressedKey.Key == ConsoleKey.UpArrow)
+
+                if (pressedKey.Key == ConsoleKey.UpArrow)
                 {
                     graphicalObjects.SpaceShipPlayerOne.Direction = Direction.Up;
                 }
-                else if (pressedKey.Key == ConsoleKey.DownArrow)
+
+                if (pressedKey.Key == ConsoleKey.DownArrow)
                 {
                     graphicalObjects.SpaceShipPlayerOne.Direction = Direction.Down;
                 }
+
+                // Firing weapons
+                if (pressedKey.Key == ConsoleKey.Spacebar)
+                {
+                    graphicalObjects.SpaceShipPlayerOne.FireCurrentWeapon(graphicalObjects, soundEffects);
+                }
+                
             }
         }
 
         private void UpdateObjects(GraphicalObjectContainer graphicalObjects)
         {
-            graphicalObjects.SpaceShipPlayerOne.MoveShip(graphicalObjects.SpaceShipPlayerOne.Direction);
+            graphicalObjects.SpaceShipPlayerOne.Move();
+
+            foreach (var projectile in graphicalObjects.Projectiles)
+            {
+                projectile.Move();
+            }
         }
 
         private void DrawObjects(GraphicalObjectContainer graphicalObjects)
@@ -73,6 +88,11 @@
             foreach (var shield in graphicalObjects.Shields)
             {
                 shield.Draw();
+            }
+
+            foreach (var projectile in graphicalObjects.Projectiles)
+            {
+                projectile.Draw();
             }
         }
     }

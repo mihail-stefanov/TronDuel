@@ -7,6 +7,8 @@
         private double xposition;
         private double yposition;
 
+        private char sprite;
+
         public GraphicalObject(double startingPositionX, double startingPositionY, ConsoleColor color)
         {
             this.Xposition = startingPositionX;
@@ -22,10 +24,7 @@
             }
             set
             {
-                if (value > 0 && value < Console.BufferWidth - 1)
-                {
-                    this.xposition = value;
-                }
+                this.xposition = value;
             }
         }
         public double Yposition
@@ -36,13 +35,30 @@
             }
             set
             {
-                if (value > 0 && value < Console.BufferHeight - 1)
-                {
-                    this.yposition = value;
-                }
+                this.yposition = value;
+            }
+        }
+
+        protected char Sprite
+        {
+            get
+            {
+                return this.sprite;
+            }
+
+            set
+            {
+                this.sprite = value;
             }
         }
 
         public ConsoleColor Color { get; set; }
+
+        public virtual void Draw()
+        {
+            Console.ForegroundColor = this.Color;
+            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
+            Console.Write(this.Sprite);
+        }
     }
 }

@@ -12,6 +12,7 @@
 
         private IList<HealthBonus> hearts = new List<HealthBonus>();
         private IList<Shield> shields = new List<Shield>();
+        private IList<Projectile> projectiles = new List<Projectile>();
 
         public GraphicalObjectContainer(int numberOfPlayers)
         {
@@ -59,6 +60,14 @@
             get
             {
                 return this.shields;
+            }
+        }
+
+        public IList<Projectile> Projectiles
+        {
+            get
+            {
+                return this.projectiles;
             }
         }
     }
