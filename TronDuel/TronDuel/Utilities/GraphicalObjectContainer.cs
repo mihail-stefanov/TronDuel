@@ -1,7 +1,8 @@
-﻿namespace TronDuel.GraphicalObjects
+﻿namespace TronDuel.Utilities
 {
     using System;
     using System.Collections.Generic;
+    using TronDuel.GraphicalObjects;
     using TronDuel.GraphicalObjects.Enumerations;
     using TronDuel.GraphicalObjects.Powerups;
 

@@ -44,7 +44,7 @@
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="GraphicalObjects\Enumerations\Direction.cs" />
     <Compile Include="GraphicalObjects\GraphicalObject.cs" />
-    <Compile Include="GraphicalObjects\GraphicalObjectContainer.cs" />
+    <Compile Include="Utilities\GraphicalObjectContainer.cs" />
     <Compile Include="GraphicalObjects\Projectile.cs" />
     <Compile Include="GraphicalObjects\Powerups\HealthBonus.cs" />
     <Compile Include="GraphicalObjects\Powerups\Shield.cs" />

@@ -27,8 +27,9 @@
             this.Direction = Direction.Right;
             this.Sprite = ShipCharRight;
             this.HealthPoints = 50;
-
+            this.ShotsAvailable = 10;
             this.shotDelayStopwatch.Start();
+            PrintStatus();
         }
 
         public Direction Direction
@@ -64,6 +65,8 @@
 
         public byte HealthPoints { get; set; }
 
+        public byte ShotsAvailable { get; set; }
+
         public void Move()
         {
             EraseSpriteFromLastPosition();
@@ -98,11 +101,9 @@
             Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
             Console.ForegroundColor = this.Color;
             Console.Write(this.Sprite);
-
-            PrintHealth();
         }
 
-        internal void ChangeHealth(byte healthPoints)
+        public void ChangeHealth(byte healthPoints)
         {
             if (this.HealthPoints + healthPoints > 100)
             {
@@ -118,18 +119,28 @@
             {
                 this.HealthPoints += healthPoints;
             }
+
+            PrintStatus();
         }
 
-        private void PrintHealth()
+        public void DecreaseShotsAvailable()
+        {
+            if (this.ShotsAvailable > 0)
+            {
+                this.ShotsAvailable--;
+            }
+        }
+
+        private void PrintStatus()
         {
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = this.Color;
-            Console.Write("Player 1 - Health: {0}", this.HealthPoints);
+            Console.Write("Player 1 - Health: {0} Shots: {1}   ", this.HealthPoints, this.ShotsAvailable);
         }
 
         public void FireCurrentWeapon(GraphicalObjectContainer graphicalObjects, SoundEffectContainer soundEffects)
         {
-            if (shotDelayStopwatch.ElapsedMilliseconds > shotDelayTime)
+            if (shotDelayStopwatch.ElapsedMilliseconds > shotDelayTime && this.ShotsAvailable > 0)
             {
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
@@ -139,9 +150,10 @@
                         this.Direction));
 
                 soundEffects.PlayShot();
+                this.DecreaseShotsAvailable();
                 shotDelayStopwatch.Restart();
             }
-
+            PrintStatus();
         }
     }
 }

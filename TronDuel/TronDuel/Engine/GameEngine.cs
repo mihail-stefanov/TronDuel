@@ -2,7 +2,6 @@
 {
     using System;
     using System.Threading;
-    using TronDuel.GraphicalObjects;
     using TronDuel.GraphicalObjects.Enumerations;
     using TronDuel.Interfaces;
     using TronDuel.Utilities;
