@@ -29,7 +29,7 @@
             this.HealthPoints = 50;
             this.ShotsAvailable = 10;
             this.shotDelayStopwatch.Start();
-            PrintStatus();
+            PrintStatus();  // TODO: To refactor
         }
 
         public Direction Direction
@@ -69,7 +69,7 @@
 
         public void Move()
         {
-            EraseSpriteFromLastPosition();
+            EraseSpriteFromLastPosition();  // TODO: To refactor
 
             switch (Direction)
             {
@@ -120,7 +120,12 @@
                 this.HealthPoints += healthPoints;
             }
 
-            PrintStatus();
+            PrintStatus();  // TODO: To refactor
+        }
+
+        public void IncreaseShotsAvailable(byte ammoShots)
+        {
+            this.ShotsAvailable += ammoShots;
         }
 
         public void DecreaseShotsAvailable()
@@ -131,7 +136,7 @@
             }
         }
 
-        private void PrintStatus()
+        public void PrintStatus()
         {
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = this.Color;
@@ -153,7 +158,7 @@
                 this.DecreaseShotsAvailable();
                 shotDelayStopwatch.Restart();
             }
-            PrintStatus();
+            PrintStatus(); // TODO: To refactor
         }
     }
 }

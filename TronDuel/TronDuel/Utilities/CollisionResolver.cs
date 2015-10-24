@@ -18,7 +18,7 @@
 
             if (graphicalObjects.Hearts.Count > 0)
             {
-                ResolvePlayerHeartCollisions(graphicalObjects, soundEffects);
+                ResolvePlayerHeartCollisions(graphicalObjects);
             }
 
             if (graphicalObjects.Shields.Count > 0)
@@ -26,10 +26,16 @@
                 ResolvePlayerShieldCollisions(graphicalObjects);
             }
 
+            if (graphicalObjects.Ammo.Count > 0)
+            {
+                ResolvePlayerAmmoCollisions(graphicalObjects);
+            }
+
             if (graphicalObjects.Projectiles.Count > 0)
             {
                 ResolveProjectileWallCollisions(graphicalObjects);
             }
+
             //ResolvePlayerProjectileCollisions(graphicalObjects); // TODO: Implement
 
             //ResolvePlayerEnemyCollision(graphicalObjects); // TODO: Implement
@@ -58,7 +64,32 @@
             }
         }
 
-        private void ResolvePlayerHeartCollisions(GraphicalObjectContainer graphicalObjects, SoundEffectContainer soundEffects)
+        private void ResolvePlayerAmmoCollisions(GraphicalObjectContainer graphicalObjects)
+        {
+            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
+
+            for (int i = 0; i < graphicalObjects.Ammo.Count; i++)
+            {
+                int ammoX = (int)graphicalObjects.Ammo[i].Xposition;
+                int ammoY = (int)graphicalObjects.Ammo[i].Yposition;
+
+                if (spaceShipX == ammoX && spaceShipY == ammoY)
+                {
+                    graphicalObjects.SpaceShipPlayerOne.IncreaseShotsAvailable(graphicalObjects.Ammo[i].BonusPoints);
+                    soundEffects.PlayAmmoLoad();
+                    graphicalObjects.SpaceShipPlayerOne.PrintStatus(); // TODO: To refactor
+                    graphicalObjects.Ammo.Remove(graphicalObjects.Ammo[i]);
+                }
+            }
+        }
+
+        private void ResolvePlayerShieldCollisions(GraphicalObjectContainer graphicalObjects)
+        {
+            //throw new System.NotImplementedException(); // TODO: Implement
+        }
+
+        private void ResolvePlayerHeartCollisions(GraphicalObjectContainer graphicalObjects)
         {
             int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
             int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
@@ -75,11 +106,6 @@
                     graphicalObjects.Hearts.Remove(graphicalObjects.Hearts[i]);
                 }
             }
-        }
-
-        private void ResolvePlayerShieldCollisions(GraphicalObjectContainer graphicalObjects)
-        {
-            //throw new System.NotImplementedException(); // TODO: Implement
         }
 
         private void ResolveProjectileWallCollisions(GraphicalObjectContainer graphicalObjects)

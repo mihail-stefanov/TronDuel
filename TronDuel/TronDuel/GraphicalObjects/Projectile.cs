@@ -48,7 +48,7 @@
 
         public void Move()
         {
-            EraseSpriteFromLastPosition();
+            EraseSpriteFromLastPosition();  // TODO: To refactor
 
             switch (this.Direction)
             {

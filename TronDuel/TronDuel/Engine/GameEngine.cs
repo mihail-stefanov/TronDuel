@@ -89,6 +89,11 @@
                 shield.Draw();
             }
 
+            foreach (var ammo in graphicalObjects.Ammo)
+            {
+                ammo.Draw();
+            }
+
             foreach (var projectile in graphicalObjects.Projectiles)
             {
                 projectile.Draw();

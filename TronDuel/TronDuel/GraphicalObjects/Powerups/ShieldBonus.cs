@@ -2,9 +2,9 @@
 {
     using System;
 
-    public class Shield : GraphicalObject
+    public class ShieldBonus : GraphicalObject
     {
-        public Shield(byte startingPositionX, byte startingPositionY, ConsoleColor color, int timeInvincibleInMilliseconds)
+        public ShieldBonus(byte startingPositionX, byte startingPositionY, ConsoleColor color, int timeInvincibleInMilliseconds)
             : base(startingPositionX, startingPositionY, color)
         {
             this.Sprite = '♦';

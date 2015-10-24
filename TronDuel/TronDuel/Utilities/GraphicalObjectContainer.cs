@@ -12,7 +12,8 @@
         private SpaceShip spaceShipPlayerTwo;
 
         private IList<HealthBonus> hearts = new List<HealthBonus>();
-        private IList<Shield> shields = new List<Shield>();
+        private IList<ShieldBonus> shields = new List<ShieldBonus>();
+        private IList<AmmoBonus> ammo = new List<AmmoBonus>();
         private IList<Projectile> projectiles = new List<Projectile>();
 
         public GraphicalObjectContainer(int numberOfPlayers)
@@ -29,7 +30,8 @@
             // Initialisation of all objects
             spaceShipPlayerOne = new SpaceShip(10, 10, ConsoleColor.Green, Direction.Right);
             hearts.Add(new HealthBonus(50, 25, ConsoleColor.Red, 100));
-            shields.Add(new Shield(40, 5, ConsoleColor.Yellow, 10000));
+            shields.Add(new ShieldBonus(40, 5, ConsoleColor.Yellow, 10000));
+            ammo.Add(new AmmoBonus(35, 15, ConsoleColor.White, 50));
         }
 
         public SpaceShip SpaceShipPlayerOne
@@ -56,11 +58,19 @@
             }
         }
 
-        public IList<Shield> Shields
+        public IList<ShieldBonus> Shields
         {
             get
             {
                 return this.shields;
+            }
+        }
+
+        public IList<AmmoBonus> Ammo
+        {
+            get
+            {
+                return this.ammo;
             }
         }
 
