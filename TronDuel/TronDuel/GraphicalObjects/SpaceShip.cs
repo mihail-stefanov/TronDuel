@@ -10,6 +10,9 @@
         private const char ShipCharUp = '▲';
         private const char ShipCharDown = '▼';
 
+        private const double speedX = 0.5;
+        private const double speedY = 0.3;
+
         private char currentChar;
 
         private Direction direction;
@@ -77,30 +80,35 @@
         {
             this.Direction = direction;
 
-            Console.SetCursorPosition(this.Xposition, this.Yposition);
+            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
             Console.Write(' ');
 
             switch (direction)
             {
                 case Direction.Right:
-                    Xposition++;
+                    Xposition += speedX;
                     break;
                 case Direction.Left:
-                    Xposition--;
+                    Xposition -= speedX;
                     break;
                 case Direction.Up:
-                    Yposition--;
+                    Yposition -= speedY;
                     break;
                 case Direction.Down:
-                    Yposition++;
+                    Yposition += speedY;
                     break;
                 default:
                     break;
             }
+        }
 
-            Console.SetCursorPosition(this.Xposition, this.Yposition);
+        public void Draw()
+        {
+            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
             Console.ForegroundColor = this.Color;
             Console.Write(this.CurrentChar);
+
+            PrintHealth();
         }
 
         internal void ChangeHealth(byte healthPoints)
@@ -119,8 +127,6 @@
             {
                 this.HealthPoints += healthPoints;
             }
-
-            PrintHealth();
         }
 
         private void PrintHealth()

@@ -2,23 +2,19 @@
 {
     using System;
 
-    public class GraphicalObject
+    public abstract class GraphicalObject
     {
-        private byte xposition;
-        private byte yposition;
+        private double xposition;
+        private double yposition;
 
-        public GraphicalObject(byte startingPositionX, byte startingPositionY, ConsoleColor color)
+        public GraphicalObject(double startingPositionX, double startingPositionY, ConsoleColor color)
         {
             this.Xposition = startingPositionX;
             this.Yposition = startingPositionY;
             this.Color = color;
-
-            // Place the object it in its initial position
-            Console.ForegroundColor = this.Color;
-            Console.SetCursorPosition(this.Xposition, this.Yposition);
         }
 
-        public byte Xposition
+        public double Xposition
         {
             get
             {
@@ -32,7 +28,7 @@
                 }
             }
         }
-        public byte Yposition
+        public double Yposition
         {
             get
             {

@@ -2,7 +2,7 @@
 {
     using System;
 
-    class Shield : GraphicalObject
+    public class Shield : GraphicalObject
     {
         private const char sprite = '♦';
 
@@ -10,15 +10,15 @@
             : base(startingPositionX, startingPositionY, color)
         {
             this.TimeInvincibleInMilliseconds = timeInvincibleInMilliseconds;
-            Console.ForegroundColor = this.Color;
-            Console.SetCursorPosition(this.Xposition, this.Yposition);
-
-            //Print the object
-            Console.Write(sprite);
         }
 
         public int TimeInvincibleInMilliseconds { get; set; }
 
-
+        public void Draw()
+        {
+            Console.ForegroundColor = this.Color;
+            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
+            Console.Write(sprite);
+        }
     }
 }

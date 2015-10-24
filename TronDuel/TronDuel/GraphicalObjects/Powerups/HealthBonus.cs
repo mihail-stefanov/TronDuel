@@ -2,7 +2,7 @@
 {
     using System;
 
-    class HealthBonus : GraphicalObject
+    public class HealthBonus : GraphicalObject
     {
         private const char sprite = '♥';
 
@@ -10,10 +10,12 @@
             : base(startingPositionX, startingPositionY, color)
         {
             this.BonusPoints = bonusPoints;
-            Console.ForegroundColor = this.Color;
-            Console.SetCursorPosition(this.Xposition, this.Yposition);
+        }
 
-            //Print the object
+        public void Draw()
+        {
+            Console.ForegroundColor = this.Color;
+            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
             Console.Write(sprite);
         }
 
