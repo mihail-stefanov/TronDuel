@@ -1,7 +1,9 @@
 ﻿namespace TronDuel.Engine
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
+    using TronDuel.GraphicalObjects;
     using TronDuel.GraphicalObjects.Enumerations;
     using TronDuel.Interfaces;
     using TronDuel.Utilities;
@@ -10,6 +12,7 @@
     {
         private GraphicalObjectContainer graphicalObjects = new GraphicalObjectContainer(1);
         private SoundEffectContainer soundEffects = new SoundEffectContainer();
+        private PowerupGenerator powerupGenerator = new PowerupGenerator();
 
         public void Run()
         {
@@ -17,7 +20,7 @@
 
             while (true)
             {
-                Thread.Sleep(40);
+                Thread.Sleep(50);
 
                 ReadAndProcessCommands(graphicalObjects);
 
@@ -73,30 +76,17 @@
             {
                 projectile.Move();
             }
+
+            powerupGenerator.GeneratePowerup(graphicalObjects);
         }
 
         private void DrawObjects(GraphicalObjectContainer graphicalObjects)
         {
-            graphicalObjects.SpaceShipPlayerOne.Draw();
+            List<GraphicalObject> currentObjects = graphicalObjects.GetAll();
 
-            foreach (var heart in graphicalObjects.Hearts)
+            foreach (var currentObject in currentObjects)
             {
-                heart.Draw();
-            }
-
-            foreach (var shield in graphicalObjects.Shields)
-            {
-                shield.Draw();
-            }
-
-            foreach (var ammo in graphicalObjects.Ammo)
-            {
-                ammo.Draw();
-            }
-
-            foreach (var projectile in graphicalObjects.Projectiles)
-            {
-                projectile.Draw();
+                currentObject.Draw();
             }
         }
     }

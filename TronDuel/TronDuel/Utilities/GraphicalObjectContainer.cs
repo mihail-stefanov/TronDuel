@@ -34,6 +34,40 @@
             ammo.Add(new AmmoBonus(35, 15, ConsoleColor.White, 50));
         }
 
+        public List<GraphicalObject> GetAll()
+        {
+            List<GraphicalObject> allObjects = new List<GraphicalObject>();
+
+            allObjects.Add(spaceShipPlayerOne);
+
+            if (spaceShipPlayerTwo != null)
+            {
+                allObjects.Add(spaceShipPlayerTwo);
+            }
+
+            foreach (var heart in hearts)
+            {
+                allObjects.Add(heart);
+            }
+
+            foreach (var shield in shields)
+            {
+                allObjects.Add(shield);
+            }
+
+            foreach (var ammoUnit in ammo)
+            {
+                allObjects.Add(ammoUnit);
+            }
+
+            foreach (var projectile in projectiles)
+            {
+                allObjects.Add(projectile);
+            }
+            
+            return allObjects;
+        }
+
         public SpaceShip SpaceShipPlayerOne
         {
             get

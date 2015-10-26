@@ -125,7 +125,14 @@
 
         public void IncreaseShotsAvailable(byte ammoShots)
         {
-            this.ShotsAvailable += ammoShots;
+            if (this.ShotsAvailable + ammoShots > 100)
+            {
+                this.ShotsAvailable = 100;
+            }
+            else
+            {
+                this.ShotsAvailable += ammoShots;
+            }
         }
 
         public void DecreaseShotsAvailable()

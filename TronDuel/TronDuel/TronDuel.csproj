@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="GraphicalObjects\Enumerations\Direction.cs" />
+    <Compile Include="GraphicalObjects\Enumerations\Powerup.cs" />
     <Compile Include="GraphicalObjects\GraphicalObject.cs" />
     <Compile Include="GraphicalObjects\Powerups\AmmoBonus.cs" />
     <Compile Include="Utilities\GraphicalObjectContainer.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="TronDuelMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\CollisionResolver.cs" />
+    <Compile Include="Utilities\PowerupGenerator.cs" />
     <Compile Include="Utilities\SoundEffectContainer.cs" />
   </ItemGroup>
   <ItemGroup>
