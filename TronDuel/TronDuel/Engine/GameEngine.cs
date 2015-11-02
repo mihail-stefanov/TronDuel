@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Threading;
     using TronDuel.GraphicalObjects;
-    using TronDuel.GraphicalObjects.Enumerations;
+    using TronDuel.Enumerations;
     using TronDuel.Interfaces;
     using TronDuel.Utilities;
 
@@ -12,7 +12,7 @@
     {
         private GraphicalObjectContainer graphicalObjects = new GraphicalObjectContainer(1);
         private SoundEffectContainer soundEffects = new SoundEffectContainer();
-        private PowerupGenerator powerupGenerator = new PowerupGenerator();
+        private ObjectGenerator powerupGenerator = new ObjectGenerator();
 
         public void Run()
         {
@@ -77,7 +77,14 @@
                 projectile.Move();
             }
 
+            foreach (var enemy in graphicalObjects.Enemies)
+            {
+                enemy.Move();
+                enemy.FireWeapon(graphicalObjects, soundEffects);
+            }
+
             powerupGenerator.GeneratePowerup(graphicalObjects);
+            powerupGenerator.GenerateEnemy(graphicalObjects);
         }
 
         private void DrawObjects(GraphicalObjectContainer graphicalObjects)

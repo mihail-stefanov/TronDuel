@@ -1,7 +1,8 @@
-﻿namespace TronDuel.GraphicalObjects
+﻿namespace TronDuel.MovingObjects.GraphicalObjects
 {
     using System;
-    using TronDuel.GraphicalObjects.Enumerations;
+    using TronDuel.Enumerations;
+    using TronDuel.GraphicalObjects;
     using TronDuel.Interfaces;
 
     public class Projectile : GraphicalObject, IMovable

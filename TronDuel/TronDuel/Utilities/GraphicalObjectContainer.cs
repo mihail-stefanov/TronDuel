@@ -3,8 +3,10 @@
     using System;
     using System.Collections.Generic;
     using TronDuel.GraphicalObjects;
-    using TronDuel.GraphicalObjects.Enumerations;
+    using TronDuel.Enumerations;
     using TronDuel.GraphicalObjects.Powerups;
+    using TronDuel.MovingObjects.GraphicalObjects;
+    using TronDuel.GraphicalObjects.MovingObjects;
 
     public class GraphicalObjectContainer
     {
@@ -15,6 +17,7 @@
         private IList<ShieldBonus> shields = new List<ShieldBonus>();
         private IList<AmmoBonus> ammo = new List<AmmoBonus>();
         private IList<Projectile> projectiles = new List<Projectile>();
+        private IList<Enemy> enemies = new List<Enemy>();
 
         public GraphicalObjectContainer(int numberOfPlayers)
         {
@@ -63,6 +66,11 @@
             foreach (var projectile in projectiles)
             {
                 allObjects.Add(projectile);
+            }
+
+            foreach (var enemy in enemies)
+            {
+                allObjects.Add(enemy);
             }
             
             return allObjects;
@@ -113,6 +121,14 @@
             get
             {
                 return this.projectiles;
+            }
+        }
+
+        public IList<Enemy> Enemies
+        {
+            get
+            {
+                return this.enemies;
             }
         }
     }

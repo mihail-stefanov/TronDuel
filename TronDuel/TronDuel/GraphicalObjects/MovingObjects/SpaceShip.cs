@@ -1,10 +1,11 @@
-﻿namespace TronDuel.GraphicalObjects
+﻿namespace TronDuel.MovingObjects.GraphicalObjects
 {
     using System;
     using Enumerations;
     using TronDuel.Interfaces;
     using System.Diagnostics;
     using TronDuel.Utilities;
+    using TronDuel.GraphicalObjects;
 
     public class SpaceShip : GraphicalObject, IMovable
     {

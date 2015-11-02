@@ -1,4 +1,4 @@
-﻿namespace TronDuel.GraphicalObjects.Enumerations
+﻿namespace TronDuel.Enumerations
 {
     public enum Powerup
     {

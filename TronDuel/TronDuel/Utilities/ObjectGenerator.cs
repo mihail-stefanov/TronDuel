@@ -4,27 +4,32 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using TronDuel.GraphicalObjects;
-    using TronDuel.GraphicalObjects.Enumerations;
+    using TronDuel.Enumerations;
     using TronDuel.GraphicalObjects.Powerups;
+    using TronDuel.GraphicalObjects.MovingObjects;
 
-    public class PowerupGenerator
+    public class ObjectGenerator
     {
-        private const int generationInterval = 10000;
+        private const int powerupGenerationInterval = 10000;
+        private const int enemyGenerationInterval = 25000;
 
         private Powerup currentPowerUpToGenerate;
 
-        public PowerupGenerator()
+        public ObjectGenerator()
         {
             currentPowerUpToGenerate = Powerup.Ammo;
-            generatorTimer = new Stopwatch();
-            generatorTimer.Start();
+            powerupGeneratorTimer = new Stopwatch();
+            enemyGeneratorTimer = new Stopwatch();
+            powerupGeneratorTimer.Start();
+            enemyGeneratorTimer.Start();
         }
 
-        public Stopwatch generatorTimer { get; set; }
+        public Stopwatch powerupGeneratorTimer { get; set; }
+        public Stopwatch enemyGeneratorTimer { get; set; }
 
         public void GeneratePowerup(GraphicalObjectContainer graphicalObjects)
         {
-            if (generatorTimer.ElapsedMilliseconds > generationInterval)
+            if (powerupGeneratorTimer.ElapsedMilliseconds > powerupGenerationInterval)
             {
                 Random randomGenerator = new Random();
 
@@ -71,7 +76,46 @@
                         break;
                 }
 
-                generatorTimer.Restart();
+                powerupGeneratorTimer.Restart();
+            }
+        }
+
+        public void GenerateEnemy(GraphicalObjectContainer graphicalObjects)
+        {
+            if (enemyGeneratorTimer.ElapsedMilliseconds > enemyGenerationInterval)
+            {
+                // TODO: Fix repeating code
+                Random randomGenerator = new Random();
+
+                bool generationOnAnEmptySpaceSuccessful = false;
+
+                byte potentialXposition = 0;
+                byte potentialYposition = 0;
+
+                while (!generationOnAnEmptySpaceSuccessful)
+                {
+                    generationOnAnEmptySpaceSuccessful = true;
+
+                    potentialXposition = (byte)randomGenerator.Next(1, Console.BufferWidth - 2);
+                    potentialYposition = (byte)randomGenerator.Next(1, Console.BufferHeight - 2);
+
+                    List<GraphicalObject> currentGraphicalObjects = graphicalObjects.GetAll();
+
+                    for (int i = 0; i < currentGraphicalObjects.Count; i++)
+                    {
+                        if (currentGraphicalObjects[i].Xposition == potentialXposition &&
+                            currentGraphicalObjects[i].Yposition == potentialYposition)
+                        {
+                            generationOnAnEmptySpaceSuccessful = false;
+                            break;
+                        }
+                    }
+                }
+
+                graphicalObjects.Enemies.Add(new Enemy(potentialXposition, potentialYposition, ConsoleColor.Gray, graphicalObjects.SpaceShipPlayerOne));
+                enemyGeneratorTimer.Restart();
+
+                powerupGeneratorTimer.Restart();
             }
         }
     }
