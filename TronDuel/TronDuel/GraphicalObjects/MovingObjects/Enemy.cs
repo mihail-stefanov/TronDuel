@@ -79,26 +79,26 @@
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
-                        ConsoleColor.Cyan,
-                        Direction.Up));
+                        ConsoleColor.Red,
+                        Direction.Up, '▲'));
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
-                        ConsoleColor.Cyan,
-                        Direction.Down));
+                        ConsoleColor.Red,
+                        Direction.Down, '▼'));
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
-                        ConsoleColor.Cyan,
-                        Direction.Left));
+                        ConsoleColor.Red,
+                        Direction.Left, '◄'));
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
-                        ConsoleColor.Cyan,
-                        Direction.Right));
+                        ConsoleColor.Red,
+                        Direction.Right, '►'));
 
                 soundEffects.PlayEnemyShot();
                 shotDelayStopwatch.Restart();

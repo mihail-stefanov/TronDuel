@@ -15,12 +15,12 @@
             double startingPositionX,
             double startingPositionY,
             ConsoleColor color,
-            Direction direction)
-            : base(startingPositionX, startingPositionY, ConsoleColor.Cyan)
+            Direction direction, char sprite)
+            : base(startingPositionX, startingPositionY, color)
         {
             this.Direction = direction;
             this.Speed = speed;
-            this.Sprite = '*';
+            this.Sprite = sprite;
         }
 
         public Direction Direction

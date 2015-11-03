@@ -160,7 +160,7 @@
                         this.Xposition,
                         this.Yposition,
                         ConsoleColor.Cyan,
-                        this.Direction));
+                        this.Direction, '*'));
 
                 soundEffects.PlayShot();
                 this.DecreaseShotsAvailable();
