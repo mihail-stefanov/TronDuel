@@ -174,7 +174,7 @@
                             projectileY == enemyY)
                         {
                             graphicalObjects.Enemies[j].ReduceHealth(Projectile.Damage);
-                            graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
+                            graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]); // TODO: Fix system out of range exception here
                             soundEffects.PlayHit();
                             if (graphicalObjects.Enemies[j].HealthPoints == 0)
                             {

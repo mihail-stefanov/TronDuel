@@ -20,7 +20,7 @@
 
             while (true)
             {
-                Thread.Sleep(50);
+                Thread.Sleep(30);
 
                 ReadAndProcessCommands(graphicalObjects);
 

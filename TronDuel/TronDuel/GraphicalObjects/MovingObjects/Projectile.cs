@@ -11,7 +11,7 @@
         private Direction direction;
         private ProjectileType type;
 
-        private double speed = 2;
+        private double speed = 1;
 
         public Projectile(
             double startingPositionX,
@@ -87,8 +87,12 @@
 
         private void EraseSpriteFromLastPosition()
         {
-            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
-            Console.Write(' ');
+            if (this.Xposition > 0 && this.Xposition < Console.BufferWidth &&
+                this.Yposition > 0 && this.Yposition < Console.BufferHeight)
+            {
+                Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
+                Console.Write(' ');
+            }
         }
 
     }
