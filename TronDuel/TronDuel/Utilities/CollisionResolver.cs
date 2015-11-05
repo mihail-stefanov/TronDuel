@@ -2,6 +2,7 @@
 {
     using System;
     using TronDuel.GraphicalObjects;
+    using TronDuel.MovingObjects.GraphicalObjects;
 
     public class CollisionResolver
     {
@@ -34,9 +35,9 @@
             if (graphicalObjects.Projectiles.Count > 0)
             {
                 ResolveProjectileWallCollisions(graphicalObjects);
-            }
 
-            //ResolvePlayerProjectileCollisions(graphicalObjects); // TODO: Implement
+                ResolvePlayerProjectileCollisions(graphicalObjects);
+            }
 
             //ResolvePlayerEnemyCollision(graphicalObjects); // TODO: Implement
         }
@@ -127,7 +128,21 @@
 
         private void ResolvePlayerProjectileCollisions(GraphicalObjectContainer graphicalObjects)
         {
-            //throw new System.NotImplementedException(); // TODO: Implement
+            for (int i = 0; i < graphicalObjects.Projectiles.Count; i++)
+            {
+                byte projectileX = (byte) graphicalObjects.Projectiles[i].Xposition;
+                byte projectileY = (byte) graphicalObjects.Projectiles[i].Yposition;
+
+                // TODO: Refactor and improve accuracy
+
+                if (projectileX == (byte) graphicalObjects.SpaceShipPlayerOne.Xposition &&
+                    projectileY == (byte) graphicalObjects.SpaceShipPlayerOne.Yposition)
+                {
+                    graphicalObjects.SpaceShipPlayerOne.ChangeHealth(Projectile.Damage);
+                    soundEffects.PlayHit();
+                    graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
+                }
+            }
         }
 
         private void ResolvePlayerEnemyCollision(GraphicalObjectContainer graphicalObjects)

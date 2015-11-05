@@ -64,7 +64,7 @@
             }
         }
 
-        public byte HealthPoints { get; set; }
+        public sbyte HealthPoints { get; set; }
 
         public byte ShotsAvailable { get; set; }
 
@@ -104,7 +104,7 @@
             Console.Write(this.Sprite);
         }
 
-        public void ChangeHealth(byte healthPoints)
+        public void ChangeHealth(sbyte healthPoints)
         {
             if (this.HealthPoints + healthPoints > 100)
             {

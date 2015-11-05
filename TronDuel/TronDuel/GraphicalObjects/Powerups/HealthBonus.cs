@@ -4,13 +4,13 @@
 
     public class HealthBonus : GraphicalObject
     {
-        public HealthBonus(byte startingPositionX, byte startingPositionY, ConsoleColor color, byte bonusPoints)
+        public HealthBonus(byte startingPositionX, byte startingPositionY, ConsoleColor color, sbyte bonusPoints)
             : base(startingPositionX, startingPositionY, color)
         {
             this.Sprite = '♥';
             this.BonusPoints = bonusPoints;
         }
 
-        public byte BonusPoints { get; set; }
+        public sbyte BonusPoints { get; set; }
     }
 }

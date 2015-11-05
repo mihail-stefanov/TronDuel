@@ -8,6 +8,7 @@
         private SoundPlayer shotSoundPlayer = new SoundPlayer();
         private SoundPlayer enemyShotSoundPlayer = new SoundPlayer();
         private SoundPlayer ammoLoadPlayer = new SoundPlayer();
+        private SoundPlayer hitPlayer = new SoundPlayer();
 
         public SoundEffectContainer()
         {
@@ -25,6 +26,8 @@
             this.enemyShotSoundPlayer.LoadAsync();
             this.ammoLoadPlayer.SoundLocation = "ammoLoad.wav";
             this.ammoLoadPlayer.LoadAsync();
+            this.hitPlayer.SoundLocation = "hit.wav";
+            this.hitPlayer.LoadAsync();
         }
 
         public void PlayPowerUp()
@@ -45,6 +48,11 @@
         public void PlayAmmoLoad()
         {
             this.ammoLoadPlayer.Play();
+        }
+
+        public void PlayHit()
+        {
+            this.hitPlayer.Play();
         }
     }
 }

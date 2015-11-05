@@ -7,6 +7,7 @@
 
     public class Projectile : GraphicalObject, IMovable
     {
+        public const sbyte Damage = -10;
         private Direction direction;
 
         private double speed = 2;

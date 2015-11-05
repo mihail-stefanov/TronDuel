@@ -12,7 +12,7 @@
     {
         private GraphicalObjectContainer graphicalObjects = new GraphicalObjectContainer(1);
         private SoundEffectContainer soundEffects = new SoundEffectContainer();
-        private ObjectGenerator powerupGenerator = new ObjectGenerator();
+        private ObjectGenerator objectGenerator = new ObjectGenerator();
 
         public void Run()
         {
@@ -83,8 +83,8 @@
                 enemy.FireWeapon(graphicalObjects, soundEffects);
             }
 
-            powerupGenerator.GeneratePowerup(graphicalObjects);
-            powerupGenerator.GenerateEnemy(graphicalObjects);
+            objectGenerator.GeneratePowerup(graphicalObjects);
+            objectGenerator.GenerateEnemy(graphicalObjects);
         }
 
         private void DrawObjects(GraphicalObjectContainer graphicalObjects)
@@ -93,7 +93,11 @@
 
             foreach (var currentObject in currentObjects)
             {
-                currentObject.Draw();
+                if (currentObject.Xposition > 0 && currentObject.Xposition < Console.BufferWidth &&
+                    currentObject.Yposition > 0 && currentObject.Yposition < Console.BufferHeight)
+                {
+                    currentObject.Draw();
+                }
             }
         }
     }
