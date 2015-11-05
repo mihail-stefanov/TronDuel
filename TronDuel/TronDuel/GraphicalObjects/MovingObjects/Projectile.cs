@@ -149,8 +149,12 @@
 
         private void EraseSpriteFromLastPosition()
         {
-            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
-            Console.Write(' ');
+            if ((byte)this.Xposition < Console.BufferWidth && (byte) this.Xposition > 0 && 
+                (byte)this.Yposition < Console.BufferHeight && (byte) this.Yposition > 0)
+            {
+                Console.SetCursorPosition((byte)this.Xposition, (byte)this.Yposition);
+                Console.Write(' ');
+            }
         }
 
     }
