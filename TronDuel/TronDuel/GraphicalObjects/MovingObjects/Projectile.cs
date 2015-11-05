@@ -11,6 +11,10 @@
         private Direction direction;
         private ProjectileType type;
 
+        // Future positions are to be used to improve collision detections
+        private byte xFuturePosition;
+        private byte yFuturePosition;
+
         private double speed = 1;
 
         public Projectile(
@@ -24,6 +28,32 @@
             this.Speed = speed;
             this.type = type;
             this.Sprite = sprite;
+            this.XfuturePosition = (byte) this.Xposition;
+            this.YfuturePosition = (byte) this.Yposition;
+        }
+
+        public byte XfuturePosition
+        {
+            get
+            {
+                return this.xFuturePosition;
+            }
+            set
+            {
+                this.xFuturePosition = value;
+            }
+        }
+
+        public byte YfuturePosition
+        {
+            get
+            {
+                return this.yFuturePosition;
+            }
+            set
+            {
+                this.yFuturePosition = value;
+            }
         }
 
         public Direction Direction
@@ -76,6 +106,7 @@
                     else
                     {
                         this.Xposition += this.Speed;
+                        this.xFuturePosition = (byte) (this.Xposition + 1);
                     }
                     break;
                 case Direction.Left:
@@ -86,6 +117,7 @@
                     else
                     {
                         this.Xposition -= this.Speed;
+                        this.xFuturePosition = (byte) (this.Xposition - 1);
                     }
                     break;
                 case Direction.Up:
@@ -96,6 +128,7 @@
                     else
                     {
                         this.Yposition -= this.Speed / 2;
+                        this.yFuturePosition = (byte) (this.Yposition - 1);
                     }
                     break;
                 case Direction.Down:
@@ -106,6 +139,7 @@
                     else
                     {
                         this.Yposition += this.Speed / 2;
+                        this.yFuturePosition = (byte) (this.Yposition + 1);
                     }
                     break;
                 default:

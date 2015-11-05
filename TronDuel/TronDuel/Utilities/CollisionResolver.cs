@@ -140,11 +140,15 @@
                 {
                     byte projectileX = (byte)graphicalObjects.Projectiles[i].Xposition;
                     byte projectileY = (byte)graphicalObjects.Projectiles[i].Yposition;
+                    byte projectileFutureX = graphicalObjects.Projectiles[i].XfuturePosition;
+                    byte projectileFutureY = graphicalObjects.Projectiles[i].YfuturePosition;
 
                     // TODO: Refactor and improve accuracy
 
-                    if (projectileX == (byte)graphicalObjects.SpaceShipPlayerOne.Xposition &&
-                        projectileY == (byte)graphicalObjects.SpaceShipPlayerOne.Yposition)
+                    if ((projectileX == (byte)graphicalObjects.SpaceShipPlayerOne.Xposition &&
+                        projectileY == (byte)graphicalObjects.SpaceShipPlayerOne.Yposition) ||
+                        (projectileFutureX == (byte)graphicalObjects.SpaceShipPlayerOne.Xposition &&
+                        projectileFutureY == (byte)graphicalObjects.SpaceShipPlayerOne.Yposition))
                     {
                         graphicalObjects.SpaceShipPlayerOne.ChangeHealth(Projectile.Damage);
                         soundEffects.PlayHit();
@@ -162,6 +166,8 @@
                 {
                     byte projectileX = (byte)graphicalObjects.Projectiles[i].Xposition;
                     byte projectileY = (byte)graphicalObjects.Projectiles[i].Yposition;
+                    byte projectileFutureX = graphicalObjects.Projectiles[i].XfuturePosition;
+                    byte projectileFutureY = graphicalObjects.Projectiles[i].YfuturePosition;
 
                     // TODO: Refactor and improve accuracy
 
@@ -170,8 +176,8 @@
                         byte enemyX = (byte) graphicalObjects.Enemies[j].Xposition;
                         byte enemyY = (byte) graphicalObjects.Enemies[j].Yposition;
 
-                        if (projectileX == enemyX &&
-                            projectileY == enemyY)
+                        if ((projectileX == enemyX && projectileY == enemyY) ||
+                            (projectileFutureX == enemyX && projectileFutureY == enemyY))
                         {
                             graphicalObjects.Enemies[j].ReduceHealth(Projectile.Damage);
                             graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]); // TODO: Fix system out of range exception here

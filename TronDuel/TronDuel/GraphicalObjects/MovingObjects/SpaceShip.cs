@@ -93,13 +93,13 @@
 
         private void EraseSpriteFromLastPosition()
         {
-            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
+            Console.SetCursorPosition((byte)this.Xposition, (byte)this.Yposition);
             Console.Write(' ');
         }
 
         public override void Draw()
         {
-            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
+            Console.SetCursorPosition((byte)this.Xposition, (byte)this.Yposition);
             Console.ForegroundColor = this.Color;
             Console.Write(this.Sprite);
         }
