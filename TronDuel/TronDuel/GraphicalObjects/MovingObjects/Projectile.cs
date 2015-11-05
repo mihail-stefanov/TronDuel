@@ -9,6 +9,7 @@
     {
         public const sbyte Damage = -10;
         private Direction direction;
+        private ProjectileType type;
 
         private double speed = 2;
 
@@ -16,11 +17,12 @@
             double startingPositionX,
             double startingPositionY,
             ConsoleColor color,
-            Direction direction, char sprite)
+            Direction direction, ProjectileType type, char sprite)
             : base(startingPositionX, startingPositionY, color)
         {
             this.Direction = direction;
             this.Speed = speed;
+            this.type = type;
             this.Sprite = sprite;
         }
 
@@ -33,6 +35,18 @@
             set
             {
                 this.direction = value;
+            }
+        }
+
+        public ProjectileType Type
+        {
+            get
+            {
+                return this.type;
+            }
+            set
+            {
+                this.type = value;
             }
         }
 

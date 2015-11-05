@@ -1,6 +1,7 @@
 ﻿namespace TronDuel.Utilities
 {
     using System;
+    using Enumerations;
     using TronDuel.GraphicalObjects;
     using TronDuel.MovingObjects.GraphicalObjects;
 
@@ -37,6 +38,11 @@
                 ResolveProjectileWallCollisions(graphicalObjects);
 
                 ResolvePlayerProjectileCollisions(graphicalObjects);
+            }
+
+            if (graphicalObjects.Enemies.Count > 0)
+            {
+                ResolveEnemyProjectileCollisions(graphicalObjects);
             }
 
             //ResolvePlayerEnemyCollision(graphicalObjects); // TODO: Implement
@@ -130,17 +136,52 @@
         {
             for (int i = 0; i < graphicalObjects.Projectiles.Count; i++)
             {
-                byte projectileX = (byte) graphicalObjects.Projectiles[i].Xposition;
-                byte projectileY = (byte) graphicalObjects.Projectiles[i].Yposition;
-
-                // TODO: Refactor and improve accuracy
-
-                if (projectileX == (byte) graphicalObjects.SpaceShipPlayerOne.Xposition &&
-                    projectileY == (byte) graphicalObjects.SpaceShipPlayerOne.Yposition)
+                if (graphicalObjects.Projectiles[i].Type == ProjectileType.Enemy)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.ChangeHealth(Projectile.Damage);
-                    soundEffects.PlayHit();
-                    graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
+                    byte projectileX = (byte)graphicalObjects.Projectiles[i].Xposition;
+                    byte projectileY = (byte)graphicalObjects.Projectiles[i].Yposition;
+
+                    // TODO: Refactor and improve accuracy
+
+                    if (projectileX == (byte)graphicalObjects.SpaceShipPlayerOne.Xposition &&
+                        projectileY == (byte)graphicalObjects.SpaceShipPlayerOne.Yposition)
+                    {
+                        graphicalObjects.SpaceShipPlayerOne.ChangeHealth(Projectile.Damage);
+                        soundEffects.PlayHit();
+                        graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
+                    }
+                }
+            }
+        }
+
+        private void ResolveEnemyProjectileCollisions(GraphicalObjectContainer graphicalObjects)
+        {
+            for (int i = 0; i < graphicalObjects.Projectiles.Count; i++)
+            {
+                if (graphicalObjects.Projectiles[i].Type == ProjectileType.Player)
+                {
+                    byte projectileX = (byte)graphicalObjects.Projectiles[i].Xposition;
+                    byte projectileY = (byte)graphicalObjects.Projectiles[i].Yposition;
+
+                    // TODO: Refactor and improve accuracy
+
+                    for (int j = 0; j < graphicalObjects.Enemies.Count; j++)
+                    {
+                        byte enemyX = (byte) graphicalObjects.Enemies[j].Xposition;
+                        byte enemyY = (byte) graphicalObjects.Enemies[j].Yposition;
+
+                        if (projectileX == enemyX &&
+                            projectileY == enemyY)
+                        {
+                            graphicalObjects.Enemies[j].ReduceHealth(Projectile.Damage);
+                            graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
+                            soundEffects.PlayHit();
+                            if (graphicalObjects.Enemies[j].HealthPoints == 0)
+                            {
+                                graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[j]);
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -24,9 +24,9 @@
             shotDelayStopwatch.Start();
         }
 
-        public byte HealthPoints { get; set; }
+        public sbyte HealthPoints { get; set; }
 
-        public void ReduceHealth(byte healthPoints)
+        public void ReduceHealth(sbyte healthPoints)
         {
             if (this.HealthPoints - healthPoints <= 0)
             {
@@ -80,25 +80,25 @@
                         this.Xposition,
                         this.Yposition,
                         ConsoleColor.Red,
-                        Direction.Up, '▲'));
+                        Direction.Up, ProjectileType.Enemy, '▲'));
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
                         ConsoleColor.Red,
-                        Direction.Down, '▼'));
+                        Direction.Down, ProjectileType.Enemy, '▼'));
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
                         ConsoleColor.Red,
-                        Direction.Left, '◄'));
+                        Direction.Left, ProjectileType.Enemy, '◄'));
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
                         ConsoleColor.Red,
-                        Direction.Right, '►'));
+                        Direction.Right, ProjectileType.Enemy, '►'));
 
                 soundEffects.PlayEnemyShot();
                 shotDelayStopwatch.Restart();

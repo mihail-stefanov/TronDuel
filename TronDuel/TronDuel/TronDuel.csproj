@@ -44,6 +44,7 @@
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="Enumerations\Direction.cs" />
     <Compile Include="Enumerations\Powerup.cs" />
+    <Compile Include="Enumerations\ProjectileType.cs" />
     <Compile Include="GraphicalObjects\GraphicalObject.cs" />
     <Compile Include="GraphicalObjects\MovingObjects\Enemy.cs" />
     <Compile Include="GraphicalObjects\Powerups\AmmoBonus.cs" />

@@ -11,7 +11,7 @@
     public class ObjectGenerator
     {
         private const int powerupGenerationInterval = 10000;
-        private const int enemyGenerationInterval = 25000;
+        private int enemyGenerationInterval = 25000;
 
         private Powerup currentPowerUpToGenerate;
 
@@ -113,9 +113,11 @@
                 }
 
                 graphicalObjects.Enemies.Add(new Enemy(potentialXposition, potentialYposition, ConsoleColor.Gray, graphicalObjects.SpaceShipPlayerOne));
-                enemyGeneratorTimer.Restart();
 
-                powerupGeneratorTimer.Restart();
+                // Reducing the interval for enemy generation on each generation
+                enemyGenerationInterval = (int)(enemyGenerationInterval * 0.9);
+
+                enemyGeneratorTimer.Restart();
             }
         }
     }
