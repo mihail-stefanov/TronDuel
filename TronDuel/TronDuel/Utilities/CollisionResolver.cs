@@ -119,12 +119,12 @@
         {
             for (int i = 0; i < graphicalObjects.Projectiles.Count; i++)
             {
-                double projectileX = graphicalObjects.Projectiles[i].Xposition;
-                double projectileY = graphicalObjects.Projectiles[i].Yposition;
+                byte projectileX = (byte) graphicalObjects.Projectiles[i].Xposition;
+                byte projectileY = (byte) graphicalObjects.Projectiles[i].Yposition;
 
-                if (projectileX > Console.BufferWidth - 2 ||
+                if (projectileX > Console.BufferWidth - 1 ||
                     projectileX < 1 ||
-                    projectileY > Console.BufferHeight - 2 ||
+                    projectileY > Console.BufferHeight - 1 ||
                     projectileY < 1)
                 {
                     graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);

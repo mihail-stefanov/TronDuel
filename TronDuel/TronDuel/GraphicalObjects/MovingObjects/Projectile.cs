@@ -69,16 +69,44 @@
             switch (this.Direction)
             {
                 case Direction.Right:
-                    this.Xposition += this.Speed;
+                    if (this.Xposition + this.Speed > Console.BufferWidth - 1)
+                    {
+                        this.Xposition = Console.BufferWidth;
+                    }
+                    else
+                    {
+                        this.Xposition += this.Speed;
+                    }
                     break;
                 case Direction.Left:
-                    this.Xposition -= this.Speed;
+                    if (this.Xposition - this.Speed < 1)
+                    {
+                        this.Xposition = 0;
+                    }
+                    else
+                    {
+                        this.Xposition -= this.Speed;
+                    }
                     break;
                 case Direction.Up:
-                    this.Yposition -= this.Speed / 2;
+                    if (this.Yposition - this.Speed / 2 < 1)
+                    {
+                        this.Yposition = 0;
+                    }
+                    else
+                    {
+                        this.Yposition -= this.Speed / 2;
+                    }
                     break;
                 case Direction.Down:
-                    this.Yposition += this.Speed / 2;
+                    if (this.Yposition + this.Speed / 2 > Console.BufferHeight - 1)
+                    {
+                        this.Yposition = Console.BufferHeight;
+                    }
+                    else
+                    {
+                        this.Yposition += this.Speed / 2;
+                    }
                     break;
                 default:
                     break;
@@ -87,12 +115,8 @@
 
         private void EraseSpriteFromLastPosition()
         {
-            if (this.Xposition > 0 && this.Xposition < Console.BufferWidth &&
-                this.Yposition > 0 && this.Yposition < Console.BufferHeight)
-            {
-                Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
-                Console.Write(' ');
-            }
+            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
+            Console.Write(' ');
         }
 
     }
