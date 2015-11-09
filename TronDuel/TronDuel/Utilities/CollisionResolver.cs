@@ -93,7 +93,22 @@
 
         private void ResolvePlayerShieldCollisions(GraphicalObjectContainer graphicalObjects)
         {
-            //throw new System.NotImplementedException(); // TODO: Implement
+            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
+
+            for (int i = 0; i < graphicalObjects.Shields.Count; i++)
+            {
+                int shieldX = (int)graphicalObjects.Shields[i].Xposition;
+                int shieldY = (int)graphicalObjects.Shields[i].Yposition;
+
+                if (spaceShipX == shieldX && spaceShipY == shieldY)
+                {
+                    graphicalObjects.SpaceShipPlayerOne.IncreaseShieldTimeAvailable(graphicalObjects.Shields[i].TimeInvincibleInSeconds);
+                    soundEffects.PlayShieldPowerUp();
+                    graphicalObjects.SpaceShipPlayerOne.PrintStatus(); // TODO: To refactor
+                    graphicalObjects.Shields.Remove(graphicalObjects.Shields[i]);
+                }
+            }
         }
 
         private void ResolvePlayerHeartCollisions(GraphicalObjectContainer graphicalObjects)
@@ -150,8 +165,16 @@
                         (projectileFutureX == (byte)graphicalObjects.SpaceShipPlayerOne.Xposition &&
                         projectileFutureY == (byte)graphicalObjects.SpaceShipPlayerOne.Yposition))
                     {
-                        graphicalObjects.SpaceShipPlayerOne.ChangeHealth(Projectile.Damage);
-                        soundEffects.PlayHit();
+                        if (graphicalObjects.SpaceShipPlayerOne.ShieldTimeAvailable == 0)
+                        {
+                            graphicalObjects.SpaceShipPlayerOne.ChangeHealth(Projectile.Damage); // TODO: Consider changing the method to DecreaseHealth
+                            soundEffects.PlayHit();
+                        }
+                        else
+                        {
+                            soundEffects.PlayDullHit();
+                        }
+
                         graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
                     }
                 }

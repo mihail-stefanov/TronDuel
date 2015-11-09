@@ -33,7 +33,7 @@
             // Initialisation of all objects
             spaceShipPlayerOne = new SpaceShip(10, 10, ConsoleColor.Green, Direction.Right);
             hearts.Add(new HealthBonus(50, 25, ConsoleColor.Red, 100));
-            shields.Add(new ShieldBonus(40, 5, ConsoleColor.Yellow, 10000));
+            shields.Add(new ShieldBonus(40, 5, ConsoleColor.Yellow, 50));
             ammo.Add(new AmmoBonus(35, 15, ConsoleColor.White, 50));
         }
 

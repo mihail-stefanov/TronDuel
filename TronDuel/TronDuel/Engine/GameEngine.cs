@@ -10,6 +10,8 @@
 
     public class GameEngine : IEngine
     {
+        private int threadSleepTime = 30;
+
         private GraphicalObjectContainer graphicalObjects = new GraphicalObjectContainer(1);
         private SoundEffectContainer soundEffects = new SoundEffectContainer();
         private ObjectGenerator objectGenerator = new ObjectGenerator();
@@ -20,7 +22,7 @@
 
             while (true)
             {
-                Thread.Sleep(30);
+                Thread.Sleep(threadSleepTime);
 
                 ReadAndProcessCommands(graphicalObjects);
 
@@ -71,6 +73,7 @@
         private void UpdateObjects(GraphicalObjectContainer graphicalObjects)
         {
             graphicalObjects.SpaceShipPlayerOne.Move();
+            graphicalObjects.SpaceShipPlayerOne.DecreaseShieldTime(threadSleepTime);
 
             foreach (var projectile in graphicalObjects.Projectiles)
             {

@@ -65,7 +65,7 @@
                         currentPowerUpToGenerate = Powerup.Shield;
                         break;
                     case Powerup.Shield:
-                        graphicalObjects.Shields.Add(new ShieldBonus(potentialXposition, potentialYposition, ConsoleColor.Yellow, 5000));
+                        graphicalObjects.Shields.Add(new ShieldBonus(potentialXposition, potentialYposition, ConsoleColor.Yellow, 50));
                         currentPowerUpToGenerate = Powerup.Ammo;
                         break;
                     case Powerup.Ammo:

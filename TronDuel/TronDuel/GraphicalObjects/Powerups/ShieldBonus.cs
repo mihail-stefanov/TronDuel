@@ -4,13 +4,13 @@
 
     public class ShieldBonus : GraphicalObject
     {
-        public ShieldBonus(byte startingPositionX, byte startingPositionY, ConsoleColor color, int timeInvincibleInMilliseconds)
+        public ShieldBonus(byte startingPositionX, byte startingPositionY, ConsoleColor color, byte timeInvincibleInSeconds)
             : base(startingPositionX, startingPositionY, color)
         {
             this.Sprite = '♦';
-            this.TimeInvincibleInMilliseconds = timeInvincibleInMilliseconds;
+            this.TimeInvincibleInSeconds = timeInvincibleInSeconds;
         }
 
-        public int TimeInvincibleInMilliseconds { get; set; }
+        public byte TimeInvincibleInSeconds { get; set; }
     }
 }

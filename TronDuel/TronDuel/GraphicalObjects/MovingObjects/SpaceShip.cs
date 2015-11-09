@@ -20,6 +20,8 @@
         private Stopwatch shotDelayStopwatch = new Stopwatch();
         private int shotDelayTime = 200;
 
+        private Stopwatch shieldTimeStopwatch = new Stopwatch();
+
         private Direction direction;
 
         public SpaceShip(byte startingPositionX, byte startingPositionY, ConsoleColor color, Direction direction)
@@ -29,6 +31,7 @@
             this.Sprite = ShipCharRight;
             this.HealthPoints = 50;
             this.ShotsAvailable = 10;
+            this.ShieldTimeAvailable = 0;
             this.shotDelayStopwatch.Start();
             PrintStatus();  // TODO: To refactor
         }
@@ -67,6 +70,8 @@
         public sbyte HealthPoints { get; set; }
 
         public byte ShotsAvailable { get; set; }
+
+        public double ShieldTimeAvailable { get; set; }
 
         public void Move()
         {
@@ -144,11 +149,48 @@
             }
         }
 
+        public void IncreaseShieldTimeAvailable(byte shieldTime)
+        {
+            this.shieldTimeStopwatch.Start();
+
+            if (this.ShieldTimeAvailable + shieldTime > 100)
+            {
+                this.ShieldTimeAvailable = 100;
+            }
+            else
+            {
+                this.ShieldTimeAvailable += shieldTime;
+            }
+        }
+
+        public void DecreaseShieldTime(int threadSleepTime)
+        {
+            if (this.ShieldTimeAvailable > 0)
+            {
+                this.ShieldTimeAvailable -= ((double)threadSleepTime / 1000);
+            }
+            else
+            {
+                this.shieldTimeStopwatch.Stop();
+                this.shieldTimeStopwatch.Reset();
+                this.ShieldTimeAvailable = 0;
+            }
+            PrintStatus();  // TODO: To refactor
+        }
+
         public void PrintStatus()
         {
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = this.Color;
-            Console.Write("Player 1 - Health: {0} Shots: {1}   ", this.HealthPoints, this.ShotsAvailable);
+            Console.Write("Player 1 - Health: {0} Shots: {1} ", this.HealthPoints, this.ShotsAvailable);
+            if (this.ShieldTimeAvailable > 0)
+            {
+                Console.Write("Shield time: {0}  ", (byte) this.ShieldTimeAvailable);
+            }
+            else
+            {
+                Console.Write(new string(' ', 16));
+            }
         }
 
         public void FireCurrentWeapon(GraphicalObjectContainer graphicalObjects, SoundEffectContainer soundEffects)
