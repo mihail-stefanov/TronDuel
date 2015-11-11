@@ -11,7 +11,7 @@
     public class ObjectGenerator
     {
         private const int powerupGenerationInterval = 10000;
-        private int enemyGenerationInterval = 25000;
+        private int enemyGenerationInterval = 15000;
 
         private Powerup currentPowerUpToGenerate;
 
@@ -61,11 +61,11 @@
                 switch (currentPowerUpToGenerate)
                 {
                     case Powerup.Heart:
-                        graphicalObjects.Hearts.Add(new HealthBonus(potentialXposition, potentialYposition, ConsoleColor.Red, 50));
+                        graphicalObjects.Hearts.Add(new HealthBonus(potentialXposition, potentialYposition, ConsoleColor.Red, 20));
                         currentPowerUpToGenerate = Powerup.Shield;
                         break;
                     case Powerup.Shield:
-                        graphicalObjects.Shields.Add(new ShieldBonus(potentialXposition, potentialYposition, ConsoleColor.Yellow, 50));
+                        graphicalObjects.Shields.Add(new ShieldBonus(potentialXposition, potentialYposition, ConsoleColor.Yellow, 10));
                         currentPowerUpToGenerate = Powerup.Ammo;
                         break;
                     case Powerup.Ammo:
@@ -115,8 +115,11 @@
                 graphicalObjects.Enemies.Add(new Enemy(potentialXposition, potentialYposition, ConsoleColor.Gray, graphicalObjects.SpaceShipPlayerOne));
 
                 // Reducing the interval for enemy generation on each generation
-                enemyGenerationInterval = (int)(enemyGenerationInterval * 0.9);
-
+                if (enemyGenerationInterval > 5000)
+                {
+                    enemyGenerationInterval = (int)(enemyGenerationInterval * 0.9);
+                }
+                
                 enemyGeneratorTimer.Restart();
             }
         }
