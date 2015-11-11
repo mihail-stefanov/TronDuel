@@ -92,13 +92,13 @@
                     messageDisplayed = !messageDisplayed;
 
                     messageBlinkTimer.Restart();
+                }
 
-                    ReadAndProcessCommands();
+                ReadAndProcessCommands();
 
-                    if (enterPressed)
-                    {
-                        break;
-                    }
+                if (enterPressed)
+                {
+                    break;
                 }
             }
         }

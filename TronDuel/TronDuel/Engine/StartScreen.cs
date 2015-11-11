@@ -57,14 +57,14 @@
                     messageDisplayed = !messageDisplayed;
 
                     messageBlinkTimer.Restart();
+                }
 
-                    ReadAndProcessCommands();
+                ReadAndProcessCommands();
 
-                    if (enterPressed)
-                    {
-                        Console.Clear();
-                        break;
-                    }
+                if (enterPressed)
+                {
+                    Console.Clear();
+                    break;
                 }
             }
         }
