@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using System.IO;
     using TronDuel.Interfaces;
+using TronDuel.Utilities;
 
     public class GameOverScreen : IEngine
     {
@@ -15,10 +16,12 @@
 
         private bool enterPressed = false;
         private List<string> gameOverText;
+        private Utilities.ScoreContainer scoreContainer;
 
-        public GameOverScreen()
+        public GameOverScreen(ScoreContainer scoreContainer)
         {
             gameOverText = this.ObtainGameOverText();
+            this.scoreContainer = scoreContainer;
         }
 
         private List<string> ObtainGameOverText()
@@ -54,6 +57,8 @@
 
             DisplayGameOverText();
 
+            DisplayScore();
+
             DisplayRetartGameMessageUntilEnterIsPressed();
 
             Console.Clear();
@@ -68,6 +73,12 @@
                 Console.SetCursorPosition(16, Console.CursorTop + 1);
                 Console.Write(line);
             }
+        }
+
+        private void DisplayScore()
+        {
+            Console.SetCursorPosition(29, 17);
+            Console.Write("YOUR SC0RE: {0}", scoreContainer.Score); // TODO: Fix repetition
         }
 
         private void DisplayRetartGameMessageUntilEnterIsPressed()
@@ -98,6 +109,7 @@
 
                 if (enterPressed)
                 {
+                    scoreContainer.Score = 0;
                     break;
                 }
             }

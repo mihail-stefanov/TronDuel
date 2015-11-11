@@ -15,12 +15,18 @@
         private GraphicalObjectContainer graphicalObjects = new GraphicalObjectContainer(1);
         private SoundEffectContainer soundEffects = new SoundEffectContainer();
         private ObjectGenerator objectGenerator = new ObjectGenerator();
+        private ScoreContainer scoreContainer;
+
+        public GameEngine(ScoreContainer scoreContainer)
+        {
+            this.scoreContainer = scoreContainer;
+        }
 
         public void Run()
         {
             soundEffects.PlayStart();
 
-            CollisionResolver collisionResolver = new CollisionResolver(soundEffects);
+            CollisionResolver collisionResolver = new CollisionResolver(soundEffects, scoreContainer);
 
             while (true)
             {
@@ -33,6 +39,8 @@
                 collisionResolver.Resolve(graphicalObjects);
 
                 DrawObjects(graphicalObjects);
+
+                scoreContainer.DrawScore();
 
                 // Go to game over screen
                 if (graphicalObjects.SpaceShipPlayerOne.HealthPoints == 0)

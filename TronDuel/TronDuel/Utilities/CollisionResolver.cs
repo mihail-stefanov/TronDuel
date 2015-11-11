@@ -8,10 +8,12 @@
     public class CollisionResolver
     {
         private SoundEffectContainer soundEffects;
+        private ScoreContainer scoreContainer;
 
-        public CollisionResolver(SoundEffectContainer soundEffects)
+        public CollisionResolver(SoundEffectContainer soundEffects, ScoreContainer scoreContainer)
         {
             this.soundEffects = soundEffects;
+            this.scoreContainer = scoreContainer;
         }
 
         public void Resolve(GraphicalObjectContainer graphicalObjects)
@@ -209,6 +211,7 @@
                             if (graphicalObjects.Enemies[j].HealthPoints == 0)
                             {
                                 graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[j]);
+                                scoreContainer.Score++;
                             }
                         }
                     }
@@ -228,7 +231,16 @@
 
                 if (spaceShipX == enemyX && spaceShipY == enemyY)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.HealthPoints = 0;
+                    if (graphicalObjects.SpaceShipPlayerOne.ShieldTimeAvailable > 0)
+                    {
+                        soundEffects.PlayExplosion();
+                        graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[i]);
+                        scoreContainer.Score++;
+                    }
+                    else
+                    {
+                        graphicalObjects.SpaceShipPlayerOne.HealthPoints = 0;
+                    }
                 }
             }
         }

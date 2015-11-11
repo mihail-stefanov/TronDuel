@@ -17,6 +17,8 @@
         private int oldNumberOfEnemies = 1;
         private int newNumberOfEnemies = 1;
 
+        private byte enemyNumberLimit = 8;
+
         private Powerup currentPowerUpToGenerate;
 
         public ObjectGenerator()
@@ -86,44 +88,47 @@
 
         public void GenerateEnemy(GraphicalObjectContainer graphicalObjects)
         {
-            newNumberOfEnemies = graphicalObjects.Enemies.Count;
-
-            if (newNumberOfEnemies != oldNumberOfEnemies)
+            if (graphicalObjects.Enemies.Count <= enemyNumberLimit)
             {
-                for (int i = 0; i < numberOfEnemiesToGenerate; i++)
+                newNumberOfEnemies = graphicalObjects.Enemies.Count;
+
+                if (newNumberOfEnemies != oldNumberOfEnemies)
                 {
-                    // TODO: Fix repeating code
-                    Random randomGenerator = new Random();
-
-                    bool generationOnAnEmptySpaceSuccessful = false;
-
-                    byte potentialXposition = 0;
-                    byte potentialYposition = 0;
-
-                    while (!generationOnAnEmptySpaceSuccessful)
+                    for (int i = 0; i < numberOfEnemiesToGenerate; i++)
                     {
-                        generationOnAnEmptySpaceSuccessful = true;
+                        // TODO: Fix repeating code
+                        Random randomGenerator = new Random();
 
-                        potentialXposition = (byte)randomGenerator.Next(1, Console.BufferWidth - 2);
-                        potentialYposition = (byte)randomGenerator.Next(1, Console.BufferHeight - 2);
+                        bool generationOnAnEmptySpaceSuccessful = false;
 
-                        List<GraphicalObject> currentGraphicalObjects = graphicalObjects.GetAll();
+                        byte potentialXposition = 0;
+                        byte potentialYposition = 0;
 
-                        for (int j = 0; j < currentGraphicalObjects.Count; j++)
+                        while (!generationOnAnEmptySpaceSuccessful)
                         {
-                            if (currentGraphicalObjects[j].Xposition == potentialXposition &&
-                                currentGraphicalObjects[j].Yposition == potentialYposition)
+                            generationOnAnEmptySpaceSuccessful = true;
+
+                            potentialXposition = (byte)randomGenerator.Next(1, Console.BufferWidth - 2);
+                            potentialYposition = (byte)randomGenerator.Next(1, Console.BufferHeight - 2);
+
+                            List<GraphicalObject> currentGraphicalObjects = graphicalObjects.GetAll();
+
+                            for (int j = 0; j < currentGraphicalObjects.Count; j++)
                             {
-                                generationOnAnEmptySpaceSuccessful = false;
-                                break;
+                                if (currentGraphicalObjects[j].Xposition == potentialXposition &&
+                                    currentGraphicalObjects[j].Yposition == potentialYposition)
+                                {
+                                    generationOnAnEmptySpaceSuccessful = false;
+                                    break;
+                                }
                             }
                         }
+
+                        graphicalObjects.Enemies.Add(new Enemy(potentialXposition, potentialYposition, ConsoleColor.Gray, graphicalObjects.SpaceShipPlayerOne));
+
+                        newNumberOfEnemies = graphicalObjects.Enemies.Count;
+                        oldNumberOfEnemies = newNumberOfEnemies;
                     }
-
-                    graphicalObjects.Enemies.Add(new Enemy(potentialXposition, potentialYposition, ConsoleColor.Gray, graphicalObjects.SpaceShipPlayerOne));
-
-                    newNumberOfEnemies = graphicalObjects.Enemies.Count;
-                    oldNumberOfEnemies = newNumberOfEnemies;
                 }
             }
         }

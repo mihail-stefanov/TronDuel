@@ -3,9 +3,12 @@
     using System;
     using TronDuel.Engine;
     using TronDuel.Interfaces;
+    using TronDuel.Utilities;
 
     public class TronDuelMain
     {
+        private static ScoreContainer scoreContainer = new ScoreContainer();
+
         public static void Main()
         {
             Console.BufferHeight = Console.WindowHeight = 30;
@@ -18,10 +21,10 @@
                 IEngine startScreen = new StartScreen();
                 startScreen.Run();
 
-                IEngine gameEngine = new GameEngine();
+                IEngine gameEngine = new GameEngine(scoreContainer);
                 gameEngine.Run();
 
-                IEngine gameOverScreeen = new GameOverScreen();
+                IEngine gameOverScreeen = new GameOverScreen(scoreContainer);
                 gameOverScreeen.Run();
             }
         }
