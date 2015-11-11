@@ -12,11 +12,18 @@
             Console.BufferWidth = Console.WindowWidth = 70;
             Console.CursorVisible = false;
 
-            IEngine startScreen = new StartScreen();
-            startScreen.Run();
+            // Infinite loop allows for multiple game sessions
+            while (true)
+            {
+                IEngine startScreen = new StartScreen();
+                startScreen.Run();
 
-            IEngine gameEngine = new GameEngine();
-            gameEngine.Run();
+                IEngine gameEngine = new GameEngine();
+                gameEngine.Run();
+
+                IEngine gameOverScreeen = new GameOverScreen();
+                gameOverScreeen.Run();
+            }
         }
     }
 }

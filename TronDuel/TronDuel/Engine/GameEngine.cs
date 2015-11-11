@@ -18,6 +18,8 @@
 
         public void Run()
         {
+            soundEffects.PlayStart();
+
             CollisionResolver collisionResolver = new CollisionResolver(soundEffects);
 
             while (true)
@@ -31,6 +33,13 @@
                 collisionResolver.Resolve(graphicalObjects);
 
                 DrawObjects(graphicalObjects);
+
+                // Go to game over screen
+                if (graphicalObjects.SpaceShipPlayerOne.HealthPoints == 0)
+                {
+                    soundEffects.PlayExplosion();
+                    break;
+                }
             }
         }
 

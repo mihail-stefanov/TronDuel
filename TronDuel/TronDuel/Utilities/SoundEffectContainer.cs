@@ -4,6 +4,7 @@
 
     public class SoundEffectContainer
     {
+        private SoundPlayer startPlayer = new SoundPlayer();
         private SoundPlayer powerupSoundPlayer = new SoundPlayer();
         private SoundPlayer shieldSoundPlayer = new SoundPlayer();
         private SoundPlayer shotSoundPlayer = new SoundPlayer();
@@ -11,7 +12,7 @@
         private SoundPlayer ammoLoadPlayer = new SoundPlayer();
         private SoundPlayer hitPlayer = new SoundPlayer();
         private SoundPlayer dullHitPlayer = new SoundPlayer();
-
+        private SoundPlayer explosionPlayer = new SoundPlayer();
         public SoundEffectContainer()
         {
             LoadSounds();
@@ -20,6 +21,8 @@
         private void LoadSounds()
         {
             // Loading sounds
+            this.startPlayer.SoundLocation = "start.wav";
+            this.startPlayer.LoadAsync();
             this.powerupSoundPlayer.SoundLocation = "powerUp.wav";
             this.powerupSoundPlayer.LoadAsync();
             this.shieldSoundPlayer.SoundLocation = "shield.wav";
@@ -34,6 +37,13 @@
             this.hitPlayer.LoadAsync();
             this.dullHitPlayer.SoundLocation = "dullHit.wav";
             this.dullHitPlayer.LoadAsync();
+            this.explosionPlayer.SoundLocation = "explosion.wav";
+            this.explosionPlayer.LoadAsync();
+        }
+
+        public void PlayStart()
+        {
+            this.startPlayer.Play();
         }
 
         public void PlayPowerUp()
@@ -69,6 +79,11 @@
         public void PlayDullHit()
         {
             this.dullHitPlayer.Play();
+        }
+
+        public void PlayExplosion()
+        {
+            this.explosionPlayer.Play();
         }
     }
 }

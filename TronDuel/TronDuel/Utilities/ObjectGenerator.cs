@@ -11,7 +11,11 @@
     public class ObjectGenerator
     {
         private const int powerupGenerationInterval = 10000;
-        private int enemyGenerationInterval = 15000;
+
+        private double numberOfEnemiesToGenerate = 2;
+
+        private int oldNumberOfEnemies = 1;
+        private int newNumberOfEnemies = 1;
 
         private Powerup currentPowerUpToGenerate;
 
@@ -82,45 +86,45 @@
 
         public void GenerateEnemy(GraphicalObjectContainer graphicalObjects)
         {
-            if (enemyGeneratorTimer.ElapsedMilliseconds > enemyGenerationInterval)
+            newNumberOfEnemies = graphicalObjects.Enemies.Count;
+
+            if (newNumberOfEnemies != oldNumberOfEnemies)
             {
-                // TODO: Fix repeating code
-                Random randomGenerator = new Random();
-
-                bool generationOnAnEmptySpaceSuccessful = false;
-
-                byte potentialXposition = 0;
-                byte potentialYposition = 0;
-
-                while (!generationOnAnEmptySpaceSuccessful)
+                for (int i = 0; i < numberOfEnemiesToGenerate; i++)
                 {
-                    generationOnAnEmptySpaceSuccessful = true;
+                    // TODO: Fix repeating code
+                    Random randomGenerator = new Random();
 
-                    potentialXposition = (byte)randomGenerator.Next(1, Console.BufferWidth - 2);
-                    potentialYposition = (byte)randomGenerator.Next(1, Console.BufferHeight - 2);
+                    bool generationOnAnEmptySpaceSuccessful = false;
 
-                    List<GraphicalObject> currentGraphicalObjects = graphicalObjects.GetAll();
+                    byte potentialXposition = 0;
+                    byte potentialYposition = 0;
 
-                    for (int i = 0; i < currentGraphicalObjects.Count; i++)
+                    while (!generationOnAnEmptySpaceSuccessful)
                     {
-                        if (currentGraphicalObjects[i].Xposition == potentialXposition &&
-                            currentGraphicalObjects[i].Yposition == potentialYposition)
+                        generationOnAnEmptySpaceSuccessful = true;
+
+                        potentialXposition = (byte)randomGenerator.Next(1, Console.BufferWidth - 2);
+                        potentialYposition = (byte)randomGenerator.Next(1, Console.BufferHeight - 2);
+
+                        List<GraphicalObject> currentGraphicalObjects = graphicalObjects.GetAll();
+
+                        for (int j = 0; j < currentGraphicalObjects.Count; j++)
                         {
-                            generationOnAnEmptySpaceSuccessful = false;
-                            break;
+                            if (currentGraphicalObjects[j].Xposition == potentialXposition &&
+                                currentGraphicalObjects[j].Yposition == potentialYposition)
+                            {
+                                generationOnAnEmptySpaceSuccessful = false;
+                                break;
+                            }
                         }
                     }
-                }
 
-                graphicalObjects.Enemies.Add(new Enemy(potentialXposition, potentialYposition, ConsoleColor.Gray, graphicalObjects.SpaceShipPlayerOne));
+                    graphicalObjects.Enemies.Add(new Enemy(potentialXposition, potentialYposition, ConsoleColor.Gray, graphicalObjects.SpaceShipPlayerOne));
 
-                // Reducing the interval for enemy generation on each generation
-                if (enemyGenerationInterval > 5000)
-                {
-                    enemyGenerationInterval = (int)(enemyGenerationInterval * 0.9);
+                    newNumberOfEnemies = graphicalObjects.Enemies.Count;
+                    oldNumberOfEnemies = newNumberOfEnemies;
                 }
-                
-                enemyGeneratorTimer.Restart();
             }
         }
     }
