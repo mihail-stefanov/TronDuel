@@ -115,7 +115,7 @@
         {
             if (Console.KeyAvailable)
             {
-                ConsoleKeyInfo pressedKey = Console.ReadKey();
+                ConsoleKeyInfo pressedKey = Console.ReadKey(true);
 
                 // Start game
                 if (pressedKey.Key == ConsoleKey.Enter)

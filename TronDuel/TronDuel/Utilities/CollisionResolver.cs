@@ -43,9 +43,10 @@
             if (graphicalObjects.Enemies.Count > 0)
             {
                 ResolveEnemyProjectileCollisions(graphicalObjects);
+                ResolveEnemyEnemyCollisions(graphicalObjects);
             }
 
-            //ResolvePlayerEnemyCollision(graphicalObjects); // TODO: Implement
+            ResolvePlayerEnemyCollision(graphicalObjects);
         }
 
         private void ResolvePlayerWallCollision(GraphicalObjectContainer graphicalObjects)
@@ -203,7 +204,7 @@
                             (projectileFutureX == enemyX && projectileFutureY == enemyY))
                         {
                             graphicalObjects.Enemies[j].ReduceHealth(Projectile.Damage);
-                            graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]); // TODO: Fix system out of range exception here
+                            graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
                             soundEffects.PlayHit();
                             if (graphicalObjects.Enemies[j].HealthPoints == 0)
                             {
@@ -217,7 +218,45 @@
 
         private void ResolvePlayerEnemyCollision(GraphicalObjectContainer graphicalObjects)
         {
-            //throw new System.NotImplementedException(); // TODO: Implement
+            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
+
+            for (int i = 0; i < graphicalObjects.Enemies.Count; i++)
+            {
+                int enemyX = (int)graphicalObjects.Enemies[i].Xposition;
+                int enemyY = (int)graphicalObjects.Enemies[i].Yposition;
+
+                if (spaceShipX == enemyX && spaceShipY == enemyY)
+                {
+                    graphicalObjects.SpaceShipPlayerOne.HealthPoints = 0;
+                }
+            }
+        }
+
+        private void ResolveEnemyEnemyCollisions(GraphicalObjectContainer graphicalObjects)
+        {
+            for (int i = 0; i < graphicalObjects.Enemies.Count; i++)
+            {
+                int currentEnemyX = (int)graphicalObjects.Enemies[i].Xposition;
+                int currentEnemyY = (int)graphicalObjects.Enemies[i].Yposition;
+
+                for (int j = 0; j < graphicalObjects.Enemies.Count; j++)
+                {
+                    if (graphicalObjects.Enemies[i] != graphicalObjects.Enemies[j])
+                    {
+                        int otherEnemyX = (int)graphicalObjects.Enemies[j].Xposition;
+                        int otherEnemyY = (int)graphicalObjects.Enemies[j].Yposition;
+
+                        if (currentEnemyX == otherEnemyX && currentEnemyY == otherEnemyY)
+                        {
+                            graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[j]);
+                            graphicalObjects.Enemies[i].Color = ConsoleColor.Red;
+                            soundEffects.PlayExplosion();
+                            graphicalObjects.Enemies[i].HealthPoints += 100;
+                        }
+                    }
+                }
+            }
         }
     }
 }

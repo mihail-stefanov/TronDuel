@@ -97,7 +97,6 @@
 
                     if (enterPressed)
                     {
-                        Console.Clear();
                         break;
                     }
                 }
@@ -108,7 +107,7 @@
         {
             if (Console.KeyAvailable)
             {
-                ConsoleKeyInfo pressedKey = Console.ReadKey();
+                ConsoleKeyInfo pressedKey = Console.ReadKey(true);
 
                 // Restart game
                 if (pressedKey.Key == ConsoleKey.Enter)
