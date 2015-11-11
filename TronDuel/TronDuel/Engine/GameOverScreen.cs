@@ -83,7 +83,7 @@ using TronDuel.Utilities;
 
         private void DisplayRetartGameMessageUntilEnterIsPressed()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             while (true)
             {

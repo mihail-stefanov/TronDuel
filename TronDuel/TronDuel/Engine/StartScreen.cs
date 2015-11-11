@@ -37,7 +37,7 @@
 
         private void DisplayStartGameMessageUntilEnterIsPressed()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             while (true)
             {

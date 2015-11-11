@@ -167,10 +167,13 @@
         {
             if (this.ShieldTimeAvailable > 0)
             {
+                this.Color = ConsoleColor.Yellow;
+
                 this.ShieldTimeAvailable -= ((double)threadSleepTime / 1000);
             }
             else
             {
+                this.Color = ConsoleColor.Green;
                 this.shieldTimeStopwatch.Stop();
                 this.shieldTimeStopwatch.Reset();
                 this.ShieldTimeAvailable = 0;
@@ -181,7 +184,7 @@
         public void PrintStatus()
         {
             Console.SetCursorPosition(0, 0);
-            Console.ForegroundColor = this.Color;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Player 1 - Health: {0} Shots: {1} ", this.HealthPoints, this.ShotsAvailable);
             if (this.ShieldTimeAvailable > 0)
             {

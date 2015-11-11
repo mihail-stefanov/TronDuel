@@ -50,22 +50,22 @@
         {
             EraseSpriteFromLastPosition(); // TODO: Refactor
 
-            if (shipToTrace.Xposition < this.Xposition)
+            if (shipToTrace.Xposition < this.Xposition && (byte)this.Yposition != (byte) shipToTrace.Yposition)
             {
                 this.Xposition -= speed;
             }
 
-            if (shipToTrace.Xposition > this.Xposition)
+            if (shipToTrace.Xposition > this.Xposition && (byte)this.Yposition != (byte) shipToTrace.Yposition)
             {
                 this.Xposition += speed;
             }
 
-            if (shipToTrace.Yposition < this.Yposition)
+            if (shipToTrace.Yposition < this.Yposition && (byte)this.Xposition != (byte) shipToTrace.Xposition)
             {
                 this.Yposition -= speed;
             }
 
-            if (shipToTrace.Yposition > this.Yposition)
+            if (shipToTrace.Yposition > this.Yposition && (byte)this.Xposition != (byte) shipToTrace.Xposition)
             {
                 this.Yposition += speed;
             }

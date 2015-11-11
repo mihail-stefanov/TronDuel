@@ -17,7 +17,7 @@
         private int oldNumberOfEnemies = 1;
         private int newNumberOfEnemies = 1;
 
-        private byte enemyNumberLimit = 8;
+        private byte enemyNumberLimit = 5;
 
         private Powerup currentPowerUpToGenerate;
 
