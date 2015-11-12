@@ -4,6 +4,7 @@
     {
         Heart,
         Shield,
-        Ammo
+        Ammo,
+        Tron
     }
 }

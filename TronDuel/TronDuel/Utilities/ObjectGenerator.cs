@@ -76,6 +76,10 @@
                         break;
                     case Powerup.Ammo:
                         graphicalObjects.Ammo.Add(new AmmoBonus(potentialXposition, potentialYposition, ConsoleColor.White, 20));
+                        currentPowerUpToGenerate = Powerup.Tron;
+                        break;
+                    case Powerup.Tron:
+                        graphicalObjects.TronBonuses.Add(new TronBonus(potentialXposition, potentialYposition, ConsoleColor.Cyan));
                         currentPowerUpToGenerate = Powerup.Heart;
                         break;
                     default:

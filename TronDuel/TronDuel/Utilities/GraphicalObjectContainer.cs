@@ -16,6 +16,7 @@
         private IList<HealthBonus> hearts = new List<HealthBonus>();
         private IList<ShieldBonus> shields = new List<ShieldBonus>();
         private IList<AmmoBonus> ammo = new List<AmmoBonus>();
+        private IList<TronBonus> tronBonuses = new List<TronBonus>();
         private IList<Projectile> projectiles = new List<Projectile>();
         private IList<Enemy> enemies = new List<Enemy>();
 
@@ -62,6 +63,11 @@
             foreach (var ammoUnit in ammo)
             {
                 allObjects.Add(ammoUnit);
+            }
+
+            foreach (var tronBonus in tronBonuses)
+            {
+                allObjects.Add(tronBonus);
             }
 
             foreach (var projectile in projectiles)
@@ -114,6 +120,14 @@
             get
             {
                 return this.ammo;
+            }
+        }
+
+        public IList<TronBonus> TronBonuses
+        {
+            get
+            {
+                return this.tronBonuses;
             }
         }
 
