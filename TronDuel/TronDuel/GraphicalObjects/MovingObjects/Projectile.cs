@@ -21,7 +21,9 @@
             double startingPositionX,
             double startingPositionY,
             ConsoleColor color,
-            Direction direction, ProjectileType type, char sprite)
+            Direction direction, 
+            ProjectileType type, 
+            char sprite)
             : base(startingPositionX, startingPositionY, color)
         {
             this.Direction = direction;

@@ -103,6 +103,29 @@
                 enemy.FireWeapon(graphicalObjects, soundEffects);
             }
 
+            for (int i = 0; i < graphicalObjects.TronDotsContainers.Count; i++)
+            {
+                if (!graphicalObjects.TronDotsContainers[i].IsCapacityReached())
+                {
+                    graphicalObjects.TronDotsContainers[i].AddDot();
+                }
+                // Makes sure all dots are removed from the screen before removing the container
+                else if (graphicalObjects.TronDotsContainers[i].Dots.Count == 0) 
+                {
+                    graphicalObjects.TronDotsContainers.Remove(graphicalObjects.TronDotsContainers[i]);
+                    break;
+                }
+
+                for (int j = 0; j < graphicalObjects.TronDotsContainers[i].Dots.Count; j++)
+                {
+                    if (graphicalObjects.TronDotsContainers[i].Dots[j].IsLifespanOver())
+                    {
+                        graphicalObjects.TronDotsContainers[i].Dots[j].EraseDot();
+                        graphicalObjects.TronDotsContainers[i].RemoveExpiredDot();
+                    }
+                }
+            }
+
             objectGenerator.GeneratePowerup(graphicalObjects);
             objectGenerator.GenerateEnemy(graphicalObjects);
         }

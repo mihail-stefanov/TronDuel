@@ -51,6 +51,8 @@
     <Compile Include="GraphicalObjects\MovingObjects\Enemy.cs" />
     <Compile Include="GraphicalObjects\Powerups\AmmoBonus.cs" />
     <Compile Include="GraphicalObjects\Powerups\TronBonus.cs" />
+    <Compile Include="GraphicalObjects\TronDot.cs" />
+    <Compile Include="GraphicalObjects\TronDotsContainer.cs" />
     <Compile Include="Utilities\GraphicalObjectContainer.cs" />
     <Compile Include="GraphicalObjects\MovingObjects\Projectile.cs" />
     <Compile Include="GraphicalObjects\Powerups\HealthBonus.cs" />

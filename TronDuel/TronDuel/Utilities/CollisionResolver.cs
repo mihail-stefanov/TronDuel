@@ -35,6 +35,11 @@
                 ResolvePlayerAmmoCollisions(graphicalObjects);
             }
 
+            if (graphicalObjects.TronBonuses.Count > 0)
+            {
+                ResolvePlayerTronBonusCollisions(graphicalObjects);
+            }
+
             if (graphicalObjects.Projectiles.Count > 0)
             {
                 ResolveProjectileWallCollisions(graphicalObjects);
@@ -71,6 +76,25 @@
             if (spaceShipY > Console.BufferHeight - 2)
             {
                 graphicalObjects.SpaceShipPlayerOne.Yposition = Console.BufferHeight - 2;
+            }
+        }
+
+        private void ResolvePlayerTronBonusCollisions(GraphicalObjectContainer graphicalObjects)
+        {
+            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
+
+            for (int i = 0; i < graphicalObjects.TronBonuses.Count; i++)
+            {
+                int tronBonusX = (int)graphicalObjects.TronBonuses[i].Xposition;
+                int tronBonusY = (int)graphicalObjects.TronBonuses[i].Yposition;
+
+                if (spaceShipX == tronBonusX && spaceShipY == tronBonusY)
+                {
+                    graphicalObjects.TronDotsContainers.Add(new TronDotsContainer(graphicalObjects.SpaceShipPlayerOne));
+                    soundEffects.PlayTronBonus();
+                    graphicalObjects.TronBonuses.Remove(graphicalObjects.TronBonuses[i]);
+                }
             }
         }
 

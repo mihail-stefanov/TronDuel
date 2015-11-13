@@ -13,6 +13,7 @@
         private SoundPlayer hitPlayer = new SoundPlayer();
         private SoundPlayer dullHitPlayer = new SoundPlayer();
         private SoundPlayer explosionPlayer = new SoundPlayer();
+        private SoundPlayer tronBonusPlayer = new SoundPlayer();
         public SoundEffectContainer()
         {
             LoadSounds();
@@ -39,6 +40,8 @@
             this.dullHitPlayer.LoadAsync();
             this.explosionPlayer.SoundLocation = "explosion.wav";
             this.explosionPlayer.LoadAsync();
+            this.tronBonusPlayer.SoundLocation = "tronBonus.wav";
+            this.tronBonusPlayer.LoadAsync();
         }
 
         public void PlayStart()
@@ -84,6 +87,11 @@
         public void PlayExplosion()
         {
             this.explosionPlayer.Play();
+        }
+
+        public void PlayTronBonus()
+        {
+            this.tronBonusPlayer.Play();
         }
     }
 }

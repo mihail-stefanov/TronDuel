@@ -19,6 +19,7 @@
         private IList<TronBonus> tronBonuses = new List<TronBonus>();
         private IList<Projectile> projectiles = new List<Projectile>();
         private IList<Enemy> enemies = new List<Enemy>();
+        private IList<TronDotsContainer> tronDotsContainers = new List<TronDotsContainer>();
 
         public GraphicalObjectContainer(int numberOfPlayers)
         {
@@ -42,8 +43,6 @@
         public List<GraphicalObject> GetAll()
         {
             List<GraphicalObject> allObjects = new List<GraphicalObject>();
-
-            allObjects.Add(spaceShipPlayerOne);
 
             if (spaceShipPlayerTwo != null)
             {
@@ -79,6 +78,17 @@
             {
                 allObjects.Add(enemy);
             }
+
+            foreach (var container in tronDotsContainers)
+            {
+                foreach (var dot in container.Dots)
+                {
+                    allObjects.Add(dot);
+                }
+            }
+
+            // The spaceship is put at the end so that it is drawn on top
+            allObjects.Add(spaceShipPlayerOne); 
             
             return allObjects;
         }
@@ -144,6 +154,14 @@
             get
             {
                 return this.enemies;
+            }
+        }
+
+        public IList<TronDotsContainer> TronDotsContainers
+        {
+            get
+            {
+                return this.tronDotsContainers;
             }
         }
     }
