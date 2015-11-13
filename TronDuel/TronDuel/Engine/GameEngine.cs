@@ -107,7 +107,7 @@
             {
                 if (!graphicalObjects.TronDotsContainers[i].IsCapacityReached())
                 {
-                    graphicalObjects.TronDotsContainers[i].AddDot();
+                    graphicalObjects.TronDotsContainers[i].AddDot(); // TODO: Make sure no two dots are at the same place;
                 }
                 // Makes sure all dots are removed from the screen before removing the container
                 else if (graphicalObjects.TronDotsContainers[i].Dots.Count == 0) 

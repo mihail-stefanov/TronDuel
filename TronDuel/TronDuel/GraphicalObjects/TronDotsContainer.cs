@@ -6,7 +6,7 @@
 
     public class TronDotsContainer
     {
-        private byte dotCapacity = 100;
+        private byte dotCapacity = 150;
         private byte dotsAlreadyAdded = 0;
         private bool capacityReached = false;
         private List<TronDot> dots = new List<TronDot>();

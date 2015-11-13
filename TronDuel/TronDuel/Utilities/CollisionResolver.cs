@@ -47,6 +47,11 @@
                 ResolvePlayerProjectileCollisions(graphicalObjects);
             }
 
+            if (graphicalObjects.TronDotsContainers.Count > 0)
+            {
+                ResolveEnemyDotCollisions(graphicalObjects);
+            }
+
             if (graphicalObjects.Enemies.Count > 0)
             {
                 ResolveEnemyProjectileCollisions(graphicalObjects);
@@ -161,8 +166,8 @@
         {
             for (int i = 0; i < graphicalObjects.Projectiles.Count; i++)
             {
-                byte projectileX = (byte) graphicalObjects.Projectiles[i].Xposition;
-                byte projectileY = (byte) graphicalObjects.Projectiles[i].Yposition;
+                byte projectileX = (byte)graphicalObjects.Projectiles[i].Xposition;
+                byte projectileY = (byte)graphicalObjects.Projectiles[i].Yposition;
 
                 if (projectileX > Console.BufferWidth - 1 ||
                     projectileX < 1 ||
@@ -223,8 +228,8 @@
 
                     for (int j = 0; j < graphicalObjects.Enemies.Count; j++)
                     {
-                        byte enemyX = (byte) graphicalObjects.Enemies[j].Xposition;
-                        byte enemyY = (byte) graphicalObjects.Enemies[j].Yposition;
+                        byte enemyX = (byte)graphicalObjects.Enemies[j].Xposition;
+                        byte enemyY = (byte)graphicalObjects.Enemies[j].Yposition;
 
                         if ((projectileX == enemyX && projectileY == enemyY) ||
                             (projectileFutureX == enemyX && projectileFutureY == enemyY))
@@ -237,6 +242,31 @@
                                 graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[j]);
                                 scoreContainer.Score++;
                             }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ResolveEnemyDotCollisions(GraphicalObjectContainer graphicalObjects)
+        {
+            for (int i = 0; i < graphicalObjects.TronDotsContainers.Count; i++)
+            {
+                for (int j = 0; j < graphicalObjects.TronDotsContainers[i].Dots.Count; j++)
+                {
+                    byte dotX = (byte)graphicalObjects.TronDotsContainers[i].Dots[j].Xposition;
+                    byte dotY = (byte)graphicalObjects.TronDotsContainers[i].Dots[j].Yposition;
+
+                    for (int k = 0; k < graphicalObjects.Enemies.Count; k++)
+                    {
+                        byte enemyX = (byte)graphicalObjects.Enemies[k].Xposition;
+                        byte enemyY = (byte)graphicalObjects.Enemies[k].Yposition;
+
+                        if (dotX == enemyX && dotY == enemyY)
+                        {
+                            soundEffects.PlayExplosion();
+                            graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[k]);
+                            scoreContainer.Score++;
                         }
                     }
                 }

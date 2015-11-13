@@ -6,7 +6,7 @@
     public class TronDot : GraphicalObject
     {
         private Stopwatch lifespantimer = new Stopwatch();
-        private int lifespan = 2000;
+        private int lifespan = 5000;
         private bool lifespanOver = false;
 
         public TronDot(
