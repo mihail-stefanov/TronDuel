@@ -97,17 +97,21 @@
                 projectile.Move();
             }
 
-            foreach (var enemy in graphicalObjects.Enemies)
+            foreach (var movingEnemy in graphicalObjects.MovingEnemies)
             {
-                enemy.Move();
-                enemy.FireWeapon(graphicalObjects, soundEffects);
+                movingEnemy.Move();
+            }
+
+            foreach (var stationaryEnemy in graphicalObjects.StationaryEnemies)
+            {
+                stationaryEnemy.FireWeapon(graphicalObjects, soundEffects);
             }
 
             for (int i = 0; i < graphicalObjects.TronDotsContainers.Count; i++)
             {
                 if (!graphicalObjects.TronDotsContainers[i].IsCapacityReached())
                 {
-                    graphicalObjects.TronDotsContainers[i].AddDot(); // TODO: Make sure no two dots are at the same place;
+                    graphicalObjects.TronDotsContainers[i].AddDot(); 
                 }
                 // Makes sure all dots are removed from the screen before removing the container
                 else if (graphicalObjects.TronDotsContainers[i].Dots.Count == 0) 

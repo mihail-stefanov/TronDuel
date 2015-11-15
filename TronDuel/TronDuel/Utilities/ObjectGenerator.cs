@@ -14,10 +14,14 @@
 
         private double numberOfEnemiesToGenerate = 2;
 
-        private int oldNumberOfEnemies = 1;
-        private int newNumberOfEnemies = 1;
+        private int oldNumberOfMovingEnemies = 1;
+        private int newNumberOfMovingEnemies = 1;
 
-        private byte enemyNumberLimit = 5;
+        private int oldNumberOfStationaryEnemies = 1;
+        private int newNumberOfStationaryEnemies = 1;
+
+        private byte movingEnemyNumberLimit = 5;
+        private byte stationaryEnemyNumberLimit = 5;
 
         private Powerup currentPowerUpToGenerate;
 
@@ -25,13 +29,10 @@
         {
             currentPowerUpToGenerate = Powerup.Ammo;
             powerupGeneratorTimer = new Stopwatch();
-            enemyGeneratorTimer = new Stopwatch();
             powerupGeneratorTimer.Start();
-            enemyGeneratorTimer.Start();
         }
 
         public Stopwatch powerupGeneratorTimer { get; set; }
-        public Stopwatch enemyGeneratorTimer { get; set; }
 
         public void GeneratePowerup(GraphicalObjectContainer graphicalObjects)
         {
@@ -92,11 +93,11 @@
 
         public void GenerateEnemy(GraphicalObjectContainer graphicalObjects)
         {
-            if (graphicalObjects.Enemies.Count <= enemyNumberLimit)
+            if (graphicalObjects.MovingEnemies.Count <= movingEnemyNumberLimit)
             {
-                newNumberOfEnemies = graphicalObjects.Enemies.Count;
+                newNumberOfMovingEnemies = graphicalObjects.MovingEnemies.Count;
 
-                if (newNumberOfEnemies != oldNumberOfEnemies)
+                if (newNumberOfMovingEnemies != oldNumberOfMovingEnemies)
                 {
                     for (int i = 0; i < numberOfEnemiesToGenerate; i++)
                     {
@@ -128,10 +129,54 @@
                             }
                         }
 
-                        graphicalObjects.Enemies.Add(new Enemy(potentialXposition, potentialYposition, ConsoleColor.Gray, graphicalObjects.SpaceShipPlayerOne));
+                        graphicalObjects.MovingEnemies.Add(new MovingEnemy(potentialXposition, potentialYposition, ConsoleColor.Gray, graphicalObjects.SpaceShipPlayerOne));
 
-                        newNumberOfEnemies = graphicalObjects.Enemies.Count;
-                        oldNumberOfEnemies = newNumberOfEnemies;
+                        newNumberOfMovingEnemies = graphicalObjects.MovingEnemies.Count;
+                        oldNumberOfMovingEnemies = newNumberOfMovingEnemies;
+                    }
+                }
+            }
+
+            if (graphicalObjects.StationaryEnemies.Count <= stationaryEnemyNumberLimit)
+            {
+                newNumberOfStationaryEnemies = graphicalObjects.StationaryEnemies.Count;
+
+                if (newNumberOfStationaryEnemies != oldNumberOfStationaryEnemies)
+                {
+                    for (int i = 0; i < numberOfEnemiesToGenerate; i++)
+                    {
+                        // TODO: Fix repeating code
+                        Random randomGenerator = new Random();
+
+                        bool generationOnAnEmptySpaceSuccessful = false;
+
+                        byte potentialXposition = 0;
+                        byte potentialYposition = 0;
+
+                        while (!generationOnAnEmptySpaceSuccessful)
+                        {
+                            generationOnAnEmptySpaceSuccessful = true;
+
+                            potentialXposition = (byte)randomGenerator.Next(1, Console.BufferWidth - 2);
+                            potentialYposition = (byte)randomGenerator.Next(1, Console.BufferHeight - 2);
+
+                            List<GraphicalObject> currentGraphicalObjects = graphicalObjects.GetAll();
+
+                            for (int j = 0; j < currentGraphicalObjects.Count; j++)
+                            {
+                                if (currentGraphicalObjects[j].Xposition == potentialXposition &&
+                                    currentGraphicalObjects[j].Yposition == potentialYposition)
+                                {
+                                    generationOnAnEmptySpaceSuccessful = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        graphicalObjects.StationaryEnemies.Add(new StationaryEnemy(potentialXposition, potentialYposition, ConsoleColor.Magenta));
+
+                        newNumberOfStationaryEnemies = graphicalObjects.StationaryEnemies.Count;
+                        oldNumberOfStationaryEnemies = newNumberOfStationaryEnemies;
                     }
                 }
             }

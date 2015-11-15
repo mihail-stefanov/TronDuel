@@ -53,13 +53,20 @@
                 ResolvePlayerDotCollisions(graphicalObjects);
             }
 
-            if (graphicalObjects.Enemies.Count > 0)
+            if (graphicalObjects.MovingEnemies.Count > 0)
             {
-                ResolveEnemyProjectileCollisions(graphicalObjects);
-                ResolveEnemyEnemyCollisions(graphicalObjects);
+                ResolveMovingEnemyProjectileCollisions(graphicalObjects); // TODO: Fix repetition through polymorphism
+                ResolveMovingEnemyEnemyCollisions(graphicalObjects);
+                ResolvePlayerMovingEnemyCollision(graphicalObjects);
             }
 
-            ResolvePlayerEnemyCollision(graphicalObjects);
+            if (graphicalObjects.StationaryEnemies.Count > 0)
+            {
+                ResolveStationaryEnemyProjectileCollisions(graphicalObjects);
+                ResolvePlayerStationaryEnemyCollision(graphicalObjects);
+            }
+
+
         }
 
         private void ResolvePlayerWallCollision(GraphicalObjectContainer graphicalObjects)
@@ -214,7 +221,7 @@
             }
         }
 
-        private void ResolveEnemyProjectileCollisions(GraphicalObjectContainer graphicalObjects)
+        private void ResolveMovingEnemyProjectileCollisions(GraphicalObjectContainer graphicalObjects)
         {
             for (int i = 0; i < graphicalObjects.Projectiles.Count; i++)
             {
@@ -227,20 +234,55 @@
 
                     // TODO: Refactor and improve accuracy
 
-                    for (int j = 0; j < graphicalObjects.Enemies.Count; j++)
+                    for (int j = 0; j < graphicalObjects.MovingEnemies.Count; j++)
                     {
-                        byte enemyX = (byte)graphicalObjects.Enemies[j].Xposition;
-                        byte enemyY = (byte)graphicalObjects.Enemies[j].Yposition;
+                        byte enemyX = (byte)graphicalObjects.MovingEnemies[j].Xposition;
+                        byte enemyY = (byte)graphicalObjects.MovingEnemies[j].Yposition;
 
                         if ((projectileX == enemyX && projectileY == enemyY) ||
                             (projectileFutureX == enemyX && projectileFutureY == enemyY))
                         {
-                            graphicalObjects.Enemies[j].ReduceHealth(Projectile.Damage);
+                            graphicalObjects.MovingEnemies[j].ReduceHealth(Projectile.Damage);
                             graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
                             soundEffects.PlayHit();
-                            if (graphicalObjects.Enemies[j].HealthPoints == 0)
+                            if (graphicalObjects.MovingEnemies[j].HealthPoints == 0)
                             {
-                                graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[j]);
+                                graphicalObjects.MovingEnemies.Remove(graphicalObjects.MovingEnemies[j]);
+                                scoreContainer.Score++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ResolveStationaryEnemyProjectileCollisions(GraphicalObjectContainer graphicalObjects)
+        {
+            for (int i = 0; i < graphicalObjects.Projectiles.Count; i++)
+            {
+                if (graphicalObjects.Projectiles[i].Type == ProjectileType.Player)
+                {
+                    byte projectileX = (byte)graphicalObjects.Projectiles[i].Xposition;
+                    byte projectileY = (byte)graphicalObjects.Projectiles[i].Yposition;
+                    byte projectileFutureX = graphicalObjects.Projectiles[i].XfuturePosition;
+                    byte projectileFutureY = graphicalObjects.Projectiles[i].YfuturePosition;
+
+                    // TODO: Refactor and improve accuracy
+
+                    for (int j = 0; j < graphicalObjects.StationaryEnemies.Count; j++)
+                    {
+                        byte enemyX = (byte)graphicalObjects.StationaryEnemies[j].Xposition;
+                        byte enemyY = (byte)graphicalObjects.StationaryEnemies[j].Yposition;
+
+                        if ((projectileX == enemyX && projectileY == enemyY) ||
+                            (projectileFutureX == enemyX && projectileFutureY == enemyY))
+                        {
+                            graphicalObjects.StationaryEnemies[j].ReduceHealth(Projectile.Damage);
+                            graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
+                            soundEffects.PlayHit();
+                            if (graphicalObjects.StationaryEnemies[j].HealthPoints == 0)
+                            {
+                                graphicalObjects.StationaryEnemies.Remove(graphicalObjects.StationaryEnemies[j]);
                                 scoreContainer.Score++;
                             }
                         }
@@ -258,15 +300,15 @@
                     byte dotX = (byte)graphicalObjects.TronDotsContainers[i].Dots[j].Xposition;
                     byte dotY = (byte)graphicalObjects.TronDotsContainers[i].Dots[j].Yposition;
 
-                    for (int k = 0; k < graphicalObjects.Enemies.Count; k++)
+                    for (int k = 0; k < graphicalObjects.MovingEnemies.Count; k++)
                     {
-                        byte enemyX = (byte)graphicalObjects.Enemies[k].Xposition;
-                        byte enemyY = (byte)graphicalObjects.Enemies[k].Yposition;
+                        byte enemyX = (byte)graphicalObjects.MovingEnemies[k].Xposition;
+                        byte enemyY = (byte)graphicalObjects.MovingEnemies[k].Yposition;
 
                         if (dotX == enemyX && dotY == enemyY)
                         {
                             soundEffects.PlayExplosion();
-                            graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[k]);
+                            graphicalObjects.MovingEnemies.Remove(graphicalObjects.MovingEnemies[k]);
                             scoreContainer.Score++;
                         }
                     }
@@ -292,22 +334,22 @@
             }
         }
 
-        private void ResolvePlayerEnemyCollision(GraphicalObjectContainer graphicalObjects)
+        private void ResolvePlayerMovingEnemyCollision(GraphicalObjectContainer graphicalObjects)
         {
             int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
             int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
 
-            for (int i = 0; i < graphicalObjects.Enemies.Count; i++)
+            for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
             {
-                int enemyX = (int)graphicalObjects.Enemies[i].Xposition;
-                int enemyY = (int)graphicalObjects.Enemies[i].Yposition;
+                int enemyX = (int)graphicalObjects.MovingEnemies[i].Xposition;
+                int enemyY = (int)graphicalObjects.MovingEnemies[i].Yposition;
 
                 if (spaceShipX == enemyX && spaceShipY == enemyY)
                 {
                     if (graphicalObjects.SpaceShipPlayerOne.ShieldTimeAvailable > 0)
                     {
                         soundEffects.PlayExplosion();
-                        graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[i]);
+                        graphicalObjects.MovingEnemies.Remove(graphicalObjects.MovingEnemies[i]);
                         scoreContainer.Score++;
                     }
                     else
@@ -318,26 +360,52 @@
             }
         }
 
-        private void ResolveEnemyEnemyCollisions(GraphicalObjectContainer graphicalObjects)
+        private void ResolvePlayerStationaryEnemyCollision(GraphicalObjectContainer graphicalObjects)
         {
-            for (int i = 0; i < graphicalObjects.Enemies.Count; i++)
-            {
-                int currentEnemyX = (int)graphicalObjects.Enemies[i].Xposition;
-                int currentEnemyY = (int)graphicalObjects.Enemies[i].Yposition;
+            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
 
-                for (int j = 0; j < graphicalObjects.Enemies.Count; j++)
+            for (int i = 0; i < graphicalObjects.StationaryEnemies.Count; i++)
+            {
+                int enemyX = (int)graphicalObjects.StationaryEnemies[i].Xposition;
+                int enemyY = (int)graphicalObjects.StationaryEnemies[i].Yposition;
+
+                if (spaceShipX == enemyX && spaceShipY == enemyY)
                 {
-                    if (graphicalObjects.Enemies[i] != graphicalObjects.Enemies[j])
+                    if (graphicalObjects.SpaceShipPlayerOne.ShieldTimeAvailable > 0)
                     {
-                        int otherEnemyX = (int)graphicalObjects.Enemies[j].Xposition;
-                        int otherEnemyY = (int)graphicalObjects.Enemies[j].Yposition;
+                        soundEffects.PlayExplosion();
+                        graphicalObjects.StationaryEnemies.Remove(graphicalObjects.StationaryEnemies[i]);
+                        scoreContainer.Score++;
+                    }
+                    else
+                    {
+                        graphicalObjects.SpaceShipPlayerOne.HealthPoints = 0;
+                    }
+                }
+            }
+        }
+
+        private void ResolveMovingEnemyEnemyCollisions(GraphicalObjectContainer graphicalObjects)
+        {
+            for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
+            {
+                int currentEnemyX = (int)graphicalObjects.MovingEnemies[i].Xposition;
+                int currentEnemyY = (int)graphicalObjects.MovingEnemies[i].Yposition;
+
+                for (int j = 0; j < graphicalObjects.MovingEnemies.Count; j++)
+                {
+                    if (graphicalObjects.MovingEnemies[i] != graphicalObjects.MovingEnemies[j])
+                    {
+                        int otherEnemyX = (int)graphicalObjects.MovingEnemies[j].Xposition;
+                        int otherEnemyY = (int)graphicalObjects.MovingEnemies[j].Yposition;
 
                         if (currentEnemyX == otherEnemyX && currentEnemyY == otherEnemyY)
                         {
-                            graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[j]);
-                            graphicalObjects.Enemies[i].Color = ConsoleColor.Red;
+                            graphicalObjects.MovingEnemies.Remove(graphicalObjects.MovingEnemies[j]);
+                            graphicalObjects.MovingEnemies[i].Color = ConsoleColor.Red;
                             soundEffects.PlayExplosion();
-                            graphicalObjects.Enemies[i].HealthPoints += 100;
+                            graphicalObjects.MovingEnemies[i].HealthPoints += 100;
                         }
                     }
                 }

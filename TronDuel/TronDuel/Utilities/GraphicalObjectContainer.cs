@@ -18,7 +18,9 @@
         private IList<AmmoBonus> ammo = new List<AmmoBonus>();
         private IList<TronBonus> tronBonuses = new List<TronBonus>();
         private IList<Projectile> projectiles = new List<Projectile>();
-        private IList<Enemy> enemies = new List<Enemy>();
+        private IList<MovingEnemy> movingEnemies = new List<MovingEnemy>();
+        private IList<StationaryEnemy> stationaryEnemies = new List<StationaryEnemy>();
+
         private IList<TronDotsContainer> tronDotsContainers = new List<TronDotsContainer>();
 
         public GraphicalObjectContainer(int numberOfPlayers)
@@ -38,7 +40,8 @@
             shields.Add(new ShieldBonus(40, 5, ConsoleColor.Yellow, 10));
             ammo.Add(new AmmoBonus(35, 15, ConsoleColor.White, 20));
             tronBonuses.Add(new TronBonus(10, 20, ConsoleColor.Cyan));
-            enemies.Add(new Enemy(65, 25, ConsoleColor.Gray, this.SpaceShipPlayerOne));
+            movingEnemies.Add(new MovingEnemy(65, 25, ConsoleColor.Gray, this.SpaceShipPlayerOne));
+            stationaryEnemies.Add(new StationaryEnemy(55, 25, ConsoleColor.Magenta));
         }
 
         public List<GraphicalObject> GetAll()
@@ -75,9 +78,14 @@
                 allObjects.Add(projectile);
             }
 
-            foreach (var enemy in enemies)
+            foreach (var movingEnemy in movingEnemies)
             {
-                allObjects.Add(enemy);
+                allObjects.Add(movingEnemy);
+            }
+
+            foreach (var stationaryEnemy in stationaryEnemies)
+            {
+                allObjects.Add(stationaryEnemy);
             }
 
             foreach (var container in tronDotsContainers)
@@ -150,11 +158,19 @@
             }
         }
 
-        public IList<Enemy> Enemies
+        public IList<MovingEnemy> MovingEnemies
         {
             get
             {
-                return this.enemies;
+                return this.movingEnemies;
+            }
+        }
+
+        public IList<StationaryEnemy> StationaryEnemies
+        {
+            get
+            {
+                return this.stationaryEnemies;
             }
         }
 
