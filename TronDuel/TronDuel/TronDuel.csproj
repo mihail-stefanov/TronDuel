@@ -48,7 +48,6 @@
     <Compile Include="Enumerations\Powerup.cs" />
     <Compile Include="Enumerations\ProjectileType.cs" />
     <Compile Include="GraphicalObjects\GraphicalObject.cs" />
-    <Compile Include="GraphicalObjects\MovingObjects\Enemy.cs" />
     <Compile Include="GraphicalObjects\MovingObjects\MovingEnemy.cs" />
     <Compile Include="GraphicalObjects\MovingObjects\StationaryEnemy.cs" />
     <Compile Include="GraphicalObjects\Powerups\AmmoBonus.cs" />

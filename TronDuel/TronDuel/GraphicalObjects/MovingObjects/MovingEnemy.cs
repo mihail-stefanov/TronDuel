@@ -10,7 +10,8 @@
     public class MovingEnemy : GraphicalObject, IMovable
     {
         private SpaceShip shipToTrace;
-        private double speed = 0.1;
+        private double speedX = 0.1;
+        private double speedY = 0.04;
 
         public MovingEnemy(byte startingPositionX, byte startingPositionY, ConsoleColor color, SpaceShip shipToTrace)
             : base(startingPositionX, startingPositionY, color)
@@ -22,15 +23,27 @@
 
         public sbyte HealthPoints { get; set; }
 
-        public double Speed
+        public double SpeedX
         {
             get
             {
-                return this.speed;
+                return this.speedX;
             }
             set
             {
-                this.speed = value;
+                this.speedX = value;
+            }
+        }
+
+        public double SpeedY
+        {
+            get
+            {
+                return this.speedY;
+            }
+            set
+            {
+                this.speedY = value;
             }
         }
 
@@ -56,24 +69,24 @@
         {
             EraseSpriteFromLastPosition(); // TODO: Refactor
 
-            if (shipToTrace.Xposition < this.Xposition)
+            if ((byte)shipToTrace.Xposition < (byte)this.Xposition)
             {
-                this.Xposition -= speed;
+                this.Xposition -= speedX;
             }
 
-            if (shipToTrace.Xposition > this.Xposition)
+            if ((byte)shipToTrace.Xposition > (byte)this.Xposition)
             {
-                this.Xposition += speed;
+                this.Xposition += speedX;
             }
 
-            if (shipToTrace.Yposition < this.Yposition)
+            if ((byte)shipToTrace.Yposition < (byte)this.Yposition)
             {
-                this.Yposition -= speed;
+                this.Yposition -= speedY;
             }
 
-            if (shipToTrace.Yposition > this.Yposition)
+            if ((byte)shipToTrace.Yposition > (byte)this.Yposition)
             {
-                this.Yposition += speed;
+                this.Yposition += speedY;
             }
         }
     }

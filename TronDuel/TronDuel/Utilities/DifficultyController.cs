@@ -35,24 +35,26 @@
             {
                 objectGenerator.MovingEnemyNumberLimit = 10;
                 objectGenerator.StationaryEnemyNumberLimit = 5;
+                graphicalObjects.SpaceShipPlayerOne.SpeedX = 0.57;
+                graphicalObjects.SpaceShipPlayerOne.SpeedY = 0.37;
+
+                for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
+                {
+                    graphicalObjects.MovingEnemies[i].SpeedX = 0.11;
+                    graphicalObjects.MovingEnemies[i].SpeedY = 0.05;
+                }
+            }
+            else if (scoreContainer.Score > hardScore)
+            {
+                objectGenerator.MovingEnemyNumberLimit = 20;
+                objectGenerator.StationaryEnemyNumberLimit = 7;
                 graphicalObjects.SpaceShipPlayerOne.SpeedX = 0.6;
                 graphicalObjects.SpaceShipPlayerOne.SpeedY = 0.4;
 
                 for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
                 {
-                    graphicalObjects.MovingEnemies[i].Speed = 0.11;
-                }
-            }
-            else if (scoreContainer.Score > hardScore)
-            {
-                objectGenerator.MovingEnemyNumberLimit = 12;
-                objectGenerator.StationaryEnemyNumberLimit = 7;
-                graphicalObjects.SpaceShipPlayerOne.SpeedX = 0.7;
-                graphicalObjects.SpaceShipPlayerOne.SpeedY = 0.5;
-
-                for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
-                {
-                    graphicalObjects.MovingEnemies[i].Speed = 0.15;
+                    graphicalObjects.MovingEnemies[i].SpeedX = 0.12;
+                    graphicalObjects.MovingEnemies[i].SpeedY = 0.06;
                 }
             }
         }

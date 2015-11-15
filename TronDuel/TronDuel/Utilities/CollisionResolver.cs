@@ -9,6 +9,8 @@
     {
         private SoundEffectContainer soundEffects;
         private ScoreContainer scoreContainer;
+        private int stationaryEnemyDestructionScore = 10;
+        private int movingEnemyDestructionScore = 1;
 
         public CollisionResolver(SoundEffectContainer soundEffects, ScoreContainer scoreContainer)
         {
@@ -243,12 +245,12 @@
                             (projectileFutureX == enemyX && projectileFutureY == enemyY))
                         {
                             graphicalObjects.MovingEnemies[j].ReduceHealth(Projectile.Damage);
-                            graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
+                            graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]); // TODO: Fix argument out of range exception here
                             soundEffects.PlayHit();
                             if (graphicalObjects.MovingEnemies[j].HealthPoints == 0)
                             {
                                 graphicalObjects.MovingEnemies.Remove(graphicalObjects.MovingEnemies[j]);
-                                scoreContainer.Score++;
+                                scoreContainer.Score += movingEnemyDestructionScore;
                             }
                         }
                     }
@@ -283,7 +285,7 @@
                             if (graphicalObjects.StationaryEnemies[j].HealthPoints == 0)
                             {
                                 graphicalObjects.StationaryEnemies.Remove(graphicalObjects.StationaryEnemies[j]);
-                                scoreContainer.Score++;
+                                scoreContainer.Score += stationaryEnemyDestructionScore;
                             }
                         }
                     }
@@ -356,7 +358,7 @@
                     {
                         soundEffects.PlayExplosion();
                         graphicalObjects.MovingEnemies.Remove(graphicalObjects.MovingEnemies[i]);
-                        scoreContainer.Score++;
+                        scoreContainer.Score += movingEnemyDestructionScore;
                         graphicalObjects.SpaceShipPlayerOne.ChangeHealth(Projectile.Damage * 2);
                     }
                 }
