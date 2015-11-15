@@ -50,6 +50,7 @@
             if (graphicalObjects.TronDotsContainers.Count > 0)
             {
                 ResolveEnemyDotCollisions(graphicalObjects);
+                ResolvePlayerDotCollisions(graphicalObjects);
             }
 
             if (graphicalObjects.Enemies.Count > 0)
@@ -268,6 +269,24 @@
                             graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[k]);
                             scoreContainer.Score++;
                         }
+                    }
+                }
+            }
+        }
+
+        private void ResolvePlayerDotCollisions(GraphicalObjectContainer graphicalObjects)
+        {
+            for (int i = 0; i < graphicalObjects.TronDotsContainers.Count; i++)
+            {
+                for (int j = 0; j < graphicalObjects.TronDotsContainers[i].Dots.Count; j++)
+                {
+                    byte dotX = (byte)graphicalObjects.TronDotsContainers[i].Dots[j].Xposition;
+                    byte dotY = (byte)graphicalObjects.TronDotsContainers[i].Dots[j].Yposition;
+
+                    if (dotX == (byte)graphicalObjects.SpaceShipPlayerOne.Xposition &&
+                        dotY == (byte)graphicalObjects.SpaceShipPlayerOne.Yposition)
+                    {
+                        graphicalObjects.SpaceShipPlayerOne.HealthPoints = 0;
                     }
                 }
             }
