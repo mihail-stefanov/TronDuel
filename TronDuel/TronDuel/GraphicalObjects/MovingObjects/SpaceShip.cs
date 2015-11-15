@@ -36,6 +36,9 @@
             PrintStatus();  // TODO: To refactor
         }
 
+        public double XpreviousPosition { get; set; }
+        public double YpreviousPosition { get; set; }
+
         public Direction Direction
         {
             get
@@ -76,6 +79,9 @@
         public void Move()
         {
             EraseSpriteFromLastPosition();  // TODO: To refactor
+
+            this.XpreviousPosition = Xposition;
+            this.YpreviousPosition = Yposition;
 
             switch (Direction)
             {

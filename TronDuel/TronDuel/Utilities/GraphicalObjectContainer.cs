@@ -37,6 +37,7 @@
             hearts.Add(new HealthBonus(50, 25, ConsoleColor.Red, 20));
             shields.Add(new ShieldBonus(40, 5, ConsoleColor.Yellow, 10));
             ammo.Add(new AmmoBonus(35, 15, ConsoleColor.White, 20));
+            tronBonuses.Add(new TronBonus(10, 20, ConsoleColor.Cyan));
             enemies.Add(new Enemy(65, 25, ConsoleColor.Gray, this.SpaceShipPlayerOne));
         }
 

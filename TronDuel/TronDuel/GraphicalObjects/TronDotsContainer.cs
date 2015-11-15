@@ -27,8 +27,29 @@
 
         public void AddDot()
         {
-            this.dots.Add(new TronDot((byte)baseSpaceShip.Xposition, (byte)baseSpaceShip.Yposition, ConsoleColor.Cyan));
-            dotsAlreadyAdded++;
+            byte xPotentialPosition = (byte) baseSpaceShip.XpreviousPosition;
+            byte yPotentialPosition = (byte) baseSpaceShip.YpreviousPosition;
+
+            // Making sure that the new dot does not overlap the spaceship
+            if (!(xPotentialPosition == (byte)baseSpaceShip.Xposition &&
+                yPotentialPosition == (byte)baseSpaceShip.Yposition))
+            {
+                if (Dots.Count > 0)
+                {
+                    // Making sure the new dot does not overlap the old dot
+                    if (!(Dots[Dots.Count - 1].Xposition == xPotentialPosition &&
+                        Dots[Dots.Count - 1].Yposition == yPotentialPosition))
+                    {
+                        this.dots.Add(new TronDot(xPotentialPosition, yPotentialPosition, ConsoleColor.Cyan));
+                        dotsAlreadyAdded++;
+                    }
+                }
+                else
+                {
+                    this.dots.Add(new TronDot(xPotentialPosition, yPotentialPosition, ConsoleColor.Cyan));
+                    dotsAlreadyAdded++;
+                }
+            }
         }
 
         public void RemoveExpiredDot()
