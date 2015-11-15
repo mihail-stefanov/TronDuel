@@ -14,8 +14,8 @@
         private const char ShipCharUp = '▲';
         private const char ShipCharDown = '▼';
 
-        private const double speedX = 0.5;
-        private const double speedY = 0.3;
+        private double speedX = 0.5;
+        private double speedY = 0.3;
 
         private Stopwatch shotDelayStopwatch = new Stopwatch();
         private int shotDelayTime = 200;
@@ -29,7 +29,7 @@
         {
             this.Direction = Direction.Right;
             this.Sprite = ShipCharRight;
-            this.HealthPoints = 50;
+            this.HealthPoints = 100;
             this.ShotsAvailable = 10;
             this.ShieldTimeAvailable = 0;
             this.shotDelayStopwatch.Start();
@@ -38,6 +38,29 @@
 
         public double XpreviousPosition { get; set; }
         public double YpreviousPosition { get; set; }
+
+        public double SpeedX
+        {
+            get
+            {
+                return this.speedX;
+            }
+            set
+            {
+                this.speedX = value;
+            }
+        }
+        public double SpeedY
+        {
+            get
+            {
+                return this.speedY;
+            }
+            set
+            {
+                this.speedY = value;
+            }
+        }
 
         public Direction Direction
         {

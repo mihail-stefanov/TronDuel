@@ -10,7 +10,7 @@
 
     public class ObjectGenerator
     {
-        private const int powerupGenerationInterval = 10000;
+        private const int powerupGenerationInterval = 5000;
 
         private double numberOfEnemiesToGenerate = 2;
 
@@ -21,7 +21,7 @@
         private int newNumberOfStationaryEnemies = 1;
 
         private byte movingEnemyNumberLimit = 5;
-        private byte stationaryEnemyNumberLimit = 5;
+        private byte stationaryEnemyNumberLimit = 2;
 
         private Powerup currentPowerUpToGenerate;
 
@@ -33,6 +33,30 @@
         }
 
         public Stopwatch powerupGeneratorTimer { get; set; }
+
+        public byte MovingEnemyNumberLimit
+        {
+            get
+            {
+                return this.movingEnemyNumberLimit;
+            }
+            set
+            {
+                this.movingEnemyNumberLimit = value;
+            }
+        }
+
+        public byte StationaryEnemyNumberLimit
+        {
+            get
+            {
+                return this.stationaryEnemyNumberLimit;
+            }
+            set
+            {
+                this.stationaryEnemyNumberLimit = value;
+            }
+        }
 
         public void GeneratePowerup(GraphicalObjectContainer graphicalObjects)
         {
@@ -93,7 +117,7 @@
 
         public void GenerateEnemy(GraphicalObjectContainer graphicalObjects)
         {
-            if (graphicalObjects.MovingEnemies.Count <= movingEnemyNumberLimit)
+            if (graphicalObjects.MovingEnemies.Count <= movingEnemyNumberLimit - numberOfEnemiesToGenerate)
             {
                 newNumberOfMovingEnemies = graphicalObjects.MovingEnemies.Count;
 
@@ -137,7 +161,7 @@
                 }
             }
 
-            if (graphicalObjects.StationaryEnemies.Count <= stationaryEnemyNumberLimit)
+            if (graphicalObjects.StationaryEnemies.Count <= stationaryEnemyNumberLimit - numberOfEnemiesToGenerate)
             {
                 newNumberOfStationaryEnemies = graphicalObjects.StationaryEnemies.Count;
 

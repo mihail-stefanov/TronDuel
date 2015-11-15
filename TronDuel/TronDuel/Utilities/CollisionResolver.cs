@@ -354,7 +354,10 @@
                     }
                     else
                     {
-                        graphicalObjects.SpaceShipPlayerOne.HealthPoints = 0;
+                        soundEffects.PlayExplosion();
+                        graphicalObjects.MovingEnemies.Remove(graphicalObjects.MovingEnemies[i]);
+                        scoreContainer.Score++;
+                        graphicalObjects.SpaceShipPlayerOne.ChangeHealth(Projectile.Damage * 2);
                     }
                 }
             }

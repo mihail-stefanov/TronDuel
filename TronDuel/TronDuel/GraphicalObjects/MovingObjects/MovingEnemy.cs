@@ -22,6 +22,18 @@
 
         public sbyte HealthPoints { get; set; }
 
+        public double Speed
+        {
+            get
+            {
+                return this.speed;
+            }
+            set
+            {
+                this.speed = value;
+            }
+        }
+
         public void ReduceHealth(sbyte healthPoints)
         {
             if (this.HealthPoints + healthPoints <= 0)

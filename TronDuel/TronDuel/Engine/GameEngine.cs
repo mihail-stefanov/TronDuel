@@ -27,6 +27,7 @@
             soundEffects.PlayStart();
 
             CollisionResolver collisionResolver = new CollisionResolver(soundEffects, scoreContainer);
+            DifficultyController difficultyController = new DifficultyController(graphicalObjects, objectGenerator, scoreContainer);
 
             while (true)
             {
@@ -41,6 +42,8 @@
                 DrawObjects(graphicalObjects);
 
                 scoreContainer.DrawScore();
+
+                difficultyController.UpdateDifficulty();
 
                 // Go to game over screen
                 if (graphicalObjects.SpaceShipPlayerOne.HealthPoints == 0)
