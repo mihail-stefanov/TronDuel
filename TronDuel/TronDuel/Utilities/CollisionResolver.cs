@@ -106,6 +106,12 @@
 
                 if (spaceShipX == tronBonusX && spaceShipY == tronBonusY)
                 {
+                    // Making all other containers reach their capacity so that dots from the newest containver
+                    // do not overlap the dots from the previous container
+                    for (int j = 0; j < graphicalObjects.TronDotsContainers.Count; j++)
+                    {
+                        graphicalObjects.TronDotsContainers[j].ReachCapacity();
+                    }
                     graphicalObjects.TronDotsContainers.Add(new TronDotsContainer(graphicalObjects.SpaceShipPlayerOne));
                     soundEffects.PlayTronBonus();
                     graphicalObjects.TronBonuses.Remove(graphicalObjects.TronBonuses[i]);

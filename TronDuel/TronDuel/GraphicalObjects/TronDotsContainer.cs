@@ -73,5 +73,10 @@
 
             return capacityReached;
         }
+
+        public void ReachCapacity()
+        {
+            this.capacityReached = true;
+        }
     }
 }

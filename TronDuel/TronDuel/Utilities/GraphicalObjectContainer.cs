@@ -20,7 +20,6 @@
         private IList<Projectile> projectiles = new List<Projectile>();
         private IList<MovingEnemy> movingEnemies = new List<MovingEnemy>();
         private IList<StationaryEnemy> stationaryEnemies = new List<StationaryEnemy>();
-
         private IList<TronDotsContainer> tronDotsContainers = new List<TronDotsContainer>();
 
         public GraphicalObjectContainer(int numberOfPlayers)
