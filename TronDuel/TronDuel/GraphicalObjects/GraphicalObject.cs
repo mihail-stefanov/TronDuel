@@ -57,7 +57,7 @@
         public virtual void Draw()
         {
             Console.ForegroundColor = this.Color;
-            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
+            Console.SetCursorPosition((byte)this.Xposition, (byte)this.Yposition);
             Console.Write(this.Sprite);
         }
     }

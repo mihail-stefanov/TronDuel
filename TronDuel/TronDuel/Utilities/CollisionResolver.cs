@@ -73,8 +73,8 @@
 
         private void ResolvePlayerWallCollision(GraphicalObjectContainer graphicalObjects)
         {
-            double spaceShipX = graphicalObjects.SpaceShipPlayerOne.Xposition;
-            double spaceShipY = graphicalObjects.SpaceShipPlayerOne.Yposition;
+            byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
 
             if (spaceShipX < 1)
             {
@@ -96,13 +96,13 @@
 
         private void ResolvePlayerTronBonusCollisions(GraphicalObjectContainer graphicalObjects)
         {
-            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
-            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
+            byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
 
             for (int i = 0; i < graphicalObjects.TronBonuses.Count; i++)
             {
-                int tronBonusX = (int)graphicalObjects.TronBonuses[i].Xposition;
-                int tronBonusY = (int)graphicalObjects.TronBonuses[i].Yposition;
+                byte tronBonusX = (byte)graphicalObjects.TronBonuses[i].Xposition;
+                byte tronBonusY = (byte)graphicalObjects.TronBonuses[i].Yposition;
 
                 if (spaceShipX == tronBonusX && spaceShipY == tronBonusY)
                 {
@@ -121,13 +121,13 @@
 
         private void ResolvePlayerAmmoCollisions(GraphicalObjectContainer graphicalObjects)
         {
-            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
-            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
+            byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
 
             for (int i = 0; i < graphicalObjects.Ammo.Count; i++)
             {
-                int ammoX = (int)graphicalObjects.Ammo[i].Xposition;
-                int ammoY = (int)graphicalObjects.Ammo[i].Yposition;
+                byte ammoX = (byte)graphicalObjects.Ammo[i].Xposition;
+                byte ammoY = (byte)graphicalObjects.Ammo[i].Yposition;
 
                 if (spaceShipX == ammoX && spaceShipY == ammoY)
                 {
@@ -141,13 +141,13 @@
 
         private void ResolvePlayerShieldCollisions(GraphicalObjectContainer graphicalObjects)
         {
-            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
-            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
+            byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
 
             for (int i = 0; i < graphicalObjects.Shields.Count; i++)
             {
-                int shieldX = (int)graphicalObjects.Shields[i].Xposition;
-                int shieldY = (int)graphicalObjects.Shields[i].Yposition;
+                byte shieldX = (byte)graphicalObjects.Shields[i].Xposition;
+                int shieldY = (byte)graphicalObjects.Shields[i].Yposition;
 
                 if (spaceShipX == shieldX && spaceShipY == shieldY)
                 {
@@ -161,13 +161,13 @@
 
         private void ResolvePlayerHeartCollisions(GraphicalObjectContainer graphicalObjects)
         {
-            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
-            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
+            byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
 
             for (int i = 0; i < graphicalObjects.Hearts.Count; i++)
             {
-                int heartX = (int)graphicalObjects.Hearts[i].Xposition;
-                int heartY = (int)graphicalObjects.Hearts[i].Yposition;
+                byte heartX = (byte)graphicalObjects.Hearts[i].Xposition;
+                byte heartY = (byte)graphicalObjects.Hearts[i].Yposition;
 
                 if (spaceShipX == heartX && spaceShipY == heartY)
                 {
@@ -344,13 +344,13 @@
 
         private void ResolvePlayerMovingEnemyCollision(GraphicalObjectContainer graphicalObjects)
         {
-            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
-            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
+            byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
 
             for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
             {
-                int enemyX = (int)graphicalObjects.MovingEnemies[i].Xposition;
-                int enemyY = (int)graphicalObjects.MovingEnemies[i].Yposition;
+                byte enemyX = (byte)graphicalObjects.MovingEnemies[i].Xposition;
+                byte enemyY = (byte)graphicalObjects.MovingEnemies[i].Yposition;
 
                 if (spaceShipX == enemyX && spaceShipY == enemyY)
                 {
@@ -373,13 +373,13 @@
 
         private void ResolvePlayerStationaryEnemyCollision(GraphicalObjectContainer graphicalObjects)
         {
-            int spaceShipX = (int)graphicalObjects.SpaceShipPlayerOne.Xposition;
-            int spaceShipY = (int)graphicalObjects.SpaceShipPlayerOne.Yposition;
+            byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
+            byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
 
             for (int i = 0; i < graphicalObjects.StationaryEnemies.Count; i++)
             {
-                int enemyX = (int)graphicalObjects.StationaryEnemies[i].Xposition;
-                int enemyY = (int)graphicalObjects.StationaryEnemies[i].Yposition;
+                byte enemyX = (byte)graphicalObjects.StationaryEnemies[i].Xposition;
+                byte enemyY = (byte)graphicalObjects.StationaryEnemies[i].Yposition;
 
                 if (spaceShipX == enemyX && spaceShipY == enemyY)
                 {
@@ -401,15 +401,15 @@
         {
             for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
             {
-                int currentEnemyX = (int)graphicalObjects.MovingEnemies[i].Xposition;
-                int currentEnemyY = (int)graphicalObjects.MovingEnemies[i].Yposition;
+                byte currentEnemyX = (byte)graphicalObjects.MovingEnemies[i].Xposition;
+                byte currentEnemyY = (byte)graphicalObjects.MovingEnemies[i].Yposition;
 
                 for (int j = 0; j < graphicalObjects.MovingEnemies.Count; j++)
                 {
                     if (graphicalObjects.MovingEnemies[i] != graphicalObjects.MovingEnemies[j])
                     {
-                        int otherEnemyX = (int)graphicalObjects.MovingEnemies[j].Xposition;
-                        int otherEnemyY = (int)graphicalObjects.MovingEnemies[j].Yposition;
+                        byte otherEnemyX = (byte)graphicalObjects.MovingEnemies[j].Xposition;
+                        byte otherEnemyY = (byte)graphicalObjects.MovingEnemies[j].Yposition;
 
                         if (currentEnemyX == otherEnemyX && currentEnemyY == otherEnemyY)
                         {

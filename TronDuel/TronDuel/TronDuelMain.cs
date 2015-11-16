@@ -1,7 +1,8 @@
-﻿namespace TronDuel
+﻿// https://github.com/mihail-stefanov/TronDuel
+namespace TronDuel
 {
     using System;
-    using TronDuel.Engine;
+    using TronDuel.Engines;
     using TronDuel.Interfaces;
     using TronDuel.Utilities;
 

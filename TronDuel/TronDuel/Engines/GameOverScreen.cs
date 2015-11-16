@@ -1,11 +1,11 @@
-﻿namespace TronDuel.Engine
+﻿namespace TronDuel.Engines
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using TronDuel.Interfaces;
-using TronDuel.Utilities;
+    using TronDuel.Utilities;
 
     public class GameOverScreen : IEngine
     {
@@ -20,11 +20,27 @@ using TronDuel.Utilities;
 
         public GameOverScreen(ScoreContainer scoreContainer)
         {
-            gameOverText = this.ObtainGameOverText();
+            this.gameOverText = this.ObtainTitle();
             this.scoreContainer = scoreContainer;
         }
 
-        private List<string> ObtainGameOverText()
+        public void Run()
+        {
+            this.messageBlinkTimer.Start();
+
+            Console.Clear();
+            Console.SetCursorPosition(0, 10);
+
+            this.DisplayScreenTitle();
+
+            this.DisplayScore();
+
+            this.DisplayMessageUntilEnterIsPressed();
+
+            Console.Clear();
+        }
+
+        private List<string> ObtainTitle()
         {
             StreamReader reader = new StreamReader("gameOverText.txt");
 
@@ -48,27 +64,11 @@ using TronDuel.Utilities;
             return lines;
         }
 
-        public void Run()
-        {
-            messageBlinkTimer.Start();
-
-            Console.Clear();
-            Console.SetCursorPosition(0, 10);
-
-            DisplayGameOverText();
-
-            DisplayScore();
-
-            DisplayRetartGameMessageUntilEnterIsPressed();
-
-            Console.Clear();
-        }
-
-        private void DisplayGameOverText()
+        private void DisplayScreenTitle()
         {
             Console.ForegroundColor = ConsoleColor.Green;
 
-            foreach (var line in gameOverText)
+            foreach (var line in this.gameOverText)
             {
                 Console.SetCursorPosition(16, Console.CursorTop + 1);
                 Console.Write(line);
@@ -78,38 +78,38 @@ using TronDuel.Utilities;
         private void DisplayScore()
         {
             Console.SetCursorPosition(29, 17);
-            Console.Write("YOUR SC0RE: {0}", scoreContainer.Score); // TODO: Fix repetition
+            Console.Write("YOUR SC0RE: {0}", this.scoreContainer.Score);
         }
 
-        private void DisplayRetartGameMessageUntilEnterIsPressed()
+        private void DisplayMessageUntilEnterIsPressed()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
 
             while (true)
             {
-                if (messageBlinkTimer.ElapsedMilliseconds > 1000)
+                if (this.messageBlinkTimer.ElapsedMilliseconds > 1000)
                 {
-                    if (!messageDisplayed)
+                    if (!this.messageDisplayed)
                     {
                         Console.SetCursorPosition(20, 20);
-                        Console.Write(message);
+                        Console.Write(this.message);
                     }
                     else
                     {
                         Console.SetCursorPosition(20, 20);
-                        Console.Write(new string(' ', message.Length));
+                        Console.Write(new string(' ', this.message.Length));
                     }
 
-                    messageDisplayed = !messageDisplayed;
+                    this.messageDisplayed = !this.messageDisplayed;
 
-                    messageBlinkTimer.Restart();
+                    this.messageBlinkTimer.Restart();
                 }
 
-                ReadAndProcessCommands();
+                this.ReadAndProcessCommands();
 
-                if (enterPressed)
+                if (this.enterPressed)
                 {
-                    scoreContainer.Score = 0;
+                    this.scoreContainer.Score = 0;
                     break;
                 }
             }
@@ -124,7 +124,7 @@ using TronDuel.Utilities;
                 // Restart game
                 if (pressedKey.Key == ConsoleKey.Enter)
                 {
-                    enterPressed = true; // TODO: Refactor repeating code
+                    this.enterPressed = true;
                 }
             }
         }

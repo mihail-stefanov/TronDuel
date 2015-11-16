@@ -1,10 +1,10 @@
-﻿namespace TronDuel.Engine
+﻿namespace TronDuel.Engines
 {
     using System;
     using System.Collections.Generic;
     using System.Threading;
-    using TronDuel.GraphicalObjects;
     using TronDuel.Enumerations;
+    using TronDuel.GraphicalObjects;
     using TronDuel.Interfaces;
     using TronDuel.Utilities;
 

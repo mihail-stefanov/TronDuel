@@ -41,9 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\GameEngine.cs" />
-    <Compile Include="Engine\GameOverScreen.cs" />
-    <Compile Include="Engine\StartScreen.cs" />
+    <Compile Include="Engines\GameEngine.cs" />
+    <Compile Include="Engines\GameOverScreen.cs" />
+    <Compile Include="Engines\StartScreen.cs" />
     <Compile Include="Enumerations\Direction.cs" />
     <Compile Include="Enumerations\Powerup.cs" />
     <Compile Include="Enumerations\ProjectileType.cs" />
