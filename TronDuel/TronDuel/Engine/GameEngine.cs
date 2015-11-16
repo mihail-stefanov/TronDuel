@@ -63,22 +63,22 @@
                 // Direction control
                 if (pressedKey.Key == ConsoleKey.RightArrow)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.Direction = Direction.Right;
+                    graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Right, graphicalObjects);
                 }
 
                 if (pressedKey.Key == ConsoleKey.LeftArrow)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.Direction = Direction.Left;
+                    graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Left, graphicalObjects);
                 }
 
                 if (pressedKey.Key == ConsoleKey.UpArrow)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.Direction = Direction.Up;
+                    graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Up, graphicalObjects);
                 }
 
                 if (pressedKey.Key == ConsoleKey.DownArrow)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.Direction = Direction.Down;
+                    graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Down, graphicalObjects);
                 }
 
                 // Firing weapons

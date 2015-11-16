@@ -27,7 +27,7 @@
         public SpaceShip(byte startingPositionX, byte startingPositionY, ConsoleColor color, Direction direction)
             : base(startingPositionX, startingPositionY, color)
         {
-            this.Direction = Direction.Right;
+            this.direction = Direction.Right;
             this.Sprite = ShipCharRight;
             this.HealthPoints = 100;
             this.ShotsAvailable = 10;
@@ -68,28 +68,51 @@
             {
                 return this.direction;
             }
-            set
-            {
-                switch (value)
-                {
-                    // Changing the graphical direction of the ship upon changing the direction property
-                    case Direction.Right:
-                        this.Sprite = ShipCharRight;
-                        break;
-                    case Direction.Left:
-                        this.Sprite = ShipCharLeft;
-                        break;
-                    case Direction.Up:
-                        this.Sprite = ShipCharUp;
-                        break;
-                    case Direction.Down:
-                        this.Sprite = ShipCharDown;
-                        break;
-                    default:
-                        break;
-                }
+        }
 
-                this.direction = value;
+        public void ChangeDirection(Direction direction, GraphicalObjectContainer graphicalObjects)
+        {
+            bool changeSuccessful = false;
+
+            switch (direction)
+            {
+                // Changing the graphical direction of the ship upon changing the direction property
+                // Making sure the ship cannot move in the opposite direction when the tron bonus is on
+                case Direction.Right:
+                    if (this.direction != Direction.Left || graphicalObjects.TronDotsContainers.Count == 0)
+                    {
+                        this.Sprite = ShipCharRight;
+                        changeSuccessful = true;
+                    }
+                    break;
+                case Direction.Left:
+                    if (this.direction != Direction.Right || graphicalObjects.TronDotsContainers.Count == 0)
+                    {
+                        this.Sprite = ShipCharLeft;
+                        changeSuccessful = true;
+                    }
+                    break;
+                case Direction.Up:
+                    if (this.direction != Direction.Down || graphicalObjects.TronDotsContainers.Count == 0)
+                    {
+                        this.Sprite = ShipCharUp;
+                        changeSuccessful = true;
+                    }
+                    break;
+                case Direction.Down:
+                    if (this.direction != Direction.Up || graphicalObjects.TronDotsContainers.Count == 0)
+                    {
+                        this.Sprite = ShipCharDown;
+                        changeSuccessful = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            if (changeSuccessful)
+            {
+                this.direction = direction;
             }
         }
 
@@ -217,7 +240,7 @@
             Console.Write("Player 1 - Health: {0} Shots: {1} ", this.HealthPoints, this.ShotsAvailable);
             if (this.ShieldTimeAvailable > 0)
             {
-                Console.Write("Shield time: {0}  ", (byte) this.ShieldTimeAvailable);
+                Console.Write("Shield time: {0}  ", (byte)this.ShieldTimeAvailable);
             }
             else
             {
