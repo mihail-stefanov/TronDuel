@@ -217,7 +217,7 @@
 
                             if (graphicalObjects.Projectiles.Count - 1 > i)
                             {
-                                graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]); // TODO: Fix argument out of range exception here
+                                graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
                             }
                         }
                     }
