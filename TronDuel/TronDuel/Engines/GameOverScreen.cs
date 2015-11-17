@@ -6,6 +6,7 @@
     using System.IO;
     using TronDuel.Interfaces;
     using TronDuel.Utilities;
+    using TronDuel.Utilities.Containers;
 
     public class GameOverScreen : IEngine
     {
@@ -16,7 +17,7 @@
 
         private bool enterPressed = false;
         private List<string> gameOverText;
-        private Utilities.ScoreContainer scoreContainer;
+        private ScoreContainer scoreContainer;
 
         public GameOverScreen(ScoreContainer scoreContainer)
         {

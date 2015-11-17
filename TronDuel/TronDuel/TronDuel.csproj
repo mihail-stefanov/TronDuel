@@ -41,24 +41,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engines\GameEngine.cs" />
+    <Compile Include="Engines\GameEngine.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Engines\GameOverScreen.cs" />
     <Compile Include="Engines\StartScreen.cs" />
     <Compile Include="Enumerations\Direction.cs" />
     <Compile Include="Enumerations\Powerup.cs" />
     <Compile Include="Enumerations\ProjectileType.cs" />
     <Compile Include="GraphicalObjects\GraphicalObject.cs" />
-    <Compile Include="GraphicalObjects\MovingObjects\MovingEnemy.cs" />
-    <Compile Include="GraphicalObjects\MovingObjects\StationaryEnemy.cs" />
-    <Compile Include="GraphicalObjects\Powerups\AmmoBonus.cs" />
-    <Compile Include="GraphicalObjects\Powerups\TronBonus.cs" />
+    <Compile Include="GraphicalObjects\Enemies\MovingEnemy.cs" />
+    <Compile Include="GraphicalObjects\Enemies\StationaryEnemy.cs" />
+    <Compile Include="GraphicalObjects\Bonuses\AmmoBonus.cs" />
+    <Compile Include="GraphicalObjects\Bonuses\TronBonus.cs" />
     <Compile Include="GraphicalObjects\TronDot.cs" />
-    <Compile Include="GraphicalObjects\TronDotsContainer.cs" />
+    <Compile Include="Utilities\Containers\TronDotsContainer.cs" />
     <Compile Include="Utilities\DifficultyController.cs" />
-    <Compile Include="Utilities\GraphicalObjectContainer.cs" />
+    <Compile Include="Utilities\Containers\GraphicalObjectContainer.cs" />
     <Compile Include="GraphicalObjects\MovingObjects\Projectile.cs" />
-    <Compile Include="GraphicalObjects\Powerups\HealthBonus.cs" />
-    <Compile Include="GraphicalObjects\Powerups\ShieldBonus.cs" />
+    <Compile Include="GraphicalObjects\Bonuses\HealthBonus.cs" />
+    <Compile Include="GraphicalObjects\Bonuses\ShieldBonus.cs" />
     <Compile Include="GraphicalObjects\MovingObjects\SpaceShip.cs" />
     <Compile Include="Interfaces\IEngine.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
@@ -66,8 +68,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\CollisionResolver.cs" />
     <Compile Include="Utilities\ObjectGenerator.cs" />
-    <Compile Include="Utilities\ScoreContainer.cs" />
-    <Compile Include="Utilities\SoundEffectContainer.cs" />
+    <Compile Include="Utilities\Containers\ScoreContainer.cs" />
+    <Compile Include="Utilities\Containers\SoundEffectContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

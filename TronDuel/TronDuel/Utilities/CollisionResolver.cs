@@ -1,9 +1,10 @@
 ﻿namespace TronDuel.Utilities
 {
     using System;
-    using Enumerations;
-    using TronDuel.GraphicalObjects;
+    using TronDuel.Enumerations;
+    using TronDuel.GraphicalObjects.Containers;
     using TronDuel.MovingObjects.GraphicalObjects;
+    using TronDuel.Utilities.Containers;
 
     public class CollisionResolver
     {
@@ -20,55 +21,53 @@
 
         public void Resolve(GraphicalObjectContainer graphicalObjects)
         {
-            ResolvePlayerWallCollision(graphicalObjects);
+            this.ResolvePlayerWallCollision(graphicalObjects);
 
             if (graphicalObjects.Hearts.Count > 0)
             {
-                ResolvePlayerHeartCollisions(graphicalObjects);
+                this.ResolvePlayerHeartCollisions(graphicalObjects);
             }
 
             if (graphicalObjects.Shields.Count > 0)
             {
-                ResolvePlayerShieldCollisions(graphicalObjects);
+                this.ResolvePlayerShieldCollisions(graphicalObjects);
             }
 
             if (graphicalObjects.Ammo.Count > 0)
             {
-                ResolvePlayerAmmoCollisions(graphicalObjects);
+                this.ResolvePlayerAmmoCollisions(graphicalObjects);
             }
 
             if (graphicalObjects.TronBonuses.Count > 0)
             {
-                ResolvePlayerTronBonusCollisions(graphicalObjects);
+                this.ResolvePlayerTronBonusCollisions(graphicalObjects);
             }
 
             if (graphicalObjects.Projectiles.Count > 0)
             {
-                ResolveProjectileWallCollisions(graphicalObjects);
+                this.ResolveProjectileWallCollisions(graphicalObjects);
 
-                ResolvePlayerProjectileCollisions(graphicalObjects);
+                this.ResolvePlayerProjectileCollisions(graphicalObjects);
             }
 
             if (graphicalObjects.TronDotsContainers.Count > 0)
             {
-                ResolveEnemyDotCollisions(graphicalObjects);
-                ResolvePlayerDotCollisions(graphicalObjects);
+                this.ResolveEnemyDotCollisions(graphicalObjects);
+                this.ResolvePlayerDotCollisions(graphicalObjects);
             }
 
             if (graphicalObjects.MovingEnemies.Count > 0)
             {
-                ResolveMovingEnemyProjectileCollisions(graphicalObjects); // TODO: Fix repetition through polymorphism
-                ResolveMovingEnemyEnemyCollisions(graphicalObjects);
-                ResolvePlayerMovingEnemyCollision(graphicalObjects);
+                this.ResolveMovingEnemyProjectileCollisions(graphicalObjects); // TODO: Fix repetition through polymorphism
+                this.ResolveMovingEnemyEnemyCollisions(graphicalObjects);
+                this.ResolvePlayerMovingEnemyCollision(graphicalObjects);
             }
 
             if (graphicalObjects.StationaryEnemies.Count > 0)
             {
-                ResolveStationaryEnemyProjectileCollisions(graphicalObjects);
-                ResolvePlayerStationaryEnemyCollision(graphicalObjects);
+                this.ResolveStationaryEnemyProjectileCollisions(graphicalObjects);
+                this.ResolvePlayerStationaryEnemyCollision(graphicalObjects);
             }
-
-
         }
 
         private void ResolvePlayerWallCollision(GraphicalObjectContainer graphicalObjects)
@@ -80,14 +79,17 @@
             {
                 graphicalObjects.SpaceShipPlayerOne.Xposition = 1;
             }
+
             if (spaceShipX > Console.BufferWidth - 2)
             {
                 graphicalObjects.SpaceShipPlayerOne.Xposition = Console.BufferWidth - 2;
             }
+
             if (spaceShipY < 1)
             {
                 graphicalObjects.SpaceShipPlayerOne.Yposition = 1;
             }
+
             if (spaceShipY > Console.BufferHeight - 2)
             {
                 graphicalObjects.SpaceShipPlayerOne.Yposition = Console.BufferHeight - 2;
@@ -106,12 +108,13 @@
 
                 if (spaceShipX == tronBonusX && spaceShipY == tronBonusY)
                 {
-                    // Making all other containers reach their capacity so that dots from the newest containver
-                    // do not overlap the dots from the previous container
+                    /* Making all other containers reach their capacity so that dots from the newest containver 
+                     * do not overlap the dots from the previous container */
                     for (int j = 0; j < graphicalObjects.TronDotsContainers.Count; j++)
                     {
                         graphicalObjects.TronDotsContainers[j].ReachCapacity();
                     }
+
                     graphicalObjects.TronDotsContainers.Add(new TronDotsContainer(graphicalObjects.SpaceShipPlayerOne));
                     soundEffects.PlayTronBonus();
                     graphicalObjects.TronBonuses.Remove(graphicalObjects.TronBonuses[i]);
@@ -206,8 +209,6 @@
                     byte projectileFutureX = graphicalObjects.Projectiles[i].XfuturePosition;
                     byte projectileFutureY = graphicalObjects.Projectiles[i].YfuturePosition;
 
-                    // TODO: Refactor and improve accuracy
-
                     if ((projectileX == (byte)graphicalObjects.SpaceShipPlayerOne.Xposition &&
                         projectileY == (byte)graphicalObjects.SpaceShipPlayerOne.Yposition) ||
                         (projectileFutureX == (byte)graphicalObjects.SpaceShipPlayerOne.Xposition &&
@@ -239,8 +240,6 @@
                     byte projectileY = (byte)graphicalObjects.Projectiles[i].Yposition;
                     byte projectileFutureX = graphicalObjects.Projectiles[i].XfuturePosition;
                     byte projectileFutureY = graphicalObjects.Projectiles[i].YfuturePosition;
-
-                    // TODO: Refactor and improve accuracy
 
                     for (int j = 0; j < graphicalObjects.MovingEnemies.Count; j++)
                     {
@@ -274,8 +273,6 @@
                     byte projectileY = (byte)graphicalObjects.Projectiles[i].Yposition;
                     byte projectileFutureX = graphicalObjects.Projectiles[i].XfuturePosition;
                     byte projectileFutureY = graphicalObjects.Projectiles[i].YfuturePosition;
-
-                    // TODO: Refactor and improve accuracy
 
                     for (int j = 0; j < graphicalObjects.StationaryEnemies.Count; j++)
                     {

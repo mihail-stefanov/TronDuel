@@ -1,6 +1,7 @@
 ﻿namespace TronDuel.Utilities
 {
     using TronDuel.GraphicalObjects;
+    using TronDuel.Utilities.Containers;
 
     public class DifficultyController
     {
@@ -40,8 +41,8 @@
 
                 for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
                 {
-                    graphicalObjects.MovingEnemies[i].SpeedX = 0.11;
-                    graphicalObjects.MovingEnemies[i].SpeedY = 0.05;
+                    graphicalObjects.MovingEnemies[i].Xspeed = 0.11;
+                    graphicalObjects.MovingEnemies[i].Yspeed = 0.05;
                 }
             }
             else if (scoreContainer.Score > hardScore)
@@ -53,8 +54,8 @@
 
                 for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
                 {
-                    graphicalObjects.MovingEnemies[i].SpeedX = 0.12;
-                    graphicalObjects.MovingEnemies[i].SpeedY = 0.06;
+                    graphicalObjects.MovingEnemies[i].Xspeed = 0.12;
+                    graphicalObjects.MovingEnemies[i].Yspeed = 0.06;
                 }
             }
         }

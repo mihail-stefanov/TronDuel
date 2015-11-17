@@ -1,11 +1,10 @@
-﻿namespace TronDuel.GraphicalObjects.MovingObjects
+﻿namespace TronDuel.GraphicalObjects.Enemies
 {
-    using Interfaces;
     using System;
     using System.Diagnostics;
+    using TronDuel.Enumerations;
     using TronDuel.MovingObjects.GraphicalObjects;
-    using Enumerations;
-    using TronDuel.Utilities;
+    using TronDuel.Utilities.Containers;
 
     public class StationaryEnemy : GraphicalObject
     {
@@ -17,7 +16,7 @@
         {
             this.HealthPoints = 100;
             this.Sprite = '+';
-            shotDelayStopwatch.Start();
+            this.shotDelayStopwatch.Start();
         }
 
         public sbyte HealthPoints { get; set; }
@@ -34,44 +33,52 @@
             }
         }
 
-        private void EraseSpriteFromLastPosition()
-        {
-            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
-            Console.Write(' ');
-        }
-
         public void FireWeapon(GraphicalObjectContainer graphicalObjects, SoundEffectContainer soundEffects)
         {
-            if (shotDelayStopwatch.ElapsedMilliseconds > shotDelayTime)
+            if (this.shotDelayStopwatch.ElapsedMilliseconds > this.shotDelayTime)
             {
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
                         ConsoleColor.Red,
-                        Direction.Up, ProjectileType.Enemy, '▲'));
+                        Direction.Up, 
+                        ProjectileType.Enemy, 
+                        '▲'));
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
                         ConsoleColor.Red,
-                        Direction.Down, ProjectileType.Enemy, '▼'));
+                        Direction.Down, 
+                        ProjectileType.Enemy, 
+                        '▼'));
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
                         ConsoleColor.Red,
-                        Direction.Left, ProjectileType.Enemy, '◄'));
+                        Direction.Left, 
+                        ProjectileType.Enemy, 
+                        '◄'));
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
                         ConsoleColor.Red,
-                        Direction.Right, ProjectileType.Enemy, '►'));
+                        Direction.Right, 
+                        ProjectileType.Enemy, 
+                        '►'));
 
                 soundEffects.PlayEnemyShot();
-                shotDelayStopwatch.Restart();
+                this.shotDelayStopwatch.Restart();
             }
+        }
+
+        private void EraseSpriteFromLastPosition()
+        {
+            Console.SetCursorPosition((byte)this.Xposition, (byte)this.Yposition);
+            Console.Write(' ');
         }
     }
 }

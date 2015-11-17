@@ -1,4 +1,4 @@
-﻿namespace TronDuel.Utilities
+﻿namespace TronDuel.Utilities.Containers
 {
     using System.Media;
 
@@ -14,34 +14,10 @@
         private SoundPlayer dullHitPlayer = new SoundPlayer();
         private SoundPlayer explosionPlayer = new SoundPlayer();
         private SoundPlayer tronBonusPlayer = new SoundPlayer();
+
         public SoundEffectContainer()
         {
-            LoadSounds();
-        }
-
-        private void LoadSounds()
-        {
-            // Loading sounds
-            this.startPlayer.SoundLocation = "start.wav";
-            this.startPlayer.LoadAsync();
-            this.powerupSoundPlayer.SoundLocation = "powerUp.wav";
-            this.powerupSoundPlayer.LoadAsync();
-            this.shieldSoundPlayer.SoundLocation = "shield.wav";
-            this.shieldSoundPlayer.LoadAsync();
-            this.shotSoundPlayer.SoundLocation = "shot.wav";
-            this.shotSoundPlayer.LoadAsync();
-            this.enemyShotSoundPlayer.SoundLocation = "enemyShot.wav";
-            this.enemyShotSoundPlayer.LoadAsync();
-            this.ammoLoadPlayer.SoundLocation = "ammoLoad.wav";
-            this.ammoLoadPlayer.LoadAsync();
-            this.hitPlayer.SoundLocation = "hit.wav";
-            this.hitPlayer.LoadAsync();
-            this.dullHitPlayer.SoundLocation = "dullHit.wav";
-            this.dullHitPlayer.LoadAsync();
-            this.explosionPlayer.SoundLocation = "explosion.wav";
-            this.explosionPlayer.LoadAsync();
-            this.tronBonusPlayer.SoundLocation = "tronBonus.wav";
-            this.tronBonusPlayer.LoadAsync();
+            this.LoadSounds();
         }
 
         public void PlayStart()
@@ -92,6 +68,31 @@
         public void PlayTronBonus()
         {
             this.tronBonusPlayer.Play();
+        }
+
+        private void LoadSounds()
+        {
+            // Loading sounds
+            this.startPlayer.SoundLocation = "start.wav";
+            this.startPlayer.LoadAsync();
+            this.powerupSoundPlayer.SoundLocation = "powerUp.wav";
+            this.powerupSoundPlayer.LoadAsync();
+            this.shieldSoundPlayer.SoundLocation = "shield.wav";
+            this.shieldSoundPlayer.LoadAsync();
+            this.shotSoundPlayer.SoundLocation = "shot.wav";
+            this.shotSoundPlayer.LoadAsync();
+            this.enemyShotSoundPlayer.SoundLocation = "enemyShot.wav";
+            this.enemyShotSoundPlayer.LoadAsync();
+            this.ammoLoadPlayer.SoundLocation = "ammoLoad.wav";
+            this.ammoLoadPlayer.LoadAsync();
+            this.hitPlayer.SoundLocation = "hit.wav";
+            this.hitPlayer.LoadAsync();
+            this.dullHitPlayer.SoundLocation = "dullHit.wav";
+            this.dullHitPlayer.LoadAsync();
+            this.explosionPlayer.SoundLocation = "explosion.wav";
+            this.explosionPlayer.LoadAsync();
+            this.tronBonusPlayer.SoundLocation = "tronBonus.wav";
+            this.tronBonusPlayer.LoadAsync();
         }
     }
 }

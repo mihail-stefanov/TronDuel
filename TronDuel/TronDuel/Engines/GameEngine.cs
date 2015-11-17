@@ -7,6 +7,7 @@
     using TronDuel.GraphicalObjects;
     using TronDuel.Interfaces;
     using TronDuel.Utilities;
+    using TronDuel.Utilities.Containers;
 
     public class GameEngine : IEngine
     {
@@ -24,31 +25,35 @@
 
         public void Run()
         {
-            soundEffects.PlayStart();
+            this.soundEffects.PlayStart();
 
-            CollisionResolver collisionResolver = new CollisionResolver(soundEffects, scoreContainer);
-            DifficultyController difficultyController = new DifficultyController(graphicalObjects, objectGenerator, scoreContainer);
+            CollisionResolver collisionResolver = new CollisionResolver(this.soundEffects, this.scoreContainer);
+            DifficultyController difficultyController =
+                new DifficultyController(
+                    this.graphicalObjects,
+                    this.objectGenerator,
+                    this.scoreContainer);
 
             while (true)
             {
-                Thread.Sleep(threadSleepTime);
+                Thread.Sleep(this.threadSleepTime);
 
-                ReadAndProcessCommands(graphicalObjects);
+                this.ReadAndProcessCommands(this.graphicalObjects);
 
-                UpdateObjects(graphicalObjects);
+                this.UpdateObjects();
 
-                collisionResolver.Resolve(graphicalObjects);
+                collisionResolver.Resolve(this.graphicalObjects);
 
-                DrawObjects(graphicalObjects);
+                this.DrawObjects();
 
-                scoreContainer.DrawScore();
+                this.scoreContainer.DrawScore();
 
                 difficultyController.UpdateDifficulty();
 
-                // Go to game over screen
-                if (graphicalObjects.SpaceShipPlayerOne.HealthPoints == 0)
+                // Go to game over screen condition
+                if (this.graphicalObjects.SpaceShipPlayerOne.HealthPoints == 0)
                 {
-                    soundEffects.PlayExplosion();
+                    this.soundEffects.PlayExplosion();
                     break;
                 }
             }
@@ -63,83 +68,83 @@
                 // Direction control
                 if (pressedKey.Key == ConsoleKey.RightArrow)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Right, graphicalObjects);
+                    this.graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Right, this.graphicalObjects);
                 }
 
                 if (pressedKey.Key == ConsoleKey.LeftArrow)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Left, graphicalObjects);
+                    this.graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Left, this.graphicalObjects);
                 }
 
                 if (pressedKey.Key == ConsoleKey.UpArrow)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Up, graphicalObjects);
+                    this.graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Up, this.graphicalObjects);
                 }
 
                 if (pressedKey.Key == ConsoleKey.DownArrow)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Down, graphicalObjects);
+                    this.graphicalObjects.SpaceShipPlayerOne.ChangeDirection(Direction.Down, this.graphicalObjects);
                 }
 
                 // Firing weapons
                 if (pressedKey.Key == ConsoleKey.Spacebar)
                 {
-                    graphicalObjects.SpaceShipPlayerOne.FireCurrentWeapon(graphicalObjects, soundEffects);
+                    this.graphicalObjects.SpaceShipPlayerOne.FireCurrentWeapon(this.graphicalObjects, this.soundEffects);
                 }
-                
             }
         }
 
-        private void UpdateObjects(GraphicalObjectContainer graphicalObjects)
+        private void UpdateObjects()
         {
-            graphicalObjects.SpaceShipPlayerOne.Move();
-            graphicalObjects.SpaceShipPlayerOne.DecreaseShieldTime(threadSleepTime);
+            this.graphicalObjects.SpaceShipPlayerOne.Move();
 
-            foreach (var projectile in graphicalObjects.Projectiles)
+            this.graphicalObjects.SpaceShipPlayerOne.DecreaseShieldTime(this.threadSleepTime);
+
+            foreach (var projectile in this.graphicalObjects.Projectiles)
             {
                 projectile.Move();
             }
 
-            foreach (var movingEnemy in graphicalObjects.MovingEnemies)
+            foreach (var movingEnemy in this.graphicalObjects.MovingEnemies)
             {
                 movingEnemy.Move();
             }
 
-            foreach (var stationaryEnemy in graphicalObjects.StationaryEnemies)
+            foreach (var stationaryEnemy in this.graphicalObjects.StationaryEnemies)
             {
-                stationaryEnemy.FireWeapon(graphicalObjects, soundEffects);
+                stationaryEnemy.FireWeapon(this.graphicalObjects, this.soundEffects);
             }
 
-            for (int i = 0; i < graphicalObjects.TronDotsContainers.Count; i++)
+            for (int i = 0; i < this.graphicalObjects.TronDotsContainers.Count; i++)
             {
-                if (!graphicalObjects.TronDotsContainers[i].IsCapacityReached())
+                if (!this.graphicalObjects.TronDotsContainers[i].IsCapacityReached())
                 {
-                    graphicalObjects.TronDotsContainers[i].AddDot(); 
+                    this.graphicalObjects.TronDotsContainers[i].AddDot();
                 }
-                // Makes sure all dots are removed from the screen before removing the container
-                else if (graphicalObjects.TronDotsContainers[i].Dots.Count == 0) 
+                else if (this.graphicalObjects.TronDotsContainers[i].Dots.Count == 0)
                 {
-                    graphicalObjects.TronDotsContainers.Remove(graphicalObjects.TronDotsContainers[i]);
+                    // Makes sure all dots are removed from the screen before removing the container
+                    this.graphicalObjects.TronDotsContainers.Remove(this.graphicalObjects.TronDotsContainers[i]);
                     break;
                 }
 
-                for (int j = 0; j < graphicalObjects.TronDotsContainers[i].Dots.Count; j++)
+                for (int j = 0; j < this.graphicalObjects.TronDotsContainers[i].Dots.Count; j++)
                 {
-                    if (graphicalObjects.TronDotsContainers[i].Dots[j].IsLifespanOver())
+                    if (this.graphicalObjects.TronDotsContainers[i].Dots[j].IsLifespanOver())
                     {
-                        graphicalObjects.TronDotsContainers[i].Dots[j].EraseDot();
-                        graphicalObjects.TronDotsContainers[i].RemoveExpiredDot();
+                        this.graphicalObjects.TronDotsContainers[i].Dots[j].EraseDot();
+                        this.graphicalObjects.TronDotsContainers[i].RemoveExpiredDot();
                     }
                 }
             }
 
-            objectGenerator.GeneratePowerup(graphicalObjects);
-            objectGenerator.GenerateEnemy(graphicalObjects);
+            this.objectGenerator.GeneratePowerup(this.graphicalObjects);
+            this.objectGenerator.GenerateEnemy(this.graphicalObjects);
         }
 
-        private void DrawObjects(GraphicalObjectContainer graphicalObjects)
+        private void DrawObjects()
         {
-            List<GraphicalObject> currentObjects = graphicalObjects.GetAll();
+            List<GraphicalObject> currentObjects = this.graphicalObjects.GetAll();
 
             foreach (var currentObject in currentObjects)
             {

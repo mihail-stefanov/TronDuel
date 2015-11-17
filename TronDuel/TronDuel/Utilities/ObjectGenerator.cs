@@ -3,10 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using TronDuel.GraphicalObjects;
     using TronDuel.Enumerations;
-    using TronDuel.GraphicalObjects.Powerups;
-    using TronDuel.GraphicalObjects.MovingObjects;
+    using TronDuel.GraphicalObjects;
+    using TronDuel.GraphicalObjects.Bonuses;
+    using TronDuel.GraphicalObjects.Enemies;
+    using TronDuel.Utilities.Containers;
 
     public class ObjectGenerator
     {

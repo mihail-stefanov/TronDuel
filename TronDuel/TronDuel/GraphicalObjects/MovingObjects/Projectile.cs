@@ -12,37 +12,39 @@
         private ProjectileType type;
 
         // Future positions are to be used to improve collision detections
-        private byte xFuturePosition;
-        private byte yFuturePosition;
+        private byte xfuturePosition;
+        private byte yfuturePosition;
 
-        private double speed = 1;
+        private double xspeed = 1;
+        private double yspeed = 0.5;
 
         public Projectile(
             double startingPositionX,
             double startingPositionY,
             ConsoleColor color,
-            Direction direction, 
-            ProjectileType type, 
+            Direction direction,
+            ProjectileType type,
             char sprite)
             : base(startingPositionX, startingPositionY, color)
         {
             this.Direction = direction;
-            this.Speed = speed;
+            this.Xspeed = this.xspeed;
             this.type = type;
             this.Sprite = sprite;
-            this.XfuturePosition = (byte) this.Xposition;
-            this.YfuturePosition = (byte) this.Yposition;
+            this.XfuturePosition = (byte)this.Xposition;
+            this.YfuturePosition = (byte)this.Yposition;
         }
 
         public byte XfuturePosition
         {
             get
             {
-                return this.xFuturePosition;
+                return this.xfuturePosition;
             }
+
             set
             {
-                this.xFuturePosition = value;
+                this.xfuturePosition = value;
             }
         }
 
@@ -50,11 +52,12 @@
         {
             get
             {
-                return this.yFuturePosition;
+                return this.yfuturePosition;
             }
+
             set
             {
-                this.yFuturePosition = value;
+                this.yfuturePosition = value;
             }
         }
 
@@ -64,6 +67,7 @@
             {
                 return this.direction;
             }
+
             set
             {
                 this.direction = value;
@@ -76,73 +80,92 @@
             {
                 return this.type;
             }
+
             set
             {
                 this.type = value;
             }
         }
 
-        public double Speed
+        public double Xspeed
         {
             get
             {
-                return this.speed;
+                return this.xspeed;
             }
+
             set
             {
-                this.speed = value;
+                this.xspeed = value;
+            }
+        }
+
+        public double Yspeed
+        {
+            get
+            {
+                return this.yspeed;
+            }
+
+            set
+            {
+                this.yspeed = value;
             }
         }
 
         public void Move()
         {
-            EraseSpriteFromLastPosition();  // TODO: To refactor
+            this.EraseSpriteFromLastPosition();
 
             switch (this.Direction)
             {
                 case Direction.Right:
-                    if (this.Xposition + this.Speed > Console.BufferWidth - 1)
+                    if (this.Xposition + this.Xspeed > Console.BufferWidth - 1)
                     {
                         this.Xposition = Console.BufferWidth;
                     }
                     else
                     {
-                        this.Xposition += this.Speed;
-                        this.xFuturePosition = (byte) (this.Xposition + 1);
+                        this.Xposition += this.Xspeed;
+                        this.xfuturePosition = (byte)(this.Xposition + 1);
                     }
+
                     break;
                 case Direction.Left:
-                    if (this.Xposition - this.Speed < 1)
+                    if (this.Xposition - this.Xspeed < 1)
                     {
                         this.Xposition = 0;
                     }
                     else
                     {
-                        this.Xposition -= this.Speed;
-                        this.xFuturePosition = (byte) (this.Xposition - 1);
+                        this.Xposition -= this.Xspeed;
+                        this.xfuturePosition = (byte)(this.Xposition - 1);
                     }
+
                     break;
                 case Direction.Up:
-                    if (this.Yposition - this.Speed / 2 < 1)
+                    if (this.Yposition - this.Yspeed < 1)
                     {
                         this.Yposition = 0;
                     }
                     else
                     {
-                        this.Yposition -= this.Speed / 2;
-                        this.yFuturePosition = (byte) (this.Yposition - 1);
+                        this.Yposition -= this.Yspeed;
+                        this.yfuturePosition = (byte)(this.Yposition - 1);
                     }
+
                     break;
                 case Direction.Down:
-                    if (this.Yposition + this.Speed / 2 > Console.BufferHeight - 1)
+                    if (this.Yposition + this.Yspeed > Console.BufferHeight - 1)
                     {
                         this.Yposition = Console.BufferHeight;
                     }
                     else
                     {
-                        this.Yposition += this.Speed / 2;
-                        this.yFuturePosition = (byte) (this.Yposition + 1);
+                        this.Yposition += this.Yspeed;
+                        this.yfuturePosition = (byte)(this.Yposition + 1);
                     }
+
                     break;
                 default:
                     break;
@@ -151,13 +174,12 @@
 
         private void EraseSpriteFromLastPosition()
         {
-            if ((byte)this.Xposition < Console.BufferWidth && (byte) this.Xposition > 0 && 
-                (byte)this.Yposition < Console.BufferHeight && (byte) this.Yposition > 0)
+            if ((byte)this.Xposition < Console.BufferWidth && (byte)this.Xposition > 0 &&
+                (byte)this.Yposition < Console.BufferHeight && (byte)this.Yposition > 0)
             {
                 Console.SetCursorPosition((byte)this.Xposition, (byte)this.Yposition);
                 Console.Write(' ');
             }
         }
-
     }
 }

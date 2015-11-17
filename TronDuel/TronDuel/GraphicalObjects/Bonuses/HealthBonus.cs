@@ -1,4 +1,4 @@
-﻿namespace TronDuel.GraphicalObjects.Powerups
+﻿namespace TronDuel.GraphicalObjects.Bonuses
 {
     using System;
 

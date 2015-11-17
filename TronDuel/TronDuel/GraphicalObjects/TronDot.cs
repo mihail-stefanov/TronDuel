@@ -16,12 +16,12 @@
             : base(startingPositionX, startingPositionY, color)
         {
             this.Sprite = 'o';
-            lifespantimer.Start();
+            this.lifespantimer.Start();
         }
 
         public bool IsLifespanOver()
         {
-            if (this.lifespantimer.ElapsedMilliseconds > lifespan)
+            if (this.lifespantimer.ElapsedMilliseconds > this.lifespan)
             {
                 this.lifespanOver = true;
             }
@@ -31,7 +31,7 @@
 
         public void EraseDot()
         {
-            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
+            Console.SetCursorPosition((byte)this.Xposition, (byte)this.Yposition);
             Console.Write(' ');
         }
     }

@@ -1,12 +1,13 @@
-﻿namespace TronDuel.Utilities
+﻿namespace TronDuel.Utilities.Containers
 {
     using System;
     using System.Collections.Generic;
-    using TronDuel.GraphicalObjects;
     using TronDuel.Enumerations;
-    using TronDuel.GraphicalObjects.Powerups;
+    using TronDuel.GraphicalObjects;
+    using TronDuel.GraphicalObjects.Bonuses;
+    using TronDuel.GraphicalObjects.Containers;
+    using TronDuel.GraphicalObjects.Enemies;
     using TronDuel.MovingObjects.GraphicalObjects;
-    using TronDuel.GraphicalObjects.MovingObjects;
 
     public class GraphicalObjectContainer
     {
@@ -26,7 +27,8 @@
         {
             if (numberOfPlayers == 2)
             {
-                spaceShipPlayerTwo = new SpaceShip(10, 10, ConsoleColor.Yellow, Direction.Left);
+                // The two behavious is currently not implemented
+                this.spaceShipPlayerTwo = new SpaceShip(10, 10, ConsoleColor.Yellow, Direction.Left);
             }
             else if (numberOfPlayers != 1)
             {
@@ -34,71 +36,13 @@
             }
 
             // Initialisation of all objects
-            spaceShipPlayerOne = new SpaceShip(10, 10, ConsoleColor.Green, Direction.Right);
-            hearts.Add(new HealthBonus(50, 25, ConsoleColor.Red, 20));
-            shields.Add(new ShieldBonus(40, 5, ConsoleColor.Yellow, 10));
-            ammo.Add(new AmmoBonus(35, 15, ConsoleColor.White, 20));
-            tronBonuses.Add(new TronBonus(10, 20, ConsoleColor.Cyan));
-            movingEnemies.Add(new MovingEnemy(65, 25, ConsoleColor.Gray, this.SpaceShipPlayerOne));
-            stationaryEnemies.Add(new StationaryEnemy(55, 25, ConsoleColor.Magenta));
-        }
-
-        public List<GraphicalObject> GetAll()
-        {
-            List<GraphicalObject> allObjects = new List<GraphicalObject>();
-
-            if (spaceShipPlayerTwo != null)
-            {
-                allObjects.Add(spaceShipPlayerTwo);
-            }
-
-            foreach (var heart in hearts)
-            {
-                allObjects.Add(heart);
-            }
-
-            foreach (var shield in shields)
-            {
-                allObjects.Add(shield);
-            }
-
-            foreach (var ammoUnit in ammo)
-            {
-                allObjects.Add(ammoUnit);
-            }
-
-            foreach (var tronBonus in tronBonuses)
-            {
-                allObjects.Add(tronBonus);
-            }
-
-            foreach (var projectile in projectiles)
-            {
-                allObjects.Add(projectile);
-            }
-
-            foreach (var movingEnemy in movingEnemies)
-            {
-                allObjects.Add(movingEnemy);
-            }
-
-            foreach (var stationaryEnemy in stationaryEnemies)
-            {
-                allObjects.Add(stationaryEnemy);
-            }
-
-            foreach (var container in tronDotsContainers)
-            {
-                foreach (var dot in container.Dots)
-                {
-                    allObjects.Add(dot);
-                }
-            }
-
-            // The spaceship is put at the end so that it is drawn on top
-            allObjects.Add(spaceShipPlayerOne); 
-            
-            return allObjects;
+            this.spaceShipPlayerOne = new SpaceShip(10, 10, ConsoleColor.Green, Direction.Right);
+            this.hearts.Add(new HealthBonus(50, 25, ConsoleColor.Red, 20));
+            this.shields.Add(new ShieldBonus(40, 5, ConsoleColor.Yellow, 10));
+            this.ammo.Add(new AmmoBonus(35, 15, ConsoleColor.White, 20));
+            this.tronBonuses.Add(new TronBonus(10, 20, ConsoleColor.Cyan));
+            this.movingEnemies.Add(new MovingEnemy(65, 25, ConsoleColor.Gray, this.SpaceShipPlayerOne));
+            this.stationaryEnemies.Add(new StationaryEnemy(55, 25, ConsoleColor.Magenta));
         }
 
         public SpaceShip SpaceShipPlayerOne
@@ -179,6 +123,64 @@
             {
                 return this.tronDotsContainers;
             }
+        }
+
+        public List<GraphicalObject> GetAll()
+        {
+            List<GraphicalObject> allObjects = new List<GraphicalObject>();
+
+            if (this.spaceShipPlayerTwo != null)
+            {
+                allObjects.Add(this.spaceShipPlayerTwo);
+            }
+
+            foreach (var heart in this.hearts)
+            {
+                allObjects.Add(heart);
+            }
+
+            foreach (var shield in this.shields)
+            {
+                allObjects.Add(shield);
+            }
+
+            foreach (var ammoUnit in this.ammo)
+            {
+                allObjects.Add(ammoUnit);
+            }
+
+            foreach (var tronBonus in this.tronBonuses)
+            {
+                allObjects.Add(tronBonus);
+            }
+
+            foreach (var projectile in this.projectiles)
+            {
+                allObjects.Add(projectile);
+            }
+
+            foreach (var movingEnemy in this.movingEnemies)
+            {
+                allObjects.Add(movingEnemy);
+            }
+
+            foreach (var stationaryEnemy in this.stationaryEnemies)
+            {
+                allObjects.Add(stationaryEnemy);
+            }
+
+            foreach (var container in this.tronDotsContainers)
+            {
+                foreach (var dot in container.Dots)
+                {
+                    allObjects.Add(dot);
+                }
+            }
+
+            // The spaceship is put at the end so that it is drawn on top
+            allObjects.Add(this.spaceShipPlayerOne);
+
+            return allObjects;
         }
     }
 }

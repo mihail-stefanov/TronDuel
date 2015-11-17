@@ -1,4 +1,4 @@
-﻿namespace TronDuel.GraphicalObjects
+﻿namespace TronDuel.GraphicalObjects.Containers
 {
     using System;
     using System.Collections.Generic;
@@ -27,38 +27,38 @@
 
         public void AddDot()
         {
-            byte xPotentialPosition = (byte) baseSpaceShip.XpreviousPosition;
-            byte yPotentialPosition = (byte) baseSpaceShip.YpreviousPosition;
+            byte xpotentialPosition = (byte)this.baseSpaceShip.XpreviousPosition;
+            byte ypotentialPosition = (byte)this.baseSpaceShip.YpreviousPosition;
 
             // Making sure that the new dot does not overlap the spaceship
-            if (!(xPotentialPosition == (byte)baseSpaceShip.Xposition &&
-                yPotentialPosition == (byte)baseSpaceShip.Yposition))
+            if (!(xpotentialPosition == (byte)this.baseSpaceShip.Xposition &&
+                ypotentialPosition == (byte)this.baseSpaceShip.Yposition))
             {
-                if (Dots.Count > 0)
+                if (this.Dots.Count > 0)
                 {
                     // Making sure the new dot does not overlap the old dot
-                    if (!(Dots[Dots.Count - 1].Xposition == xPotentialPosition &&
-                        Dots[Dots.Count - 1].Yposition == yPotentialPosition))
+                    if (!(this.Dots[this.Dots.Count - 1].Xposition == xpotentialPosition &&
+                        this.Dots[this.Dots.Count - 1].Yposition == ypotentialPosition))
                     {
-                        this.dots.Add(new TronDot(xPotentialPosition, yPotentialPosition, ConsoleColor.Cyan));
-                        dotsAlreadyAdded++;
+                        this.Dots.Add(new TronDot(xpotentialPosition, ypotentialPosition, ConsoleColor.Cyan));
+                        this.dotsAlreadyAdded++;
                     }
                 }
                 else
                 {
-                    this.dots.Add(new TronDot(xPotentialPosition, yPotentialPosition, ConsoleColor.Cyan));
-                    dotsAlreadyAdded++;
+                    this.dots.Add(new TronDot(xpotentialPosition, ypotentialPosition, ConsoleColor.Cyan));
+                    this.dotsAlreadyAdded++;
                 }
             }
         }
 
         public void RemoveExpiredDot()
         {
-            for (int i = 0; i < dots.Count; i++)
+            for (int i = 0; i < this.Dots.Count; i++)
             {
-                if (dots[i].IsLifespanOver())
+                if (this.Dots[i].IsLifespanOver())
                 {
-                    dots.Remove(dots[i]);
+                    this.Dots.Remove(this.dots[i]);
                     break; // Currently used to avoid unnecessary checks
                 }
             }
@@ -66,12 +66,12 @@
 
         public bool IsCapacityReached()
         {
-            if (dotsAlreadyAdded >= dotCapacity)
+            if (this.dotsAlreadyAdded >= this.dotCapacity)
             {
-                capacityReached = true;
+                this.capacityReached = true;
             }
 
-            return capacityReached;
+            return this.capacityReached;
         }
 
         public void ReachCapacity()

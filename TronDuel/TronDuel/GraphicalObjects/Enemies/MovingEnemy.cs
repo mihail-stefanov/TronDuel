@@ -1,17 +1,14 @@
-﻿namespace TronDuel.GraphicalObjects.MovingObjects
+﻿namespace TronDuel.GraphicalObjects.Enemies
 {
-    using Interfaces;
     using System;
-    using System.Diagnostics;
+    using Interfaces;
     using TronDuel.MovingObjects.GraphicalObjects;
-    using Enumerations;
-    using TronDuel.Utilities;
 
     public class MovingEnemy : GraphicalObject, IMovable
     {
         private SpaceShip shipToTrace;
-        private double speedX = 0.1;
-        private double speedY = 0.04;
+        private double xspeed = 0.1;
+        private double yspeed = 0.04;
 
         public MovingEnemy(byte startingPositionX, byte startingPositionY, ConsoleColor color, SpaceShip shipToTrace)
             : base(startingPositionX, startingPositionY, color)
@@ -23,27 +20,29 @@
 
         public sbyte HealthPoints { get; set; }
 
-        public double SpeedX
+        public double Xspeed
         {
             get
             {
-                return this.speedX;
+                return this.xspeed;
             }
+
             set
             {
-                this.speedX = value;
+                this.xspeed = value;
             }
         }
 
-        public double SpeedY
+        public double Yspeed
         {
             get
             {
-                return this.speedY;
+                return this.yspeed;
             }
+
             set
             {
-                this.speedY = value;
+                this.yspeed = value;
             }
         }
 
@@ -59,35 +58,35 @@
             }
         }
 
-        private void EraseSpriteFromLastPosition()
-        {
-            Console.SetCursorPosition((int)this.Xposition, (int)this.Yposition);
-            Console.Write(' ');
-        }
-
         public void Move()
         {
-            EraseSpriteFromLastPosition(); // TODO: Refactor
+            this.EraseSpriteFromLastPosition();
 
-            if ((byte)shipToTrace.Xposition < (byte)this.Xposition)
+            if ((byte)this.shipToTrace.Xposition < (byte)this.Xposition)
             {
-                this.Xposition -= speedX;
+                this.Xposition -= this.xspeed;
             }
 
-            if ((byte)shipToTrace.Xposition > (byte)this.Xposition)
+            if ((byte)this.shipToTrace.Xposition > (byte)this.Xposition)
             {
-                this.Xposition += speedX;
+                this.Xposition += this.xspeed;
             }
 
-            if ((byte)shipToTrace.Yposition < (byte)this.Yposition)
+            if ((byte)this.shipToTrace.Yposition < (byte)this.Yposition)
             {
-                this.Yposition -= speedY;
+                this.Yposition -= this.yspeed;
             }
 
-            if ((byte)shipToTrace.Yposition > (byte)this.Yposition)
+            if ((byte)this.shipToTrace.Yposition > (byte)this.Yposition)
             {
-                this.Yposition += speedY;
+                this.Yposition += this.yspeed;
             }
+        }
+
+        private void EraseSpriteFromLastPosition()
+        {
+            Console.SetCursorPosition((byte)this.Xposition, (byte)this.Yposition);
+            Console.Write(' ');
         }
     }
 }

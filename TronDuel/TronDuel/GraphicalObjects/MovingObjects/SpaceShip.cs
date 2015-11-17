@@ -1,11 +1,11 @@
 ﻿namespace TronDuel.MovingObjects.GraphicalObjects
 {
     using System;
-    using Enumerations;
-    using TronDuel.Interfaces;
     using System.Diagnostics;
-    using TronDuel.Utilities;
+    using Enumerations;
     using TronDuel.GraphicalObjects;
+    using TronDuel.Interfaces;
+    using TronDuel.Utilities.Containers;
 
     public class SpaceShip : GraphicalObject, IMovable
     {
@@ -33,10 +33,11 @@
             this.ShotsAvailable = 10;
             this.ShieldTimeAvailable = 0;
             this.shotDelayStopwatch.Start();
-            PrintStatus();  // TODO: To refactor
+            this.PrintStatus();
         }
 
         public double XpreviousPosition { get; set; }
+
         public double YpreviousPosition { get; set; }
 
         public double SpeedX
@@ -45,17 +46,20 @@
             {
                 return this.speedX;
             }
+
             set
             {
                 this.speedX = value;
             }
         }
+
         public double SpeedY
         {
             get
             {
                 return this.speedY;
             }
+
             set
             {
                 this.speedY = value;
@@ -69,6 +73,12 @@
                 return this.direction;
             }
         }
+
+        public sbyte HealthPoints { get; set; }
+
+        public byte ShotsAvailable { get; set; }
+
+        public double ShieldTimeAvailable { get; set; }
 
         public void ChangeDirection(Direction direction, GraphicalObjectContainer graphicalObjects)
         {
@@ -84,6 +94,7 @@
                         this.Sprite = ShipCharRight;
                         changeSuccessful = true;
                     }
+
                     break;
                 case Direction.Left:
                     if (this.direction != Direction.Right || graphicalObjects.TronDotsContainers.Count == 0)
@@ -91,6 +102,7 @@
                         this.Sprite = ShipCharLeft;
                         changeSuccessful = true;
                     }
+
                     break;
                 case Direction.Up:
                     if (this.direction != Direction.Down || graphicalObjects.TronDotsContainers.Count == 0)
@@ -98,6 +110,7 @@
                         this.Sprite = ShipCharUp;
                         changeSuccessful = true;
                     }
+
                     break;
                 case Direction.Down:
                     if (this.direction != Direction.Up || graphicalObjects.TronDotsContainers.Count == 0)
@@ -105,6 +118,7 @@
                         this.Sprite = ShipCharDown;
                         changeSuccessful = true;
                     }
+
                     break;
                 default:
                     break;
@@ -116,42 +130,30 @@
             }
         }
 
-        public sbyte HealthPoints { get; set; }
-
-        public byte ShotsAvailable { get; set; }
-
-        public double ShieldTimeAvailable { get; set; }
-
         public void Move()
         {
-            EraseSpriteFromLastPosition();  // TODO: To refactor
+            this.EraseSpriteFromLastPosition();
 
-            this.XpreviousPosition = Xposition;
-            this.YpreviousPosition = Yposition;
+            this.XpreviousPosition = this.Xposition;
+            this.YpreviousPosition = this.Yposition;
 
             switch (Direction)
             {
                 case Direction.Right:
-                    Xposition += speedX;
+                    this.Xposition += this.speedX;
                     break;
                 case Direction.Left:
-                    Xposition -= speedX;
+                    this.Xposition -= this.speedX;
                     break;
                 case Direction.Up:
-                    Yposition -= speedY;
+                    this.Yposition -= this.speedY;
                     break;
                 case Direction.Down:
-                    Yposition += speedY;
+                    this.Yposition += this.speedY;
                     break;
                 default:
                     break;
             }
-        }
-
-        private void EraseSpriteFromLastPosition()
-        {
-            Console.SetCursorPosition((byte)this.Xposition, (byte)this.Yposition);
-            Console.Write(' ');
         }
 
         public override void Draw()
@@ -170,15 +172,13 @@
             else if (this.HealthPoints + healthPoints <= 0)
             {
                 this.HealthPoints = 0;
-
-                // TODO: Gameover logic call here
             }
             else
             {
                 this.HealthPoints += healthPoints;
             }
 
-            PrintStatus();  // TODO: To refactor
+            this.PrintStatus();
         }
 
         public void IncreaseShotsAvailable(byte ammoShots)
@@ -221,7 +221,7 @@
             {
                 this.Color = ConsoleColor.Yellow;
 
-                this.ShieldTimeAvailable -= ((double)threadSleepTime / 1000);
+                this.ShieldTimeAvailable -= (double)threadSleepTime / 1000;
             }
             else
             {
@@ -230,40 +230,53 @@
                 this.shieldTimeStopwatch.Reset();
                 this.ShieldTimeAvailable = 0;
             }
-            PrintStatus();  // TODO: To refactor
+
+            this.PrintStatus();
         }
 
         public void PrintStatus()
         {
+            byte spacesToTurnBlank = 16;
+
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Player 1 - Health: {0} Shots: {1} ", this.HealthPoints, this.ShotsAvailable);
+
             if (this.ShieldTimeAvailable > 0)
             {
                 Console.Write("Shield time: {0}  ", (byte)this.ShieldTimeAvailable);
             }
             else
             {
-                Console.Write(new string(' ', 16));
+                Console.Write(new string(' ', spacesToTurnBlank));
             }
         }
 
         public void FireCurrentWeapon(GraphicalObjectContainer graphicalObjects, SoundEffectContainer soundEffects)
         {
-            if (shotDelayStopwatch.ElapsedMilliseconds > shotDelayTime && this.ShotsAvailable > 0)
+            if (this.shotDelayStopwatch.ElapsedMilliseconds > this.shotDelayTime && this.ShotsAvailable > 0)
             {
                 graphicalObjects.Projectiles.Add(
                     new Projectile(
                         this.Xposition,
                         this.Yposition,
                         ConsoleColor.Cyan,
-                        this.Direction, ProjectileType.Player, '*'));
+                        this.Direction, 
+                        ProjectileType.Player, 
+                        '*'));
 
                 soundEffects.PlayShot();
                 this.DecreaseShotsAvailable();
-                shotDelayStopwatch.Restart();
+                this.shotDelayStopwatch.Restart();
             }
-            PrintStatus(); // TODO: To refactor
+
+            this.PrintStatus();
+        }
+
+        private void EraseSpriteFromLastPosition()
+        {
+            Console.SetCursorPosition((byte)this.Xposition, (byte)this.Yposition);
+            Console.Write(' ');
         }
     }
 }

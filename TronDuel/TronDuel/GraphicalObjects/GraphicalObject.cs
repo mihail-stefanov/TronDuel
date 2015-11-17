@@ -22,22 +22,27 @@
             {
                 return this.xposition;
             }
+
             set
             {
                 this.xposition = value;
             }
         }
+
         public double Yposition
         {
             get
             {
                 return this.yposition;
             }
+
             set
             {
                 this.yposition = value;
             }
         }
+
+        public ConsoleColor Color { get; set; }
 
         protected char Sprite
         {
@@ -51,8 +56,6 @@
                 this.sprite = value;
             }
         }
-
-        public ConsoleColor Color { get; set; }
 
         public virtual void Draw()
         {

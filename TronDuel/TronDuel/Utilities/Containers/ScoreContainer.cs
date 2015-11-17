@@ -1,4 +1,4 @@
-﻿namespace TronDuel.Utilities
+﻿namespace TronDuel.Utilities.Containers
 {
     using System;
 
@@ -9,13 +9,6 @@
         public ScoreContainer()
         {
             this.Score = 0;
-        }
-
-        public void DrawScore()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.SetCursorPosition(55, 0);
-            Console.WriteLine("Score: {0}", this.Score);
         }
 
         public int Score
@@ -31,5 +24,11 @@
             }
         }
 
+        public void DrawScore()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.SetCursorPosition(55, 0);
+            Console.WriteLine("Score: {0}", this.Score);
+        }
     }
 }
