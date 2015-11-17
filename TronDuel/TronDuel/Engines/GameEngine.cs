@@ -5,6 +5,7 @@
     using System.Threading;
     using TronDuel.Enumerations;
     using TronDuel.GraphicalObjects;
+    using TronDuel.GraphicalObjects.Enemies;
     using TronDuel.Interfaces;
     using TronDuel.Utilities;
     using TronDuel.Utilities.Containers;
@@ -105,14 +106,16 @@
                 projectile.Move();
             }
 
-            foreach (var movingEnemy in this.graphicalObjects.MovingEnemies)
+            foreach (var enemy in this.graphicalObjects.Enemies)
             {
-                movingEnemy.Move();
-            }
-
-            foreach (var stationaryEnemy in this.graphicalObjects.StationaryEnemies)
-            {
-                stationaryEnemy.FireWeapon(this.graphicalObjects, this.soundEffects);
+                if (enemy.GetType() == typeof(MovingEnemy))
+                {
+                    ((MovingEnemy)enemy).Move();
+                }
+                else if (enemy.GetType() == typeof(StationaryEnemy))
+                {
+                    ((StationaryEnemy)enemy).FireWeapon(this.graphicalObjects, this.soundEffects);
+                }
             }
 
             for (int i = 0; i < this.graphicalObjects.TronDotsContainers.Count; i++)

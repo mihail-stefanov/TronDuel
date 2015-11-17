@@ -16,8 +16,7 @@
 
         private IList<GraphicalObject> bonuses = new List<GraphicalObject>();
         private IList<Projectile> projectiles = new List<Projectile>();
-        private IList<MovingEnemy> movingEnemies = new List<MovingEnemy>();
-        private IList<StationaryEnemy> stationaryEnemies = new List<StationaryEnemy>();
+        private IList<GraphicalObject> enemies = new List<GraphicalObject>();
         private IList<TronDotsContainer> tronDotsContainers = new List<TronDotsContainer>();
 
         public GraphicalObjectContainer(int numberOfPlayers)
@@ -38,8 +37,8 @@
             this.bonuses.Add(new ShieldBonus(40, 5, ConsoleColor.Yellow, 10));
             this.bonuses.Add(new AmmoBonus(35, 15, ConsoleColor.White, 20));
             this.bonuses.Add(new TronBonus(10, 20, ConsoleColor.Cyan));
-            this.movingEnemies.Add(new MovingEnemy(65, 25, ConsoleColor.Gray, this.SpaceShipPlayerOne));
-            this.stationaryEnemies.Add(new StationaryEnemy(55, 25, ConsoleColor.Magenta));
+            this.enemies.Add(new MovingEnemy(65, 25, ConsoleColor.Gray, this.SpaceShipPlayerOne));
+            this.enemies.Add(new StationaryEnemy(55, 25, ConsoleColor.Magenta));
         }
 
         public SpaceShip SpaceShipPlayerOne
@@ -74,19 +73,11 @@
             }
         }
 
-        public IList<MovingEnemy> MovingEnemies
+        public IList<GraphicalObject> Enemies
         {
             get
             {
-                return this.movingEnemies;
-            }
-        }
-
-        public IList<StationaryEnemy> StationaryEnemies
-        {
-            get
-            {
-                return this.stationaryEnemies;
+                return this.enemies;
             }
         }
 
@@ -117,14 +108,9 @@
                 allObjects.Add(projectile);
             }
 
-            foreach (var movingEnemy in this.movingEnemies)
+            foreach (var enemy in this.enemies)
             {
-                allObjects.Add(movingEnemy);
-            }
-
-            foreach (var stationaryEnemy in this.stationaryEnemies)
-            {
-                allObjects.Add(stationaryEnemy);
+                allObjects.Add(enemy);
             }
 
             foreach (var container in this.tronDotsContainers)

@@ -67,7 +67,9 @@
     <Compile Include="TronDuelMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\CollisionResolver.cs" />
-    <Compile Include="Utilities\ObjectGenerator.cs" />
+    <Compile Include="Utilities\ObjectGenerator.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Utilities\Containers\ScoreContainer.cs" />
     <Compile Include="Utilities\Containers\SoundEffectContainer.cs" />
   </ItemGroup>

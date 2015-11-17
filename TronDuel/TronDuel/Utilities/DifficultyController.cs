@@ -1,6 +1,7 @@
 ﻿namespace TronDuel.Utilities
 {
     using TronDuel.GraphicalObjects;
+    using TronDuel.GraphicalObjects.Enemies;
     using TronDuel.Utilities.Containers;
 
     public class DifficultyController
@@ -25,37 +26,43 @@
 
         public void UpdateDifficulty()
         {
-            if (scoreContainer.Score >= easyScore && scoreContainer.Score < mediumScore)
+            if (this.scoreContainer.Score >= this.easyScore && this.scoreContainer.Score < this.mediumScore)
             {
-                objectGenerator.MovingEnemyNumberLimit = 7;
-                objectGenerator.StationaryEnemyNumberLimit = 4;
-                graphicalObjects.SpaceShipPlayerOne.SpeedX = 0.55;
-                graphicalObjects.SpaceShipPlayerOne.SpeedY = 0.35;
+                this.objectGenerator.MovingEnemyNumberLimit = 7;
+                this.objectGenerator.StationaryEnemyNumberLimit = 4;
+                this.graphicalObjects.SpaceShipPlayerOne.SpeedX = 0.55;
+                this.graphicalObjects.SpaceShipPlayerOne.SpeedY = 0.35;
             }
-            else if (scoreContainer.Score >= mediumScore && scoreContainer.Score < hardScore)
+            else if (this.scoreContainer.Score >= this.mediumScore && this.scoreContainer.Score < this.hardScore)
             {
-                objectGenerator.MovingEnemyNumberLimit = 10;
-                objectGenerator.StationaryEnemyNumberLimit = 5;
-                graphicalObjects.SpaceShipPlayerOne.SpeedX = 0.57;
-                graphicalObjects.SpaceShipPlayerOne.SpeedY = 0.37;
+                this.objectGenerator.MovingEnemyNumberLimit = 10;
+                this.objectGenerator.StationaryEnemyNumberLimit = 5;
+                this.graphicalObjects.SpaceShipPlayerOne.SpeedX = 0.57;
+                this.graphicalObjects.SpaceShipPlayerOne.SpeedY = 0.37;
 
-                for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
+                for (int i = 0; i < this.graphicalObjects.Enemies.Count; i++)
                 {
-                    graphicalObjects.MovingEnemies[i].Xspeed = 0.11;
-                    graphicalObjects.MovingEnemies[i].Yspeed = 0.05;
+                    if (this.graphicalObjects.Enemies[i].GetType() == typeof(MovingEnemy))
+                    {
+                        ((MovingEnemy)this.graphicalObjects.Enemies[i]).Xspeed = 0.11;
+                        ((MovingEnemy)this.graphicalObjects.Enemies[i]).Yspeed = 0.05;
+                    }
                 }
             }
-            else if (scoreContainer.Score > hardScore)
+            else if (this.scoreContainer.Score > this.hardScore)
             {
-                objectGenerator.MovingEnemyNumberLimit = 20;
-                objectGenerator.StationaryEnemyNumberLimit = 7;
-                graphicalObjects.SpaceShipPlayerOne.SpeedX = 0.6;
-                graphicalObjects.SpaceShipPlayerOne.SpeedY = 0.4;
+                this.objectGenerator.MovingEnemyNumberLimit = 20;
+                this.objectGenerator.StationaryEnemyNumberLimit = 7;
+                this.graphicalObjects.SpaceShipPlayerOne.SpeedX = 0.6;
+                this.graphicalObjects.SpaceShipPlayerOne.SpeedY = 0.4;
 
-                for (int i = 0; i < graphicalObjects.MovingEnemies.Count; i++)
+                for (int i = 0; i < this.graphicalObjects.Enemies.Count; i++)
                 {
-                    graphicalObjects.MovingEnemies[i].Xspeed = 0.12;
-                    graphicalObjects.MovingEnemies[i].Yspeed = 0.06;
+                    if (this.graphicalObjects.Enemies[i].GetType() == typeof(MovingEnemy))
+                    {
+                        ((MovingEnemy)this.graphicalObjects.Enemies[i]).Xspeed = 0.12;
+                        ((MovingEnemy)this.graphicalObjects.Enemies[i]).Yspeed = 0.06;
+                    }
                 }
             }
         }
