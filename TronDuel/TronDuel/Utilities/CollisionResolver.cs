@@ -288,9 +288,17 @@
                 {
                     if (graphicalObjects.SpaceShipPlayerOne.ShieldTimeAvailable > 0)
                     {
+                        if (graphicalObjects.Enemies[i].GetType() == typeof(MovingEnemy))
+                        {
+                            this.scoreContainer.Score++;
+                        }
+                        else if (graphicalObjects.Enemies[i].GetType() == typeof(StationaryEnemy))
+                        {
+                            this.scoreContainer.Score += this.stationaryEnemyDestructionScore;
+                        }
+
                         this.soundEffects.PlayExplosion();
                         graphicalObjects.Enemies.Remove(graphicalObjects.Enemies[i]);
-                        this.scoreContainer.Score++;
                     }
                     else
                     {
