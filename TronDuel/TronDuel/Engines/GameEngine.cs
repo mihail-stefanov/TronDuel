@@ -138,7 +138,7 @@
                 }
             }
 
-            this.objectGenerator.GeneratePowerup(this.graphicalObjects);
+            this.objectGenerator.GenerateBonus(this.graphicalObjects);
             this.objectGenerator.GenerateEnemy(this.graphicalObjects);
         }
 

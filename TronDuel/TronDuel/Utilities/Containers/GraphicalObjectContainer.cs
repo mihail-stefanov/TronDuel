@@ -14,10 +14,7 @@
         private SpaceShip spaceShipPlayerOne;
         private SpaceShip spaceShipPlayerTwo;
 
-        private IList<HealthBonus> hearts = new List<HealthBonus>();
-        private IList<ShieldBonus> shields = new List<ShieldBonus>();
-        private IList<AmmoBonus> ammo = new List<AmmoBonus>();
-        private IList<TronBonus> tronBonuses = new List<TronBonus>();
+        private IList<GraphicalObject> bonuses = new List<GraphicalObject>();
         private IList<Projectile> projectiles = new List<Projectile>();
         private IList<MovingEnemy> movingEnemies = new List<MovingEnemy>();
         private IList<StationaryEnemy> stationaryEnemies = new List<StationaryEnemy>();
@@ -27,7 +24,7 @@
         {
             if (numberOfPlayers == 2)
             {
-                // The two behavious is currently not implemented
+                // The two player behavior is currently not implemented
                 this.spaceShipPlayerTwo = new SpaceShip(10, 10, ConsoleColor.Yellow, Direction.Left);
             }
             else if (numberOfPlayers != 1)
@@ -37,10 +34,10 @@
 
             // Initialisation of all objects
             this.spaceShipPlayerOne = new SpaceShip(10, 10, ConsoleColor.Green, Direction.Right);
-            this.hearts.Add(new HealthBonus(50, 25, ConsoleColor.Red, 20));
-            this.shields.Add(new ShieldBonus(40, 5, ConsoleColor.Yellow, 10));
-            this.ammo.Add(new AmmoBonus(35, 15, ConsoleColor.White, 20));
-            this.tronBonuses.Add(new TronBonus(10, 20, ConsoleColor.Cyan));
+            this.bonuses.Add(new HealthBonus(50, 25, ConsoleColor.Red, 20));
+            this.bonuses.Add(new ShieldBonus(40, 5, ConsoleColor.Yellow, 10));
+            this.bonuses.Add(new AmmoBonus(35, 15, ConsoleColor.White, 20));
+            this.bonuses.Add(new TronBonus(10, 20, ConsoleColor.Cyan));
             this.movingEnemies.Add(new MovingEnemy(65, 25, ConsoleColor.Gray, this.SpaceShipPlayerOne));
             this.stationaryEnemies.Add(new StationaryEnemy(55, 25, ConsoleColor.Magenta));
         }
@@ -61,35 +58,11 @@
             }
         }
 
-        public IList<HealthBonus> Hearts
+        public IList<GraphicalObject> Bonuses
         {
             get
             {
-                return this.hearts;
-            }
-        }
-
-        public IList<ShieldBonus> Shields
-        {
-            get
-            {
-                return this.shields;
-            }
-        }
-
-        public IList<AmmoBonus> Ammo
-        {
-            get
-            {
-                return this.ammo;
-            }
-        }
-
-        public IList<TronBonus> TronBonuses
-        {
-            get
-            {
-                return this.tronBonuses;
+                return this.bonuses;
             }
         }
 
@@ -134,24 +107,9 @@
                 allObjects.Add(this.spaceShipPlayerTwo);
             }
 
-            foreach (var heart in this.hearts)
+            foreach (var bonus in this.bonuses)
             {
-                allObjects.Add(heart);
-            }
-
-            foreach (var shield in this.shields)
-            {
-                allObjects.Add(shield);
-            }
-
-            foreach (var ammoUnit in this.ammo)
-            {
-                allObjects.Add(ammoUnit);
-            }
-
-            foreach (var tronBonus in this.tronBonuses)
-            {
-                allObjects.Add(tronBonus);
+                allObjects.Add(bonus);
             }
 
             foreach (var projectile in this.projectiles)

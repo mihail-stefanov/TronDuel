@@ -1,6 +1,6 @@
 ﻿namespace TronDuel.Enumerations
 {
-    public enum Powerup
+    public enum Bonus
     {
         Heart,
         Shield,

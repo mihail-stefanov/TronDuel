@@ -2,6 +2,7 @@
 {
     using System;
     using TronDuel.Enumerations;
+    using TronDuel.GraphicalObjects.Bonuses;
     using TronDuel.GraphicalObjects.Containers;
     using TronDuel.MovingObjects.GraphicalObjects;
     using TronDuel.Utilities.Containers;
@@ -23,25 +24,30 @@
         {
             this.ResolvePlayerWallCollision(graphicalObjects);
 
-            if (graphicalObjects.Hearts.Count > 0)
+            if (graphicalObjects.Bonuses.Count > 0)
             {
-                this.ResolvePlayerHeartCollisions(graphicalObjects);
+                this.ResolvePlayerBonusCollision(graphicalObjects);
             }
 
-            if (graphicalObjects.Shields.Count > 0)
-            {
-                this.ResolvePlayerShieldCollisions(graphicalObjects);
-            }
+            //if (graphicalObjects.Hearts.Count > 0)
+            //{
+            //    this.ResolvePlayerHeartCollisions(graphicalObjects);
+            //}
 
-            if (graphicalObjects.Ammo.Count > 0)
-            {
-                this.ResolvePlayerAmmoCollisions(graphicalObjects);
-            }
+            //if (graphicalObjects.Shields.Count > 0)
+            //{
+            //    this.ResolvePlayerShieldCollisions(graphicalObjects);
+            //}
 
-            if (graphicalObjects.TronBonuses.Count > 0)
-            {
-                this.ResolvePlayerTronBonusCollisions(graphicalObjects);
-            }
+            //if (graphicalObjects.Ammo.Count > 0)
+            //{
+            //    this.ResolvePlayerAmmoCollisions(graphicalObjects);
+            //}
+
+            //if (graphicalObjects.TronBonuses.Count > 0)
+            //{
+            //    this.ResolvePlayerTronBonusCollisions(graphicalObjects);
+            //}
 
             if (graphicalObjects.Projectiles.Count > 0)
             {
@@ -96,87 +102,49 @@
             }
         }
 
-        private void ResolvePlayerTronBonusCollisions(GraphicalObjectContainer graphicalObjects)
+        private void ResolvePlayerBonusCollision(GraphicalObjectContainer graphicalObjects)
         {
             byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
             byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
 
-            for (int i = 0; i < graphicalObjects.TronBonuses.Count; i++)
+            for (int i = 0; i < graphicalObjects.Bonuses.Count; i++)
             {
-                byte tronBonusX = (byte)graphicalObjects.TronBonuses[i].Xposition;
-                byte tronBonusY = (byte)graphicalObjects.TronBonuses[i].Yposition;
+                byte bonusX = (byte)graphicalObjects.Bonuses[i].Xposition;
+                byte bonusY = (byte)graphicalObjects.Bonuses[i].Yposition;
 
-                if (spaceShipX == tronBonusX && spaceShipY == tronBonusY)
+                if (spaceShipX == bonusX && spaceShipY == bonusY)
                 {
-                    /* Making all other containers reach their capacity so that dots from the newest containver 
-                     * do not overlap the dots from the previous container */
-                    for (int j = 0; j < graphicalObjects.TronDotsContainers.Count; j++)
+                    if (graphicalObjects.Bonuses[i].GetType() == typeof(AmmoBonus))
                     {
-                        graphicalObjects.TronDotsContainers[j].ReachCapacity();
+                        graphicalObjects.SpaceShipPlayerOne.IncreaseShotsAvailable(((AmmoBonus)graphicalObjects.Bonuses[i]).BonusPoints);
+                        soundEffects.PlayAmmoLoad();
+                        graphicalObjects.SpaceShipPlayerOne.PrintStatus();
+                    }
+                    else if (graphicalObjects.Bonuses[i].GetType() == typeof(HealthBonus))
+                    {
+                        graphicalObjects.SpaceShipPlayerOne.ChangeHealth(((HealthBonus)graphicalObjects.Bonuses[i]).BonusPoints);
+                        soundEffects.PlayPowerUp();
+                    }
+                    else if (graphicalObjects.Bonuses[i].GetType() == typeof(ShieldBonus))
+                    {
+                        graphicalObjects.SpaceShipPlayerOne.IncreaseShieldTimeAvailable(((ShieldBonus)graphicalObjects.Bonuses[i]).TimeInvincibleInSeconds);
+                        soundEffects.PlayShieldPowerUp();
+                        graphicalObjects.SpaceShipPlayerOne.PrintStatus();
+                    }
+                    else if (graphicalObjects.Bonuses[i].GetType() == typeof(TronBonus))
+                    {
+                        /* Making all other containers reach their capacity so that dots from the newest containver 
+                         * do not overlap the dots from the previous container */
+                        for (int j = 0; j < graphicalObjects.TronDotsContainers.Count; j++)
+                        {
+                            graphicalObjects.TronDotsContainers[j].ReachCapacity();
+                        }
+
+                        graphicalObjects.TronDotsContainers.Add(new TronDotsContainer(graphicalObjects.SpaceShipPlayerOne));
+                        soundEffects.PlayTronBonus();
                     }
 
-                    graphicalObjects.TronDotsContainers.Add(new TronDotsContainer(graphicalObjects.SpaceShipPlayerOne));
-                    soundEffects.PlayTronBonus();
-                    graphicalObjects.TronBonuses.Remove(graphicalObjects.TronBonuses[i]);
-                }
-            }
-        }
-
-        private void ResolvePlayerAmmoCollisions(GraphicalObjectContainer graphicalObjects)
-        {
-            byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
-            byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
-
-            for (int i = 0; i < graphicalObjects.Ammo.Count; i++)
-            {
-                byte ammoX = (byte)graphicalObjects.Ammo[i].Xposition;
-                byte ammoY = (byte)graphicalObjects.Ammo[i].Yposition;
-
-                if (spaceShipX == ammoX && spaceShipY == ammoY)
-                {
-                    graphicalObjects.SpaceShipPlayerOne.IncreaseShotsAvailable(graphicalObjects.Ammo[i].BonusPoints);
-                    soundEffects.PlayAmmoLoad();
-                    graphicalObjects.SpaceShipPlayerOne.PrintStatus(); // TODO: To refactor
-                    graphicalObjects.Ammo.Remove(graphicalObjects.Ammo[i]);
-                }
-            }
-        }
-
-        private void ResolvePlayerShieldCollisions(GraphicalObjectContainer graphicalObjects)
-        {
-            byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
-            byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
-
-            for (int i = 0; i < graphicalObjects.Shields.Count; i++)
-            {
-                byte shieldX = (byte)graphicalObjects.Shields[i].Xposition;
-                int shieldY = (byte)graphicalObjects.Shields[i].Yposition;
-
-                if (spaceShipX == shieldX && spaceShipY == shieldY)
-                {
-                    graphicalObjects.SpaceShipPlayerOne.IncreaseShieldTimeAvailable(graphicalObjects.Shields[i].TimeInvincibleInSeconds);
-                    soundEffects.PlayShieldPowerUp();
-                    graphicalObjects.SpaceShipPlayerOne.PrintStatus(); // TODO: To refactor
-                    graphicalObjects.Shields.Remove(graphicalObjects.Shields[i]);
-                }
-            }
-        }
-
-        private void ResolvePlayerHeartCollisions(GraphicalObjectContainer graphicalObjects)
-        {
-            byte spaceShipX = (byte)graphicalObjects.SpaceShipPlayerOne.Xposition;
-            byte spaceShipY = (byte)graphicalObjects.SpaceShipPlayerOne.Yposition;
-
-            for (int i = 0; i < graphicalObjects.Hearts.Count; i++)
-            {
-                byte heartX = (byte)graphicalObjects.Hearts[i].Xposition;
-                byte heartY = (byte)graphicalObjects.Hearts[i].Yposition;
-
-                if (spaceShipX == heartX && spaceShipY == heartY)
-                {
-                    graphicalObjects.SpaceShipPlayerOne.ChangeHealth(graphicalObjects.Hearts[i].BonusPoints);
-                    soundEffects.PlayPowerUp();
-                    graphicalObjects.Hearts.Remove(graphicalObjects.Hearts[i]);
+                    graphicalObjects.Bonuses.Remove(graphicalObjects.Bonuses[i]);
                 }
             }
         }

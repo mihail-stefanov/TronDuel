@@ -47,7 +47,7 @@
     <Compile Include="Engines\GameOverScreen.cs" />
     <Compile Include="Engines\StartScreen.cs" />
     <Compile Include="Enumerations\Direction.cs" />
-    <Compile Include="Enumerations\Powerup.cs" />
+    <Compile Include="Enumerations\Bonus.cs" />
     <Compile Include="Enumerations\ProjectileType.cs" />
     <Compile Include="GraphicalObjects\GraphicalObject.cs" />
     <Compile Include="GraphicalObjects\Enemies\MovingEnemy.cs" />

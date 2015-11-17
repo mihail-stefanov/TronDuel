@@ -11,7 +11,7 @@
 
     public class ObjectGenerator
     {
-        private const int powerupGenerationInterval = 5000;
+        private const int bonusGenerationInterval = 5000;
 
         private double numberOfEnemiesToGenerate = 2;
 
@@ -24,16 +24,16 @@
         private byte movingEnemyNumberLimit = 5;
         private byte stationaryEnemyNumberLimit = 2;
 
-        private Powerup currentPowerUpToGenerate;
+        private Bonus currentBonusToGenerate;
 
         public ObjectGenerator()
         {
-            currentPowerUpToGenerate = Powerup.Ammo;
-            powerupGeneratorTimer = new Stopwatch();
-            powerupGeneratorTimer.Start();
+            currentBonusToGenerate = Bonus.Ammo;
+            bonusGeneratorTimer = new Stopwatch();
+            bonusGeneratorTimer.Start();
         }
 
-        public Stopwatch powerupGeneratorTimer { get; set; }
+        public Stopwatch bonusGeneratorTimer { get; set; }
 
         public byte MovingEnemyNumberLimit
         {
@@ -59,9 +59,9 @@
             }
         }
 
-        public void GeneratePowerup(GraphicalObjectContainer graphicalObjects)
+        public void GenerateBonus(GraphicalObjectContainer graphicalObjects)
         {
-            if (powerupGeneratorTimer.ElapsedMilliseconds > powerupGenerationInterval)
+            if (bonusGeneratorTimer.ElapsedMilliseconds > bonusGenerationInterval)
             {
                 Random randomGenerator = new Random();
 
@@ -69,7 +69,7 @@
 
                 byte potentialXposition = 0;
                 byte potentialYposition = 0;
-                // TODO: Create an external Timer!!!
+                
                 while (!generationOnAnEmptySpaceSuccessful)
                 {
                     generationOnAnEmptySpaceSuccessful = true;
@@ -90,29 +90,29 @@
                     }
                 }
 
-                switch (currentPowerUpToGenerate)
+                switch (currentBonusToGenerate)
                 {
-                    case Powerup.Heart:
-                        graphicalObjects.Hearts.Add(new HealthBonus(potentialXposition, potentialYposition, ConsoleColor.Red, 20));
-                        currentPowerUpToGenerate = Powerup.Shield;
+                    case Bonus.Heart:
+                        graphicalObjects.Bonuses.Add(new HealthBonus(potentialXposition, potentialYposition, ConsoleColor.Red, 20));
+                        currentBonusToGenerate = Bonus.Shield;
                         break;
-                    case Powerup.Shield:
-                        graphicalObjects.Shields.Add(new ShieldBonus(potentialXposition, potentialYposition, ConsoleColor.Yellow, 10));
-                        currentPowerUpToGenerate = Powerup.Ammo;
+                    case Bonus.Shield:
+                        graphicalObjects.Bonuses.Add(new ShieldBonus(potentialXposition, potentialYposition, ConsoleColor.Yellow, 10));
+                        currentBonusToGenerate = Bonus.Ammo;
                         break;
-                    case Powerup.Ammo:
-                        graphicalObjects.Ammo.Add(new AmmoBonus(potentialXposition, potentialYposition, ConsoleColor.White, 20));
-                        currentPowerUpToGenerate = Powerup.Tron;
+                    case Bonus.Ammo:
+                        graphicalObjects.Bonuses.Add(new AmmoBonus(potentialXposition, potentialYposition, ConsoleColor.White, 20));
+                        currentBonusToGenerate = Bonus.Tron;
                         break;
-                    case Powerup.Tron:
-                        graphicalObjects.TronBonuses.Add(new TronBonus(potentialXposition, potentialYposition, ConsoleColor.Cyan));
-                        currentPowerUpToGenerate = Powerup.Heart;
+                    case Bonus.Tron:
+                        graphicalObjects.Bonuses.Add(new TronBonus(potentialXposition, potentialYposition, ConsoleColor.Cyan));
+                        currentBonusToGenerate = Bonus.Heart;
                         break;
                     default:
                         break;
                 }
 
-                powerupGeneratorTimer.Restart();
+                bonusGeneratorTimer.Restart();
             }
         }
 
