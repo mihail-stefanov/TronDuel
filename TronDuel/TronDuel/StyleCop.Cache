@@ -621,11 +621,14 @@
     </timestamps>
     <violations />
   </sourcecode>
+  <project key="-1514018825">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
   <sourcecode name="CollisionResolver.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2014.04.01 10:18:24.000</styleCop>
       <settingsFile>2015.11.16 23:24:55.963</settingsFile>
-      <sourceFile>2015.11.17 23:42:59.701</sourceFile>
+      <sourceFile>2015.11.27 00:19:27.584</sourceFile>
       <parser>2014.04.01 10:18:24.000</parser>
       <StyleCop.CSharp.DocumentationRules>2014.04.01 10:18:24.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1945363787</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -644,7 +647,4 @@
     </timestamps>
     <violations />
   </sourcecode>
-  <project key="-1514018825">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
 </stylecopresultscache>

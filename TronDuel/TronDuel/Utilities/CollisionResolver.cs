@@ -215,10 +215,7 @@
                                 }
                             }
 
-                            if (graphicalObjects.Projectiles.Count - 1 > i)
-                            {
-                                graphicalObjects.Projectiles.Remove(graphicalObjects.Projectiles[i]);
-                            }
+                            graphicalObjects.Projectiles.RemoveAt(i);
                         }
                     }
                 }
