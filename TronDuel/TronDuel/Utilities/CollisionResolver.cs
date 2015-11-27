@@ -194,6 +194,24 @@
                         {
                             this.soundEffects.PlayHit();
 
+                            try
+                            {
+                                graphicalObjects.Projectiles.RemoveAt(i);
+                            }
+                            catch (ArgumentOutOfRangeException)
+                            {
+                                Console.Clear();
+
+                                string exceptionMessage = 
+                                    string.Format(
+                                    "Argument exception: \nValue of i: {0} \n graphicalObjects.Projectiles.Count: {1}", 
+                                    i, 
+                                    graphicalObjects.Projectiles.Count);
+
+                                throw new ArgumentOutOfRangeException(
+                                    exceptionMessage);
+                            }
+
                             if (graphicalObjects.Enemies[j].GetType() == typeof(MovingEnemy))
                             {
                                 ((MovingEnemy)graphicalObjects.Enemies[j]).ReduceHealth(Projectile.Damage);
@@ -214,8 +232,6 @@
                                     this.scoreContainer.Score += this.stationaryEnemyDestructionScore;
                                 }
                             }
-
-                            graphicalObjects.Projectiles.RemoveAt(i);
                         }
                     }
                 }
