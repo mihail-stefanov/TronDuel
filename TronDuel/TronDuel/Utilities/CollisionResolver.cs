@@ -197,6 +197,7 @@
                             try
                             {
                                 graphicalObjects.Projectiles.RemoveAt(i);
+                                
                             }
                             catch (ArgumentOutOfRangeException)
                             {
@@ -232,6 +233,8 @@
                                     this.scoreContainer.Score += this.stationaryEnemyDestructionScore;
                                 }
                             }
+
+                            break;
                         }
                     }
                 }
